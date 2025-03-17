@@ -6,6 +6,7 @@ const Accomodations = () => {
     return (
         <main>
             <Infobar />
+            hi
         </main>
     )
 };
