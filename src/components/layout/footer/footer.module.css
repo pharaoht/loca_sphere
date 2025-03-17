@@ -1,0 +1,145 @@
+.container {
+    padding: 16px min(var(--desktop-margin), var(--mobile-margin));
+    background: var( --backgroud-gray);
+}
+
+.icons {
+    list-style-type: none;
+    display: flex;
+
+}
+
+.icons li{
+    margin-right: 10px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info section h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.link_group{
+    list-style-type: none;
+    font-size: 13px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.3s;
+}
+
+.link_group.show {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.link_group li{
+    margin-bottom: 7px;
+    visibility: hidden;
+}
+
+.link_group.show > li {
+    visibility: visible;
+}               
+
+.link_group li:hover,
+.link_group li:focus{
+    text-shadow: 0 0 18px var(--primary-color-blue);
+    background-clip: text;
+}
+
+.link{
+    color: var(--gray-color-2);
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.hr{
+    margin: 35px 0px;
+}
+
+.privacy_section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo p{
+    margin-left: 10px;
+}
+
+.privacy_section ul{
+    display: flex;
+    align-items: center;
+}
+
+.privacy_section ul li{
+    margin-right: 10px;
+}
+
+.hide_button {
+    display: none;
+}
+
+.carrotBtn{
+    background: none;
+    border: none;   
+    width: 25px;
+    height: 25px;          
+    cursor: pointer;   
+                 
+}
+
+@media (max-width: 800px) {
+
+    .icons {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+    
+    }
+
+    .privacy_section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .privacy_section ul{
+        margin-top: 10px;
+    }
+
+    .info{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info section {
+        margin: 5px 0;
+        border-bottom: 1px solid rgb(211, 211, 211);
+    }
+
+
+    
+
+    .hr{
+        margin: 20px 0px;
+    }
+
+    .title_div{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+
+}

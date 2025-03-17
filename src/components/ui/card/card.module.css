@@ -1,0 +1,47 @@
+.container {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 250px;
+    aspect-ratio: 3 / 2;
+    position: relative;
+}
+
+.image{
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    position: relative;
+}
+
+.image > span {
+    /* position: unset !important; Reset the position set by Next.js <Image> */
+}
+
+.image > img {
+    /* object-fit: cover; Maintain aspect ratio and cover the container */
+}
+
+.listSection{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.listInfo{
+    color: var(--gray-color-2);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.trustll {
+    padding: 5px;
+    background-color: var(--third-color-blue);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.price {
+    font-weight: 600;
+    font-size: 20px;
+}

@@ -1,0 +1,10 @@
+.info-bar {
+    display: grid;
+    grid-template-columns: 3fr 2fr 2fr 2fr; /* 3 units for search, 2 units for the rest */
+    gap: 10px;
+    align-items: center;
+    width: auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+}
