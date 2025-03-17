@@ -30,14 +30,15 @@
 
 .container button {
     position: absolute;
-    right: 9px;
-    top: .4em;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: var(--secondary-color-blue);
     border: none;
-    padding: 17px;
+    padding: 15px;
     color: #fff;
     width: 8vw;
-    line-height: 18px;
+    line-height: 15px;
     border-radius: 35px;
     font-size: 18px;
     font-weight: 600;

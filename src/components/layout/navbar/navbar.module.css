@@ -106,6 +106,17 @@
     }
 }
 
+@media (max-width: 500px) {
+    
+    .refBtn {
+        display: none;
+        animation: slideUp 0.3s ease-in-out;
+    }
+
+    .container{
+        padding: 0px 5px;
+    }
+}
 
 @keyframes slideDown {
     from {

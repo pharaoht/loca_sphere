@@ -8,7 +8,7 @@ const Navbar = () => {
         <nav className={styles.container}>
             <div className={styles.logo}>
                 <Link href='/'>
-                    <Image src="/logo_full.avif" alt="Logo" width={175} height={65} priority />
+                    <Image src="/logo_full.avif" alt="Logo" priority height={60} width={175} />
                 </Link>
             </div>
 
@@ -34,12 +34,12 @@ const Navbar = () => {
                     </ul> */}
                 </li> 
 
-                <li>
+                <li className={styles.refBtn}>
                     <Link href='/'className={styles.button}>
                         Sign up
                     </Link>
                 </li>
-                <li>
+                <li className={styles.refBtn}>
                     <Link href='/' className={styles.button}>
                         Login
                     </Link>
@@ -49,7 +49,7 @@ const Navbar = () => {
                     <button
                         className={styles.button} 
                     >
-                        <Image src='/menu.svg' height={25} width={25} alt='menu_icon' />
+                        <Image src='/menu.svg' height={20} width={20} alt='menu_icon' />
                     </button>
                 </li>
 
