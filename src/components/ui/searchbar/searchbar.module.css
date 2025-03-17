@@ -30,7 +30,7 @@
 
 .container button {
     position: absolute;
-    right: 8px;
+    right: 9px;
     top: 50%;
     transform: translateY(-50%);
     background-color: var(--secondary-color-blue);
@@ -62,6 +62,12 @@
 
     .container button {
         display: none;
+    }
+}
+
+@media (max-width: 400px){
+    .container input::placeholder{ 
+        font-size: 15px;
     }
 }
 
