@@ -1,12 +1,16 @@
 import Infobar from '@/components/ui/infobar/infobar';
-import styles from './accomodations.module.css';
+import styles from './accomodations.module.css'
 
 const Accomodations = () => {
 
     return (
         <main>
             <Infobar />
-            hi
+            <div className={styles.split}>
+                <div>left</div>
+                <div>right</div>
+            </div>
+            
         </main>
     )
 };

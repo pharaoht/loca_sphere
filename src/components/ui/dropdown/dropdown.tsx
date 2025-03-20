@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children }) => {
         <div ref={wrapperRef} className={styles.dropdown_wrapper}>
             { React.Children.map(children, (child) => {
 
-                if(React.isValidElement(child) && child.type === 'input') {
+                if(React.isValidElement(child) && (child.type === 'input' || child.type === 'button')) {
 
                     return React.cloneElement(child  as ReactElement<React.InputHTMLAttributes<HTMLInputElement>>, {
                         onChange: handleInputChange,
@@ -55,7 +55,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children }) => {
         
             })}
             <ul className={`${styles.dropdown} ${isActive ? styles.active : null}`}>
-                <li>hi</li>
+                <li>hhihihihihii</li>
             </ul>
         </div>
     )

@@ -1,10 +1,63 @@
-.info-bar {
+.container {
     display: grid;
-    grid-template-columns: 3fr 2fr 2fr 2fr; /* 3 units for search, 2 units for the rest */
-    gap: 10px;
-    align-items: center;
+    grid-template-columns: 1fr .6fr .5fr .3fr .3fr 1fr .4fr;/* 3 units for search, 2 units for the rest */
     width: auto;
-    padding: 10px;
-    background-color: #f9f9f9;
+    padding: 10px min(var(--desktop-margin), var(--mobile-margin));
     border: 1px solid #ccc;
+    gap: 10px;
+    min-height: 60px;
+}
+
+.base{
+    position: relative;
+}
+
+.base label {
+    position: absolute;
+    top: 55%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.base input, .base button {
+    font-size: min(16px, .8rem);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #647a85;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.base button:hover {
+    background-color: var(--backgroud-gray);
+}
+
+.btnBaseClass{
+    color: #647a85;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnBaseClass span {
+    display: inline-block;
+}
+
+.default {
+
+}
+
+.alt {
+    border-color: var(--secondary-color-blue);
+    color: var(--secondary-color-blue);
+}
+
+
+@media (max-width: 800px) {
+    .container {
+        grid-template-columns: 1fr 1fr 1fr; /* Reduces to 3 equal columns */
+    }
 }
