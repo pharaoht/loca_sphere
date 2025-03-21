@@ -1,0 +1,20 @@
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
+
+.leftSide {
+    overflow: hidden;
+    height: 100%; 
+    padding: 10px min(var(--desktop-margin), var(--mobile-margin));
+}
+
+.rightSide{
+    height: 100%; 
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+}

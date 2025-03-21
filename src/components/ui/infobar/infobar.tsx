@@ -8,7 +8,7 @@ const Infobar = () => {
         const colorCssClass = type === 'default' ? styles.default : styles.alt;
 
         return (
-            <button className={`${styles.btnBaseClass} ${styles[colorCssClass]}`}>
+            <button className={`${styles.btnBaseClass} ${styles[colorCssClass]}`} type='button'>
                 <span aria-hidden={iconOne ? 'false' : 'true'}>
                     {
                         iconOne ? <Image src={iconOne} alt='Icon for button' width={22} height={22}/> : null

@@ -52,7 +52,7 @@ const Slider: React.FC<SlideProps> = ({ listings, title }) => {
                 {
                     listings.map((itm, idx) => (
                         <li key={idx}>
-                            <Link href='/accomodations'>
+                            <Link href='/accommodations'>
                                 <Card/>
                             </Link>
                         </li>

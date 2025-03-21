@@ -1,12 +1,18 @@
+'use client'
 import Link from 'next/link';
 import styles from './footer.module.css';
 import Image from 'next/image';
 import Section from './sections/sections';
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
 
+    const pathName = usePathname();
+
+    const cssHideClass = pathName === '/accommodations' ? styles.hide : null;
+
     return (
-        <footer className={styles.container}>
+        <footer className={`${styles.container} ${cssHideClass}`}>
             <ul className={styles.icons}>
                 <li>
                     <a href="https://www.facebook.com" aria-label="Facebook" target="_blank" rel="noopener noreferrer">

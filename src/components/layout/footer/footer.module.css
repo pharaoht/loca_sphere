@@ -3,6 +3,9 @@
     background: var( --backgroud-gray);
 }
 
+.hide {
+    display: none;
+}
 .icons {
     list-style-type: none;
     display: flex;

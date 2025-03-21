@@ -1,11 +1,15 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr .6fr .5fr .3fr .3fr 1fr .4fr;/* 3 units for search, 2 units for the rest */
+    grid-template-columns: 1fr .6fr .5fr .3fr .3fr 1fr .4fr;
     width: auto;
     padding: 10px min(var(--desktop-margin), var(--mobile-margin));
     border: 1px solid #ccc;
     gap: 10px;
     min-height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    background: #fff;
 }
 
 .base{
