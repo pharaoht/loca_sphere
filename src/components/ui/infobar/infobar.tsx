@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Infobar = () => {
 
-    const infoBarBtn = (text: string, iconOne: string | null, iconTwo: string | null, type: string = 'default') => {
+    const infoBarBtn = (text: string, iconOne: string | null, iconTwo: string | null, type: string = 'default', dontHide: boolean = false) => {
 
         const colorCssClass = type === 'default' ? styles.default : styles.alt;
 
@@ -15,11 +15,11 @@ const Infobar = () => {
                     }
                 </span>
 
-                <span>
+                <span className={`${dontHide ? null : styles.hide}`}>
                     { text }
                 </span>
                 
-                <span aria-hidden={iconTwo ? 'false' : 'true'}>
+                <span aria-hidden={iconTwo ? 'false' : 'true'} className={styles.hide}>
                     {
                         iconTwo ? <Image src={iconTwo} alt='Icon for button' width={20} height={20}/> : null
                     }
@@ -37,7 +37,7 @@ const Infobar = () => {
                 <input type='text'/>
             </div>
             <div className={`${styles.base}`}>
-                { infoBarBtn('20 Mar 2026', '/calender-icon.png', '/chevron-down.png')}
+                { infoBarBtn('20 Mar 2026', '/calender-icon.png', '/chevron-down.png', '', true)}
             </div>
             <div className={`${styles.base}`}>
                 { infoBarBtn('Set Budget', '/coin-icon.png', '')}
@@ -48,11 +48,7 @@ const Infobar = () => {
             <div className={`${styles.base}`}>
                 { infoBarBtn('Filter', '/filter-icon.png', '')}
             </div>
-
-            <div>
-
-            </div>
-
+            <div></div>
             <div className={`${styles.base}`}>
                 { infoBarBtn('Set Alert', '/bell-icon.svg', '')}
             </div>

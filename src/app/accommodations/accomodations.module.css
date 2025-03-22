@@ -1,13 +1,31 @@
 .split {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh;
+    height: 100%;
 }
 
 .leftSide {
     overflow: hidden;
     height: 100%; 
     padding: 10px min(var(--desktop-margin), var(--mobile-margin));
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.coas{
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner {
+
+}
+
+.listingContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .rightSide{

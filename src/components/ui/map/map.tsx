@@ -1,25 +1,107 @@
 'use client'
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './map.module.css';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface MapboxProps {
     coordinates: Array<{}>
+    mpKey: string | undefined;
 }
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+interface GeoJSON {
+    type: 'FeatureCollection';
+    features: Feature[];
+}
 
-const Mapbox: React.FC<MapboxProps> = ({ coordinates }) => {
+interface Feature {
+    type: 'Feature';
+    geometry: Geometry;
+    properties: Properties;
+}
 
+interface Geometry {
+    type: 'Point';
+    coordinates: [number, number];
+}
+
+interface Properties {
+    title: string;
+    description: string;
+}
+
+const geojson: GeoJSON = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-77.032, 38.913]
+        },
+        properties: {
+          title: 'Mapbox',
+          description: 'Washington, D.C.'
+        }
+      },
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-122.414, 37.776]
+        },
+        properties: {
+          title: 'Mapbox',
+          description: 'San Francisco, California'
+        }
+      }
+    ]
+  };
+
+const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
+
+    const mapContainerRef = useRef<HTMLDivElement>(null);
+
+    mapboxgl.accessToken = mpKey;
 
     useEffect(() => {
 
+        if(!mapContainerRef.current) return;
+        
         const map = new mapboxgl.Map({
-            container: 'map',
+            container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11', 
-            center: [12.4924, 41.8902],
-            zoom: 12, 
+            center: [-96, 37.8],
+            zoom: 3, 
         });
+
+        map.on('load', () => {
+            
+            map.addControl(new mapboxgl.NavigationControl(), 'right');
+
+            // create a HTML element for each feature
+            
+            for(const feature of geojson.features){
+                const el = document.createElement('div');
+                el.className = styles.marker;
+                console.log(feature.geometry.coordinates)
+                new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+
+                new mapboxgl.Marker(el)
+                .setLngLat(feature.geometry.coordinates)
+                .setPopup(
+                  new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .setHTML(
+                      `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+                    )
+                )
+                .addTo(map);
+            }
+
+
+        })
+
+        
     
         return () => {
             map.remove()
@@ -28,7 +110,9 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates }) => {
     }, []);
 
     return (
-        <div className={styles.map} id='map'>
+        <div className={styles.map} ref={mapContainerRef}>
+            
+            
 
         </div>
     )

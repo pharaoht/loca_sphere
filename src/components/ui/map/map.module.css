@@ -1,3 +1,14 @@
 .map {
     height: 100%;
+    width: 100%;
+    position: relative;  
+}
+
+.marker {
+    background-image: url('https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
 }
