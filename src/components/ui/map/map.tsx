@@ -84,6 +84,7 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
             for(const feature of geojson.features){
                 const el = document.createElement('div');
                 el.className = styles.marker;
+                el.innerHTML = '$40'
                 console.log(feature.geometry.coordinates)
                 new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
 

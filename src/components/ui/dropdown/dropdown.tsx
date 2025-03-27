@@ -5,9 +5,10 @@ import React from 'react';
 
 interface DropdownProps {
     children: ReactNode; 
+    dropDownContent: ReactNode
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ children }) => {
+const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent }) => {
 
     const [ isActive, setIsActive ] = useState<boolean>(false);
 
@@ -54,9 +55,11 @@ const Dropdown: React.FC<DropdownProps> = ({ children }) => {
                 return child;
         
             })}
-            <ul className={`${styles.dropdown} ${isActive ? styles.active : null}`}>
-                <li>hhihihihihii</li>
-            </ul>
+            <div className={`${styles.dropdown} ${isActive ? styles.active : null}`}>
+                {
+                    React.isValidElement(dropDownContent) && React.cloneElement(dropDownContent)
+                }
+            </div>
         </div>
     )
 };

@@ -14,18 +14,43 @@
 }
 
 .coas{
-
     display: flex;
     justify-content: space-between;
 }
 
-.banner {
+.coas p {
+    font-size: 17px;
 
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    background: var(--pink-color);
+    padding: 15px;
+    border-radius: 5px;    
+}
+
+.banner p {
+    font-weight: 600;
+    color: #fff;
+}
+
+.banner a {
+    text-align: center;
+    min-width: 10vw;
+    display: inline-block;
+    background: #fff;
+    border-radius: 5px;
+    color: var(--pink-color);
+    padding: 10px;
+    font-weight: 400;
 }
 
 .listingContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 15px;
 }
 
 .rightSide{
@@ -35,4 +60,26 @@
     top: 0;
     right: 0;
     width: 50%;
+}
+
+
+@media (max-width: 500px) {
+
+    .split {
+        
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rightSide{
+        position: static;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .listingContainer {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
 }

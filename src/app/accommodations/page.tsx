@@ -4,6 +4,8 @@ import Mapbox from '@/components/ui/map/map';
 import Breadcrumbs from '@/components/layout/breadcrumbs/breadcumbs';
 import { Suspense } from 'react';
 import { mapBoxApiKey } from '@/server_actions/mapbox';
+import Listing from '@/components/ui/listing/listing';
+import Link from 'next/link';
 
 
 const apikey = await mapBoxApiKey();
@@ -24,35 +26,18 @@ const Accommodations = () => {
                     </div>
 
                     <div className={styles.banner}>
-                        Banner
+                        <p>Book now with complete peace of mind; if you find it cheaper elsewhere, we'll refund the difference.</p>
+                        <p><Link href='/'>Learn more</Link></p>
                     </div>
 
-                    <div className={styles.listingContainer}>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                    </div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
-                        <div>hi</div>
+                    <ul className={styles.listingContainer}>
+                        
+                        <li><Listing/></li>
+                        <li><Listing/></li>
+                        <li><Listing/></li>
+                        <li><Listing/></li>
+                    </ul>
+
                 </section>
                 <section className={styles.rightSide} >
                     <Suspense fallback={<>Loading</>}>

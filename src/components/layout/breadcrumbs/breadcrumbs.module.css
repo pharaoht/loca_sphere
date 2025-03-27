@@ -5,6 +5,12 @@
 
 .container li {
     margin-right: .5em;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 400;
+    color: var(--secondary-color-blue);
+    letter-spacing: .5px;
+}
+
+.carrot{
+    color: var(--gray-color-3) !important;
 }

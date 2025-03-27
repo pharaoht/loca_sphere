@@ -11,7 +11,7 @@ const Breadcrumbs: React.FC<BreadcumbProps> = ({ links }) => {
         <nav aria-label='breadcrumb'>
             <ol className={styles.container}>
                 <li><Link href='/'>LocaSphere</Link></li>
-                <li> {'>'}</li>
+                <li className={styles.carrot}> {'>'}</li>
                 <li><Link href='/'>Accommodations</Link></li>
             </ol>
         </nav>

@@ -5,10 +5,36 @@
 }
 
 .marker {
-    background-image: url('https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png');
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 5px 10px;
+    width: auto;
+    height: auto; 
     cursor: pointer;
+    position: relative;
+}
+
+.marker:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 7px 0 7px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+    display: block;
+    width: 0;
+}
+
+.marker:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }

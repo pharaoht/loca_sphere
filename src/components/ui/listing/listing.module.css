@@ -1,0 +1,78 @@
+.image{
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    position: relative;
+}
+
+.image img {
+    border-radius: 10px;
+}
+
+.details {
+    padding: 10px 0;
+    display: grid;
+    gap: 5px;
+}
+
+.info {
+    color: var(--gray-color-3);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.type{
+    color: var(--dark-font-gray);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.date{
+    color: var(--secondary-color-blue);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.details p strong{
+    font-size: 20px;
+}
+
+.image {
+    position: relative;
+}
+
+.floatingArrows {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevents interfering with image click */
+}
+
+.leftArrow,
+.rightArrow {
+    color: var(--dark-font-gray);
+    background: var(--backgroud-gray);
+    border-radius:50%;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 400;
+    pointer-events: auto; /* Ensures the arrows are clickable */
+    transition: transform 0.3s;
+    cursor: pointer;
+    border: 1px solid var(--dark-font-gray);
+}
+
+.leftArrow {
+    margin-left: 10px;
+    transform: translateX(-10px);
+}
+
+.rightArrow {
+    margin-right: 10px;
+    transform: translateX(10px);
+}

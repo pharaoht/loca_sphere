@@ -1,4 +1,6 @@
-
+legend {
+  all: unset;
+}
 
 :root{
   --primary-color-blue: #387AFF;
@@ -7,6 +9,8 @@
   --gray-color: #4D4D4D;
   --gray-color-2: rgb(100, 122, 133);
   --backgroud-gray: rgb(246, 246, 246);
+  --pink-color: rgb(255, 102, 178);
+  --dark-font-gray:rgb(34, 66, 81);
   --gray-color-3: #647A85;
   --mobile-margin: 1.5rem;
   --desktop-margin: 8%;
