@@ -4,7 +4,7 @@
     align-items: center;
     padding: 0px min(var(--desktop-margin), var(--mobile-margin));
     position: sticky;
-    top: calc(0 + 15px);
+    top: 0;
     background: #fff;
     z-index: 10;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
