@@ -13,7 +13,7 @@ const Searchbar = () => {
             <label htmlFor='destination-search'>
                 <Image src='/search.svg' alt='Search icon' width={35} height={35}/>
             </label>
-            <Dropdown>
+            <Dropdown dropDownContent={<></>}>
 
                 <input             
                     id='destination-search' 
