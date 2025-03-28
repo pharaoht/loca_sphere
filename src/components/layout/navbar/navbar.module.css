@@ -15,6 +15,10 @@
     align-items: center;
 }
 
+.mobileLogo{
+    display: none;
+}
+
 .details {
     display: flex;
     align-items: center;
@@ -111,6 +115,14 @@
     .refBtn {
         display: none;
         animation: slideUp 0.3s ease-in-out;
+    }
+
+    .mainLogo{
+        display: none;
+    }
+
+    .mobileLogo{
+        display: block !important;
     }
 
     .container{

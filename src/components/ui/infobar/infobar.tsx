@@ -43,7 +43,7 @@ const Infobar = () => {
 
     return (
         <form className={styles.container}>
-            <div className={`${styles.base} ${styles.search}`}>
+            <div className={`${styles.base} ${styles.search} ${styles.hide}`}>
                 <Dropdown dropDownContent={<></>}>
                 <label>
                     <Image src='/search.svg' alt='Search icon' width={22} height={22}/>
