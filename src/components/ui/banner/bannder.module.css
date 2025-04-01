@@ -1,0 +1,30 @@
+.banner {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 5px;    
+}
+
+.banner p {
+    font-weight: 600;
+    color: #fff;
+}
+
+.banner a {
+    text-align: center;
+    min-width: 10vw;
+    display: inline-block;
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 400;
+}
+
+@media (max-width: 800px) {
+
+    .banner {
+        display: grid;
+        gap: 10px;
+        text-align: center;
+    }
+}

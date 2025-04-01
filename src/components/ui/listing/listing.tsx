@@ -22,21 +22,26 @@ const Listing = () => {
             }}
         >
             <Link href='/'>
-            <figure className={styles.image}>
-                <Image src='/photo.jpg' alt='image of listing' fill/>
-                {isHovered && (
-                    <div className={styles.floatingArrows}>
-                        <button className={styles.leftArrow}>{'<'}</button>
-                        <button className={styles.rightArrow}>{'>'}</button>
-                    </div>
-                )}
-            </figure>
-            <div className={styles.details}>
-                <span className={styles.info}>Up to 2 people - 1 bedroom</span>
-                <p className={styles.type}> 1 Bedroom apartment in Barcelona</p>
-                <p className={styles.date}>From 15 Apr 2025</p>
-                <p><strong>$1200</strong> / month <span className={styles.info}><i>Bills included</i></span></p>
-            </div>
+                <figure className={styles.image}>
+                    <Image src='/photo.jpg' alt='image of listing' fill/>
+                    {/* <div className={styles.heart}>
+                        <button>
+                            <Image src='/heart.png' alt='heart icon' height={20} width={20} />
+                        </button>
+                    </div> */}
+                    {isHovered && (
+                        <div className={styles.floatingArrows}>
+                            <button className={styles.leftArrow}>{'<'}</button>
+                            <button className={styles.rightArrow}>{'>'}</button>
+                        </div>
+                    )}
+                </figure>
+                <div className={styles.details}>
+                    <span className={styles.info}>Up to 2 people - 1 bedroom</span>
+                    <p className={styles.type}> 1 Bedroom apartment in Barcelona</p>
+                    <p className={styles.date}>From 15 Apr 2025</p>
+                    <p><strong>$1200</strong> / month <span className={styles.info}><i>Bills included</i></span></p>
+                </div>
             </Link>
         </section>
     )

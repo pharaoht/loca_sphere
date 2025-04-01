@@ -18,13 +18,13 @@
 
 .info {
     color: var(--gray-color-3);
-    font-size: 14px;
+    font-size: min(15px, 2.1vw);
     font-weight: 500;
 }
 
 .type{
     color: var(--dark-font-gray);
-    font-size: 18px;
+    font-size: min(18px, 2.8vw);
     font-weight: 600;
 }
 
@@ -75,4 +75,21 @@
 .rightArrow {
     margin-right: 10px;
     transform: translateX(10px);
+}
+
+.heart {
+    position: absolute;
+    z-index: 5;
+    background: linear-gradient(to bottom, rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0));
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.heart button {
+    background: none;
+    border: none;
+}
+
+.heart button img{
+    
 }

@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr .6fr .5fr .3fr .3fr 1fr .4fr;
+    grid-template-columns: 1fr .8fr .5fr .3fr .3fr 1fr .4fr;
     width: auto;
     padding: 10px min(var(--desktop-margin), var(--mobile-margin));
     border: 1px solid #ccc;
@@ -16,14 +16,14 @@
     position: relative;
 }
 
-.base label {
+.base .searchLabel {
     position: absolute;
     top: 55%;
     left: 10px;
     transform: translateY(-50%);
 }
 
-.base input, .base button {
+.base .searchInput, .base .selectorBtn {
     font-size: min(16px, .8rem);
     width: 100%;
     height: 100%;
@@ -34,7 +34,7 @@
     cursor: pointer;
 }
 
-.base button:hover {
+.base .selectorBtn:hover {
     background-color: var(--backgroud-gray);
 }
 
@@ -59,7 +59,7 @@
     color: var(--secondary-color-blue);
 }
 
-.search input {
+.search .searchInput {
     padding: 10px 40px;
 }
 
@@ -67,21 +67,82 @@
     display: flex;
     font-size: 14px;
     min-width: 250px;
-    padding: 10px !important;
+    padding: 10px;
     gap: 10px;
     justify-content: center;
     align-items: center;
-}
-
-.btnContainer{
-    display: flex;
-    gap: 10px;
+    color: #647a85;
 }
 
 .pplBtn{
-    border: none !important;
-    width: 25px !important;
-    height: 25px !important;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
+}
+
+.qtyInput {
+    width: 45px;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 0;
+    font-size: 14px;
+    border: none;
+}
+
+.pplBtn button{
+    display: flex;
+    align-items: center;
+    
+}
+
+.fc {
+    min-width: 30vw;
+    min-height: 500px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.split {
+    border: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    color: #647a85;
+}
+
+.fieldSet{
+    border: none;
+    display: grid;
+    gap: 7px;
+    color: #647a85;
+}
+
+.legend{
+    font-weight: 600;
+    font-size: .9rem;
+    letter-spacing: .1px;
+    margin-bottom: .5rem;
+}
+
+.fieldSetLabel{
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    font-size: .9rem;
+    cursor: pointer;
+
+  
+}
+
+.noDesktop{
+    display: none;
 }
 
 @media (max-width: 1000px) {
@@ -96,6 +157,15 @@
     .container {
         grid-template-columns: 2fr 1fr;
     }
+
+    .item3 {
+        grid-column: 1 / -1
+    }
+
+    .noDesktop{
+        display: block;
+    }
+      
     .hide {
         display: none !important;
     }

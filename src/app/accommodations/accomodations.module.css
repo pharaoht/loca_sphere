@@ -1,6 +1,6 @@
 .split {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     height: 100%;
 }
 
@@ -23,30 +23,6 @@
 
 }
 
-.banner {
-    display: flex;
-    justify-content: space-between;
-    background: var(--pink-color);
-    padding: 15px;
-    border-radius: 5px;    
-}
-
-.banner p {
-    font-weight: 600;
-    color: #fff;
-}
-
-.banner a {
-    text-align: center;
-    min-width: 10vw;
-    display: inline-block;
-    background: #fff;
-    border-radius: 5px;
-    color: var(--pink-color);
-    padding: 10px;
-    font-weight: 400;
-}
-
 .listingContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -59,7 +35,11 @@
     position: fixed;
     top: 0;
     right: 0;
-    width: 50%;
+    width: 41%;
+}
+
+.hide {
+    visibility: hidden;
 }
 
 
@@ -72,9 +52,10 @@
     }
 
     .rightSide{
-        position: static;
+        position: relative;
         width: 100%;
-        z-index: 1;
+        height: 90vh; 
+        overflow:auto;
     }
 
     .listingContainer {
@@ -82,9 +63,24 @@
         grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
+
+    .mapHide{
+        position: absolute;
+        visibility: hidden;
+    }
+
+
+
+    .hide{
+        visibility: visible;
+    }
 }
 
 @media (max-width: 600px) {
+
+    .leftSide{
+        padding: 10px 10px;
+    }
     
     .listingContainer{
         grid-template-columns: 1fr;

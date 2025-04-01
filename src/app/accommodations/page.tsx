@@ -5,30 +5,37 @@ import Breadcrumbs from '@/components/layout/breadcrumbs/breadcumbs';
 import { Suspense } from 'react';
 import { mapBoxApiKey } from '@/server_actions/mapbox';
 import Listing from '@/components/ui/listing/listing';
-import Link from 'next/link';
-
+import Sortby from '@/components/ui/sortby/sortby';
+import Banner from '@/components/ui/banner/banner';
 
 const apikey = await mapBoxApiKey();
 
 const Accommodations = () => {
 
+
+
+
     return (
         <main>
             <Infobar />
             <div className={styles.split}>
-                <section className={styles.leftSide}>
+                <section id='leftSide' className={styles.leftSide}>
                     <Breadcrumbs links={[]}/>
+
                     <div className={styles.coas}>
                         <p>Long term accommodations</p>
-                        <div>
-                            Sort by
+                        <div className={styles.mapHide}>
+                            <Sortby/>
                         </div>
+                        
+                        
                     </div>
-
-                    <div className={styles.banner}>
-                        <p>Book now with complete peace of mind; if you find it cheaper elsewhere, we'll refund the difference.</p>
-                        <p><Link href='/'>Learn more</Link></p>
-                    </div>
+                    <Banner 
+                        textInformation='Book now with complete peace of mind; if you find it cheaper elsewhere, we will refund the difference.'
+                        backgroundColor='rgb(255, 102, 178)'
+                        linkLabel='Learn more'
+                        link='/'
+                    />
 
                     <ul className={styles.listingContainer}>
                         
@@ -39,7 +46,7 @@ const Accommodations = () => {
                     </ul>
 
                 </section>
-                <section className={styles.rightSide} >
+                <section id='rightSide' className={`${styles.rightSide} ${styles.mapHide}`}>
                     <Suspense fallback={<>Loading</>}>
                         <Mapbox coordinates={[]} mpKey={apikey}/>
                    </Suspense>

@@ -1,12 +1,14 @@
 'use client'
 import { useEffect, useRef } from 'react';
 import styles from './map.module.css';
+import css from '@/app/accommodations/accomodations.module.css';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface MapboxProps {
     coordinates: Array<{}>
     mpKey: string | undefined;
+
 }
 
 interface GeoJSON {
@@ -75,8 +77,10 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
             zoom: 3, 
         });
 
+        map.resize()
+
         map.on('load', () => {
-            
+
             map.addControl(new mapboxgl.NavigationControl(), 'right');
 
             // create a HTML element for each feature
@@ -85,37 +89,33 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
                 const el = document.createElement('div');
                 el.className = styles.marker;
                 el.innerHTML = '$40'
-                console.log(feature.geometry.coordinates)
+
                 new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
 
                 new mapboxgl.Marker(el)
                 .setLngLat(feature.geometry.coordinates)
                 .setPopup(
-                  new mapboxgl.Popup({ offset: 25 }) // add popups
+                    new mapboxgl.Popup({ offset: 25 }) // add popups
                     .setHTML(
-                      `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+                        `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
                     )
                 )
                 .addTo(map);
             }
 
-
         })
-
-        
     
         return () => {
+
             map.remove()
         };
 
     }, []);
 
     return (
-        <div className={styles.map} ref={mapContainerRef}>
-            
-            
-
-        </div>
+      <div id='main_map' className={styles.map} ref={mapContainerRef}>
+    
+      </div>
     )
 }
 
