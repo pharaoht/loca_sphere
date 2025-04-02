@@ -3,3 +3,24 @@
     justify-content: space-between;
     background-color: transparent;
 }
+
+.mapBtn {
+    padding: .5rem;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    border-radius: 25px;
+    min-width: 30vw;
+    border: 2px solid var(--secondary-color-blue);
+    background: #fff;
+    color: var(--gray-color-3);
+    font-weight: 540;
+    cursor: pointer;
+}
+
+.mapBtnIcon{
+    display: flex;
+    align-items: center;
+}

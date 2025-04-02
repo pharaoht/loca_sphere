@@ -18,19 +18,19 @@
 
 .info {
     color: var(--gray-color-3);
-    font-size: min(15px, 2.1vw);
+    font-size: min(15px, 3vw);
     font-weight: 500;
 }
 
 .type{
     color: var(--dark-font-gray);
-    font-size: min(18px, 2.8vw);
+    font-size: min(19px, 3.1vw);
     font-weight: 600;
 }
 
 .date{
     color: var(--secondary-color-blue);
-    font-size: 12px;
+    font-size: .8rem;
     font-weight: 600;
 }
 

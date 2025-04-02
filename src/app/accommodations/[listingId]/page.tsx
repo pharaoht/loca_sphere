@@ -1,7 +1,9 @@
+import styles from './page.module.css';
+
 const ListingsPage = () => {
 
     return (
-        <div>
+        <div className={styles.container}>
             hi
         </div>
     )

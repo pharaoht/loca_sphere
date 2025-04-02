@@ -1,5 +1,6 @@
 import Dropdown from '../dropdown/dropdown';
 import MobileCoa from '../mobilecoa/mobilecoa';
+import PropertyInfo, { sampleData } from './filters/propertyInfo/propertyinfo';
 import styles from './infobar.module.css';
 import Image from 'next/image';
 
@@ -46,35 +47,6 @@ const Infobar = () => {
         </div>
     )
 
-    const checkboxLegend = (title: string, options: Array<{label: string, value:string }>, checkboxName: string, split: boolean = false  ) => {
-
-        const cssClassName = split ? styles.split : styles.fieldSet;
-        return (
-            <fieldset className={cssClassName}>
-                <legend className={styles.legend}>{title}</legend>
-                {
-                    options.map((itm, idx) => (
-                        <label key={idx} className={styles.fieldSetLabel}>
-                            <input type='checkbox' name={checkboxName} value={itm.value}/>
-                            {itm.label}
-                        </label>
-                    ))
-                }
-            </fieldset>
-        )
-    }
-
-    
-
-    const filterContent = (): React.ReactNode => (
-        <div className={styles.fc}>
-
-            { checkboxLegend('Place', [{label:'Entire House', value:'1'},{label:'Private Bedroom', value:'2'},], 'place') }
-            { checkboxLegend('Landlord', [{label:'Instant booking', value:'1'},{label:'Answers within 12h', value:'2'},{label:'High response rate', value:'3'}], 'landlord')}
-            { checkboxLegend('Suitable for', [{label:'Males only', value:'1'},{label:'Couples', value:'2'},], 'suitableFor', true) }
-        </div>
-    )
-
     return (
         <>
         <form className={styles.container}>
@@ -104,7 +76,7 @@ const Infobar = () => {
                 </Dropdown>
             </div>
             <div className={`${styles.base}`}>
-                <Dropdown dropDownContent={<>{filterContent()}</>}>
+                <Dropdown dropDownContent={<PropertyInfo propertyInfoData={sampleData} />} startFromRightSide={true}>
                 { infoBarBtn('Filters', '/filter-icon.png', '')}
                 </Dropdown>
             </div>

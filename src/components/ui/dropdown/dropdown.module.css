@@ -40,3 +40,9 @@
 .dropdown li:hover {
     background: rgba(0, 150, 255, 0.1);
 }
+
+
+.rightAlign {
+    left: auto;
+    right: 0 !important;
+}
