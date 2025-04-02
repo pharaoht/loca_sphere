@@ -25,6 +25,10 @@
     .banner {
         display: grid;
         gap: 10px;
-        text-align: center;
+        
+    }
+
+    .banner a{
+        width: 100%;
     }
 }

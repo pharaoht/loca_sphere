@@ -56,3 +56,20 @@
 .day:hover {
     background: var(--third-color-blue);
 }
+
+@media (max-width: 500px){
+
+    .calendar {
+        width: calc(100vw - 30px);
+        padding: 20px;
+    }
+
+    .weekday {
+        font-size: 1rem;
+        padding: 5px;
+    }
+
+    .day{
+        padding: 15px 5px;
+    }
+}
