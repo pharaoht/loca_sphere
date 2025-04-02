@@ -1,5 +1,7 @@
 import Dropdown from '../dropdown/dropdown';
 import MobileCoa from '../mobilecoa/mobilecoa';
+import Calendar from './filters/calender/calender';
+import People from './filters/people/people';
 import PropertyInfo, { sampleData } from './filters/propertyInfo/propertyinfo';
 import styles from './infobar.module.css';
 import Image from 'next/image';
@@ -31,22 +33,6 @@ const Infobar = () => {
         )
     }
 
-    const personContent = (): React.ReactNode => (
-        <div className={styles.pc}>
-            <Image src='/man-icon.png' alt='Person Icon' width={22} height={22}/>
-            <span>1+ people</span>
-           
-            <button className={styles.pplBtn} type='button'>
-                <Image src='/minus.png' alt='minus button' width={22} height={22} />
-            </button>
-            <input className={`${styles.pplBtn} ${styles.qtyInput}`} type="number" id="quantity" name="quantity" value="1" readOnly/>
-            <button className={styles.pplBtn} type='button'>
-                <Image src='/plus.png' alt='minus button' width={22} height={22} />
-            </button>
-            
-        </div>
-    )
-
     return (
         <>
         <form className={styles.container}>
@@ -61,7 +47,7 @@ const Infobar = () => {
         
             </div>
             <div className={`${styles.base}`}>
-                <Dropdown dropDownContent={<></>}>
+                <Dropdown dropDownContent={<Calendar/>}>
                     { infoBarBtn('20 Mar 2026 | 20 Jun 2027', '/calender-icon.png', '/chevron-down.png', '', true)}
                 </Dropdown>
             </div>
@@ -71,7 +57,7 @@ const Infobar = () => {
                 </Dropdown>
             </div>
             <div className={`${styles.base} ${styles.hide}`}>
-                <Dropdown dropDownContent={<>{personContent()}</>}>
+                <Dropdown dropDownContent={<People/>}>
                     { infoBarBtn('People', '/man-icon.png', '')}
                 </Dropdown>
             </div>

@@ -1,0 +1,58 @@
+.calendar {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.prevMonth, .nextMonth{
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    width: none !important;
+}
+
+.calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.month_year{
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--dark-font-gray);
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 500;
+    color: var(--gray-color-3);
+    padding: 15px;
+}
+
+.day {
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+}
+
+.none {
+    border: none;
+    background: #fff;
+}
+
+.day:hover {
+    background: var(--third-color-blue);
+}

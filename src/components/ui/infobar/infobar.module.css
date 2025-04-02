@@ -64,39 +64,6 @@
     padding: 10px 40px;
 }
 
-.pc{
-    display: flex;
-    font-size: 14px;
-    min-width: 250px;
-    padding: 10px;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    color: #647a85;
-}
-
-.pplBtn{
-    height: 25px;
-    border: none;
-    border-radius: 20px;
-}
-
-.qtyInput {
-    width: 45px;
-    text-align: center;
-    height: 25px;
-    line-height: 25px;
-    padding: 0;
-    font-size: 14px;
-    border: none;
-}
-
-.pplBtn button{
-    display: flex;
-    align-items: center;
-    
-}
-
 .noDesktop{
     display: none;
 }
@@ -131,7 +98,7 @@
         justify-content: center;
     }
 
-    .base input, .base button{
+    .base input, .base .selectorBtn{
         width: 100%;
     }
 }
@@ -145,7 +112,7 @@
     .hide {
         display: none;
     }
-    .base input, .base button{
+    .base input, .base .selectorBtn{
         width: 100%;
         min-height: 30px;
     }

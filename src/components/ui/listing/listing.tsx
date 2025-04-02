@@ -21,7 +21,7 @@ const Listing = () => {
                 }
             }}
         >
-            <Link href='/'>
+            <Link href='/accommodations/:id'>
                 <figure className={styles.image}>
                     <Image src='/photo.jpg' alt='image of listing' fill/>
                     {/* <div className={styles.heart}>
