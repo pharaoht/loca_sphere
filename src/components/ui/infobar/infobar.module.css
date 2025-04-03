@@ -98,7 +98,7 @@
         justify-content: center;
     }
 
-    .base input, .base .selectorBtn{
+    .base .searchInput, .base .selectorBtn{
         width: 100%;
     }
 }
@@ -112,7 +112,7 @@
     .hide {
         display: none;
     }
-    .base input, .base .selectorBtn{
+    .base .searchInput, .base .selectorBtn{
         width: 100%;
         min-height: 30px;
     }

@@ -25,3 +25,33 @@
     font-size: .8rem;
     letter-spacing: .5px;
 }
+
+.smContainer {
+    min-width: 12vw;
+    font-size: .8rem;
+    font-weight: 500;
+    color: #647a85;
+    padding: 5px;
+}
+
+.smContainer li{
+    cursor: pointer;
+    margin: .5rem;
+    padding: .5rem;
+}
+
+.smContainer .active {
+    font-weight: 600;
+}
+
+.smContainer li:hover {
+    background-color: var(--backgroud-gray);
+    border-radius: 10px;
+}
+
+@media (max-width: 500px){ 
+
+    .smContainer{
+        min-width: 40vw;
+    }
+}

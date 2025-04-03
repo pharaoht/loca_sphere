@@ -72,7 +72,7 @@ const Calendar = () => {
     
     return (
         <div className={styles.calendar}>
-
+            
             <header className={styles.calendarHeader}>
                 <button 
                     type='button'

@@ -4,9 +4,22 @@ import styles from './sortby.module.css';
 
 const Sortby = () => {
 
+    const SortMethods: React.FC<{}> = () => (
+        <div>
+        <ul className={styles.smContainer}>
+            <li className={styles.active}>Best matches</li>
+            <li>Price - low to high</li>
+            <li>Price - High to low</li>
+            <li>Recently updated</li>
+            <li>Recently added</li>
+            <li>Rating</li>
+        </ul>
+        </div>
+    )
+
     return (
         <div className={styles.container}>
-            <Dropdown dropDownContent={<>hi</>}>
+            <Dropdown startFromRightSide={true}  dropDownContent={<SortMethods />}>
                 <button className={styles.sortBtn} type='button'>
                     <div className={styles.sectionDiv}>
                         <span className={styles.fText}>Best Places</span>

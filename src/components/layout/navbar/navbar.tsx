@@ -1,8 +1,23 @@
 import Link from 'next/link';
 import styles from './navbar.module.css';
 import Image from 'next/image';
+import Dropdown from '@/components/ui/dropdown/dropdown';
+
+
+const MenuBtnLinks: React.FC<{}> = () => (
+    <ul className={styles.menuDropDown}>
+        <li>Dashboard</li>
+        <hr></hr>
+        <li>Settings</li>
+        <li>How it works</li>
+        <li>Help centre</li>
+        <hr></hr>
+        <li>Logout</li>
+    </ul>
+)
 
 const Navbar = () => {
+
 
     return (
         <nav className={styles.container}>
@@ -30,9 +45,6 @@ const Navbar = () => {
                     >
                         ENG <span className={styles.icon} aria-hidden="true">▼</span>
                     </button>
-                    {/* <ul className={styles.dropdown} role="listbox">
-                        
-                    </ul> */}
                 </li> 
 
                 <li className={styles.refBtn}>
@@ -47,11 +59,13 @@ const Navbar = () => {
                 </li>
 
                 <li>
-                    <button
-                        className={styles.button} 
-                    >
-                        <Image src='/menu.svg' height={20} width={20} alt='menu_icon' />
-                    </button>
+                    <Dropdown startFromRightSide={true} dropDownContent={<MenuBtnLinks/>}>
+                        <button
+                            className={styles.button} 
+                        >
+                            <Image src='/menu.svg' height={20} width={20} alt='menu_icon' />
+                        </button>
+                    </Dropdown>
                 </li>
 
 
