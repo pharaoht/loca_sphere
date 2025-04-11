@@ -49,6 +49,14 @@
     border-radius: 10px;
 }
 
+.defaultBtn{
+    border: none;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+
 @media (max-width: 500px){ 
 
     .smContainer{

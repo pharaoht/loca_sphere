@@ -1,0 +1,10 @@
+.liContainer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var( --gray-color-3);
+}
+
+.liLabel {
+
+}

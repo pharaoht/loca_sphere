@@ -3,11 +3,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 0px min(var(--desktop-margin), var(--mobile-margin));
-    position: relative;
-
     background: #fff;
     z-index: 12;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.noStick {
+    position: relative;
+}
+
+.stick {
+    position: sticky;
+    top: 0;
 }
 
 .logo{

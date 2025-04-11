@@ -6,17 +6,21 @@ import React from 'react';
 interface DropdownProps {
     children: ReactNode; 
     dropDownContent: ReactNode;
-    startFromRightSide?: boolean | null
+    startFromRightSide?: boolean | null;
+    onInputChange?: (...args: any) => void | null;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFromRightSide = false }) => {
+const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFromRightSide = false, onInputChange }) => {
 
     const [ isActive, setIsActive ] = useState<boolean>(false);
 
     const wrapperRef = useRef<HTMLDivElement>(null); 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
         setIsActive(e.target.value !== '');
+
+        if(onInputChange) onInputChange(e)
     };
 
     const handleInputFocus = () => {
@@ -58,7 +62,9 @@ const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFro
             })}
             <div className={`${styles.dropdown} ${isActive ? styles.active : null} ${startFromRightSide ? styles.rightAlign : null}`}>
                 {
-                    React.isValidElement(dropDownContent) && React.cloneElement(dropDownContent)
+                    (React.isValidElement(dropDownContent) && dropDownContent.type !== React.Suspense) ? React.cloneElement(dropDownContent) : (
+                        dropDownContent
+                    )
                 }
             </div>
         </div>

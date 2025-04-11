@@ -23,7 +23,7 @@ const Accommodations = () => {
                     <Breadcrumbs links={[]}/>
 
                     <div className={styles.coas}>
-                        <p>Long term accommodations</p>
+                        <p>Long term accommodations in lisbon</p>
                         <div className={styles.mapHide}>
                             <Sortby/>
                         </div>

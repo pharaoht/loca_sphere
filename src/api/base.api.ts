@@ -7,7 +7,7 @@ interface HttpRequestConfig extends AxiosRequestConfig {
 
 type httpConfigType = {
     requestConfig: HttpRequestConfig
-    cb: (...args: any) => void
+    cb?: (...args: any) => void | null
 }
 
 class BaseApi {
@@ -16,7 +16,7 @@ class BaseApi {
     protected prodDomain: string;
     protected resource: string;
 
-    private isLoading: boolean;
+    private _isLoading: boolean;
     private error: string;
     private abortController: AbortController;
     private httpClient: AxiosInstance;
@@ -27,26 +27,30 @@ class BaseApi {
         this.prodDomain = '';
         this.resource = resource;
         this.httpClient = httpClient;
-        this.isLoading = false;
+        this._isLoading = false;
         this.error = '';
         this.abortController = new AbortController();
         this.environment = process.env.NEXT_PUBLIC_ENV || '';
     }
 
+    public get isLoading(): boolean {
+        return this._isLoading;
+    }
+
     findHostName(): string{
 
-        if(this.environment === 'dev') return `http://${this.devBackendDomain}/${this.resource}`;
+        if(this.environment === 'dev') return `http://${this.devBackendDomain}/api/${this.resource}`;
 
-        return `${this.prodDomain}/${this.resource}`;
+        return `${this.prodDomain}/api/${this.resource}`;
     };
 
     public async httpRequest({ requestConfig, cb }: httpConfigType){
 
         try {
 
-            this.isLoading = true;
+            this._isLoading = true;
             this.error = '';
-
+            
             const response = await this.httpClient({
                 ...requestConfig,
                 signal: this.abortController.signal,
@@ -58,10 +62,7 @@ class BaseApi {
 
             if(response.status !== 200) throw new Error('Request failed');
 
-            if(cb !== null){
-
-                return cb(response?.data);
-            }
+            if(cb) return cb(response?.data);
 
             return response?.data
         }
@@ -75,8 +76,10 @@ class BaseApi {
 
         }
         finally {
-            this.isLoading = false;
+            this._isLoading = false;
             this.abortController = new AbortController();
         }
     }
 }
+
+export default BaseApi

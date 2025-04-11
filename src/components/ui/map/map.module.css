@@ -1,8 +1,15 @@
 .map {
     height: 100%;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; 
     position: relative;  
 }
+
+.mapboxgl-map {
+    max-width: 1200px !important;
+    margin: 0 auto;
+  }
 
 .marker {
     display: flex;

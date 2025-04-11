@@ -1,7 +1,9 @@
+'use client'
 import Link from 'next/link';
 import styles from './navbar.module.css';
 import Image from 'next/image';
 import Dropdown from '@/components/ui/dropdown/dropdown';
+import { usePathname } from 'next/navigation';
 
 
 const MenuBtnLinks: React.FC<{}> = () => (
@@ -18,9 +20,12 @@ const MenuBtnLinks: React.FC<{}> = () => (
 
 const Navbar = () => {
 
+    const pathName = usePathname();
+
+    const cssHideClass = pathName === '/accommodations' ? styles.noStick : styles.stick;
 
     return (
-        <nav className={styles.container}>
+        <nav className={`${styles.container} ${cssHideClass}`}>
             <div className={styles.logo}>
                 <Link href='/'>
                     <Image className={styles.mainLogo} src="/logo_full.avif" alt="Logo" priority height={60} width={175} />

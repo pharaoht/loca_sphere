@@ -32,5 +32,8 @@ a{
 }
 
 body {
+  max-width: 2000px;
+  width: 100%;
+  margin: 0 auto;
   font-family: Arial, Helvetica, sans-serif;
 }

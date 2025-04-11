@@ -6,14 +6,18 @@ const Sortby = () => {
 
     const SortMethods: React.FC<{}> = () => (
         <div>
-        <ul className={styles.smContainer}>
-            <li className={styles.active}>Best matches</li>
-            <li>Price - low to high</li>
-            <li>Price - High to low</li>
-            <li>Recently updated</li>
-            <li>Recently added</li>
-            <li>Rating</li>
-        </ul>
+            <ul className={styles.smContainer}>
+                <li className={styles.active}>
+                    <button className={styles.defaultBtn} type='button'>
+                        Best matches
+                    </button>
+                </li>
+                <li>Price - low to high</li>
+                <li>Price - High to low</li>
+                <li>Recently updated</li>
+                <li>Recently added</li>
+                <li>Rating</li>
+            </ul>
         </div>
     )
 
