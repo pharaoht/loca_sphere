@@ -7,13 +7,34 @@ import { mapBoxApiKey } from '@/server_actions/mapbox';
 import Listing from '@/components/ui/listing/listing';
 import Sortby from '@/components/ui/sortby/sortby';
 import Banner from '@/components/ui/banner/banner';
+import { notFound } from 'next/navigation';
+
+
+interface SearchParams {
+    lat?: number;
+    long?: number;
+    cityName?: string;
+}
+
+interface PageProps {
+    searchParams: SearchParams;
+}
 
 const apikey = await mapBoxApiKey();
 
-const Accommodations = () => {
+function getListingsByCoor(long: number, lat:number){
+    //fetch listings
+    return <Mapbox key={`${lat}-${long}`} coordinates={[long || 0.0, lat || 0.0]} mpKey={apikey}/>
+}
 
+const Accommodations = async ({ searchParams }: PageProps) => {
 
+    const { lat, long, cityName } = await searchParams;
 
+    const isValidCoords = long && lat && !isNaN(Number(long)) && !isNaN(Number(lat));
+
+    if (!isValidCoords || !cityName) return notFound()
+    
 
     return (
         <main>
@@ -23,7 +44,7 @@ const Accommodations = () => {
                     <Breadcrumbs links={[]}/>
 
                     <div className={styles.coas}>
-                        <p>Long term accommodations in lisbon</p>
+                        <p>Long term accommodations in {cityName}</p>
                         <div className={styles.mapHide}>
                             <Sortby/>
                         </div>
@@ -48,7 +69,7 @@ const Accommodations = () => {
                 </section>
                 <section id='rightSide' className={`${styles.rightSide} ${styles.mapHide}`}>
                     <Suspense fallback={<>Loading</>}>
-                        <Mapbox coordinates={[]} mpKey={apikey}/>
+                        {getListingsByCoor(long, lat)}
                    </Suspense>
                 </section>
             </div>

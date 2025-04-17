@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    cursor: default;
+}
+
+.headerSection{
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
+.gridItem {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--four-blue);
+    color: var(--dark-font-gray);
+    font-size: 1rem;
+}
+
+.text{
+    z-index: 2;
+    
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: var(--light-gray);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 0.5rem;
+}

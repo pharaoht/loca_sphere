@@ -6,14 +6,20 @@ legend {
   --primary-color-blue: #387AFF;
   --secondary-color-blue: rgb(0, 173, 239);
   --third-color-blue:rgb(102, 213, 255);
+  --four-blue: rgb(172, 232, 255);
   --gray-color: #4D4D4D;
   --gray-color-2: rgb(100, 122, 133);
   --backgroud-gray: rgb(246, 246, 246);
+  --light-gray:rgb(228, 234, 237);
+  --border-grey: rgb(188, 198, 202);
   --pink-color: rgb(255, 102, 178);
   --dark-font-gray:rgb(34, 66, 81);
   --gray-color-3: #647A85;
   --mobile-margin: 1.5rem;
   --desktop-margin: 8%;
+  --primary-green: rgb(68, 196, 130);
+  --primary-red: rgb(255, 206, 195);
+  
 }
 
 * {
@@ -23,8 +29,14 @@ legend {
   list-style-type: none;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
-    text-rendering: optimizelegibility;
+  text-rendering: optimizelegibility;
 }
+
+html {
+  scroll-padding-top: 140px; 
+  scroll-behavior: smooth;
+}
+
 
 a{
   text-decoration: none;

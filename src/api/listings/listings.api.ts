@@ -8,7 +8,7 @@ class ListingsApi extends BaseApi {
         super('listings', axios)
     }
 
-    public httpGetListings(){
+    public httpGetListings(long: string, lat: string){
 
         const url = this.findHostName();
 

@@ -1,5 +1,9 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+import SectionWrapper from '@/components/wrappers/section/section';
+import Link from 'next/link';
+import AvailabilityCalendar from '@/components/ui/availabilitycalendar/availabilitycalendar';
+import BookingForm from '@/components/ui/bookingform/bookingform';
 
 const ListingsPage = () => {
 
@@ -19,8 +23,11 @@ const ListingsPage = () => {
                         <li>•</li>
                         <li>180 m²</li>
                     </ul>
-                    <label>location icon</label>
-                    <p>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</p>
+                    <div className={styles.location}>
+                        <Image src='/location.png' alt='location icon' height={30} width={30} />
+                        <span>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</span>
+
+                    </div>
                 </div>
                 <div className={styles.rightSide}>
                     <ul className={styles.coas}>
@@ -43,24 +50,34 @@ const ListingsPage = () => {
             </section>
             <div className={styles.split}>
                 <div className={styles.leftSplit}>
-                    <section className={styles.btnContainer}>
-                        <button>Map</button>
-                        <button>Floor Plan</button>
-                        <button>Video</button>
-                    </section>
+                    <ul className={styles.btnContainer}>
+                        <li><button>Map</button></li>
+                        <li><button>Floor Plan</button></li>
+                        <li><button>Video</button></li>
+                    </ul>
                     <section className={styles.navLinks}>
                         <nav className={styles.navNav}>
                             <ul className={styles.links}>
-                                <li className={styles.link}>Overview</li>
-                                <li className={styles.link}>Availability</li>
-                                <li className={styles.link}>Landlord</li>
-                                <li className={styles.link}>Services and expenses</li>
-                                <li className={styles.link}>Contract</li>
+                                <li className={styles.link}>
+                                    <Link href='#overview'>Overview</Link>
+                                </li>
+                                <li className={styles.link}>
+                                    <Link href='#availability'>Availability</Link>
+                                </li>
+                                <li className={styles.link}>
+                                    <Link href='#landlord'>Landlord</Link>
+                                </li>
+                                <li className={styles.link}>
+                                    <Link href='#servicesandexpenses'>Services and expenses</Link>
+                                </li>
+                                <li className={styles.link}>
+                                    <Link href='#contract'>Contract</Link>
+                                </li>
                             </ul>
                         </nav>
                     </section>
-                    <section id='overview' className={styles.yourBedroom}>
-                        <h3>Your Bedroom</h3>
+
+                    <SectionWrapper id='overview' headerText='Your bedroom'>
                         <ul className={styles.bedroomAdmenities}>
                             <li className={styles.baListItem}>
                                 <Image src='/bed.png' alt='bed icon' width={40} height={40}  />
@@ -96,32 +113,139 @@ const ListingsPage = () => {
                         <div>
                             <button type='button'>See all features</button>
                         </div>
-                    </section>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='aboutApartment' headerText='About this apartment'>
+                    
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                        <h4>You'll be living with</h4>
+                        <ul className={styles.bedroomAdmenities}>
+                            <li className={styles.baListItem}>
+                                <Image src='/gender.png' alt='gender icon' width={40} height={40}  />
+                                <span>Mixed gender</span>
+                            </li>
+                            <li className={styles.baListItem}>
+                                <Image src='/landlord.png' alt='gender icon' width={40} height={40}  />
+                                <span>Resident landlord</span>
+                            </li>
+                            <li className={styles.baListItem}>
+                                <Image src='/family.png' alt='gender icon' width={40} height={40}  />
+                                <span>Landlord lives with family</span>
+                            </li>
+                            <li className={styles.baListItem}>
+                                <Image src='/pets.png' alt='gender icon' width={40} height={40}  />
+                                <span>Landlord has pets</span>
+                            </li>
+                            
+                        </ul>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>
+                        <ul className={styles.shareAdmenities}>
+                            <li>
+                                <div className={styles.shareAdmenImage}>
+                                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
+                                </div>
+                                <h4>Kitchen</h4>
+                            </li>
+                            <li>
+                                <div className={styles.shareAdmenImage}>
+                                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
+                                </div>
+                                <h4>Bathroom</h4>
+                            </li>
+                            <li>
+                                <div className={styles.shareAdmenImage}>
+                                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
+                                </div>
+                                <h4>Living room</h4>
+                            </li>
+
+                        </ul>
+                        <button>See all shared admentities</button>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='availability' headerText='Availability'>
+                        <div className={styles.availabilitySection}>
+                            <div className={styles.availabilityCalendar}>
+                                <AvailabilityCalendar year={new Date().getFullYear()}/>
+                                <AvailabilityCalendar year={new Date().getFullYear() + 1}/>
+                            </div>
+                        
+                            <ul className={styles.availabilityLegend}>
+                                <li className={styles.legendLi}>
+                                    <span className={styles.availableBlock}></span>
+                                    <span>Available</span>
+                                </li>
+                                <li className={styles.legendLi}>
+                                    <span className={styles.occupiedBlock}></span>
+                                    <span>Occupied</span>
+                                </li>
+                            </ul>
+
+                            <div className={styles.avInfoContainer}>
+                                <div className={styles.avInfoRow}>
+                                    <dt className={styles.avInfoLabel}>Available from:</dt>
+                                    <dd><b>May 2025</b></dd>
+                                </div>
+                                <div className={styles.avInfoRow}>
+                                    <dt className={styles.avInfoLabel}>Last updated:</dt>
+                                    <dd><b>Apr 2025</b></dd>
+                                </div>
+                                <div className={styles.avInfoRow}>
+                                    <dt className={styles.avInfoLabel}>Minimum stay:</dt>
+                                    <dd><b>140 nights</b></dd>
+                                </div>
+                                <div></div>
+                                <div className={styles.avInfoRow}>
+                                    <dt className={styles.avInfoLabel}>Maximum stay:</dt>
+                                    <dd><b>No maximum stay</b></dd>
+                                </div>   
+                                    
+                            </div>
+                        </div>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='landlord' headerText='Landlord'>
+                        <ul>
+                            <li>male 40's</li>
+                        </ul>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
+                        <p>Extra services, expenses and fees to be paid directly to the Landlord</p>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='rentalConditions' headerText='Rental Conditions'>
+                        <ul>
+                            <li>Minimum stay</li>
+                        </ul>
+                    </SectionWrapper>
+
+                    <hr/>
+
+                    <SectionWrapper id='contract' headerText='Contract'>
+                        <p>text</p>
+                    </SectionWrapper>
+     
                 </div>
+
                 <div className={styles.rightSplit}>
-                    <section className={styles.bookingPrice}>
-                        <form className={styles.bpInnerContainer}>
-                            <header className={styles.bpHeader}>
-                                <p><span>$600</span><span>/month</span></p>
-                                <p>3 people</p>
-                            </header>
-                            <div className={styles.moveCoa}>
-                                <div>
-                                    <label>Move in</label>
-                                    <input type='text' />
-                                </div>
-                                <div> {'-->'}</div>
-                                <div>
-                                    <label>Move Out</label>
-                                    <input type='text' />
-                                </div>
-                                
-                            </div>
-                            <div>
-                                <button>Select dates</button>
-                            </div>
-                        </form>
-                    </section>
+                    <BookingForm />
                 </div>
             </div>
         </div>
@@ -129,3 +253,7 @@ const ListingsPage = () => {
 };
 
 export default ListingsPage;
+
+
+
+

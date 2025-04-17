@@ -1,36 +1,14 @@
 'use client'
 import { useEffect, useRef } from 'react';
 import styles from './map.module.css';
-import css from '@/app/accommodations/accomodations.module.css';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-interface MapboxProps {
-    coordinates: Array<{}>
-    mpKey: string | undefined;
-
-}
-
-interface GeoJSON {
-    type: 'FeatureCollection';
-    features: Feature[];
-}
-
-interface Feature {
-    type: 'Feature';
-    geometry: Geometry;
-    properties: Properties;
-}
-
-interface Geometry {
-    type: 'Point';
-    coordinates: [number, number];
-}
-
-interface Properties {
-    title: string;
-    description: string;
-}
+interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; }
+interface GeoJSON { type: 'FeatureCollection'; features: Feature[]; }
+interface Feature { type: 'Feature'; geometry: Geometry; properties: Properties; }
+interface Geometry { type: 'Point'; coordinates: [number, number]; }
+interface Properties { title: string; description: string; }
 
 const geojson: GeoJSON = {
     type: 'FeatureCollection',
@@ -69,12 +47,12 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
     useEffect(() => {
 
         if(!mapContainerRef.current) return;
-        
+
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11', 
-            center: [-96, 37.8],
-            zoom: 3, 
+            center: coordinates,
+            zoom: 12, 
         });
 
         map.resize()

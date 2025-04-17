@@ -3,60 +3,31 @@ import Image from 'next/image';
 import styles from './searchbar.module.css';
 import Dropdown from '../dropdown/dropdown';
 import useDebounce from '@/hooks/useDebounce';
-import { saGetCities } from '@/server_actions/cities';
-import { Suspense, useState } from 'react';
-import { City } from './types';
-import CityListItem from './tsx/cityItem';
-import citiesApi from '@/api/cities/cities.api';
-
-function getCities(){
-
-    const [ cities, setCities ] = useState<City[]>([]);
-
-    const fetchCities = async (searchTerm: string) => {
-       
-        const data: City[] = await saGetCities(searchTerm);
-
-        setCities(data);
-    }
-
-    const RenderCities = () => (
-        <ul className={styles.cityContainer}>
-            <li className={styles.header}>Cities</li>
-            {   cities?.length > 0 &&
-                cities.map(itm => (
-                    <CityListItem 
-                        city={itm.city} 
-                        name={itm.name}
-                        latitude={itm.latitude}
-                        longitude={itm.longitude}
-                        country={itm.country} 
-                        countryCode={itm.countryCode} 
-                        id={itm.id}
-                        key={itm.id}
-                    />
-                ))
-            }
-        </ul>
-    )
-
-
-    return {
-        RenderCities, 
-        fetchCities
-    }
-};
+import useHttp from '@/hooks/useHttp';
+import { useState } from 'react';
+import RenderCities from './tsx/renderCities';
 
 
 const Searchbar = () => {
 
-    const { RenderCities, fetchCities } = getCities();
+    const [ cities, setCities ] = useState([]);
 
-    const debouncer = useDebounce(500, fetchCities);
+    const { isLoading, error, sendRequest } = useHttp({ callback: setCities });
+
+    const debouncer = useDebounce(500, (val) => {
+
+        const requestConfig = {
+            url: `cities?location=${val}`,
+        }
+
+        sendRequest({ requestConfig: requestConfig });
+    });
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         const inputValue = event.target.value;
+
+        if(inputValue === '') return setCities([])
 
         debouncer(inputValue)
 
@@ -75,7 +46,7 @@ const Searchbar = () => {
                 </div>
             </label>
 
-            <Dropdown dropDownContent={<RenderCities/>} onInputChange={handleOnChange}>
+            <Dropdown dropDownContent={<RenderCities cities={cities} isLoading={isLoading} error={error}/>} onInputChange={handleOnChange}>
                 <input             
                     id='destination-search' 
                     name='destination' 

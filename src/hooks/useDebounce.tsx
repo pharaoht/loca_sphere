@@ -1,7 +1,7 @@
 'use client'
 import { useCallback, useRef } from "react";
 
-const useDebounce = ( timeout: number = 500, cb: (...args: any) => void ) => {
+const useDebounce = ( timeout: number = 1000, cb: (...args: any) => void ) => {
 
     const timer = useRef<number | null>(null);
 

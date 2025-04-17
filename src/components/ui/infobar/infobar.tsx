@@ -3,6 +3,7 @@ import MobileCoa from '../mobilecoa/mobilecoa';
 import Calendar from './filters/calender/calender';
 import People from './filters/people/people';
 import PropertyInfo, { sampleData } from './filters/propertyInfo/propertyinfo';
+import SearchFilter from './filters/search/searchFilter';
 import styles from './infobar.module.css';
 import Image from 'next/image';
 
@@ -37,13 +38,7 @@ const Infobar = () => {
         <>
         <form className={styles.container}>
             <div className={`${styles.base} ${styles.search} ${styles.hide}`}>
-                <Dropdown dropDownContent={<></>}>
-                <label className={styles.searchLabel}>
-                    <Image src='/search.svg' alt='Search icon' width={22} height={22}/>
-                </label>
-    
-                <input className={styles.searchInput} type='text' placeholder='Search' id='search'/>
-                </Dropdown>
+                <SearchFilter />
         
             </div>
             <div className={`${styles.base}`}>

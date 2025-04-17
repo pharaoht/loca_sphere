@@ -3,8 +3,26 @@
     gap: 10px;
     align-items: center;
     color: var( --gray-color-3);
+    cursor: pointer;
+    padding: .5rem;
 }
 
+.liContainer:hover {
+    background: var(--backgroud-gray);
+    border-radius: .5rem;
+}
 .liLabel {
 
+}
+
+.cityContainer{
+    display: grid;
+    gap: .5rem;
+    padding: min(1.5rem, 8%);
+
+}
+
+.cityContainer .header{
+    font-size: 1.5rem;
+    color: var(--gray-color);
 }
