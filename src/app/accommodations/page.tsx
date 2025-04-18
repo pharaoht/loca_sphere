@@ -17,7 +17,7 @@ interface SearchParams {
 }
 
 interface PageProps {
-    searchParams: SearchParams;
+    searchParams: Promise<SearchParams>;
 }
 
 const apikey = await mapBoxApiKey();
