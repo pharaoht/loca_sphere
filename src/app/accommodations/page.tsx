@@ -11,8 +11,8 @@ import { notFound } from 'next/navigation';
 
 
 interface SearchParams {
-    lat?: number;
-    long?: number;
+    lat?: string;
+    long?: string;
     cityName?: string;
 }
 
@@ -22,9 +22,9 @@ interface PageProps {
 
 const apikey = await mapBoxApiKey();
 
-function getListingsByCoor(long: number, lat:number){
+function getListingsByCoor(long: string, lat:string){
     //fetch listings
-    return <Mapbox key={`${lat}-${long}`} coordinates={[long || 0.0, lat || 0.0]} mpKey={apikey}/>
+    return <Mapbox key={`${lat}-${long}`} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
 }
 
 const Accommodations = async ({ searchParams }: PageProps) => {
