@@ -22,9 +22,9 @@ interface PageProps {
 
 const apikey = await mapBoxApiKey();
 
-function getListingsByCoor(long: string, lat:string){
+async function getListingsByCoor(long: string, lat:string){
     //fetch listings
-    return <Mapbox key={`${lat}-${long}`} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
+    
 }
 
 const Accommodations = async ({ searchParams }: PageProps) => {
@@ -69,7 +69,7 @@ const Accommodations = async ({ searchParams }: PageProps) => {
                 </section>
                 <section id='rightSide' className={`${styles.rightSide} ${styles.mapHide}`}>
                     <Suspense fallback={<>Loading</>}>
-                        {getListingsByCoor(long, lat)}
+                        <Mapbox key={`${lat}-${long}`} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
                    </Suspense>
                 </section>
             </div>

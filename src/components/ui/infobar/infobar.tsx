@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Dropdown from '../dropdown/dropdown';
 import MobileCoa from '../mobilecoa/mobilecoa';
 import Calendar from './filters/calender/calender';
@@ -42,7 +43,7 @@ const Infobar = () => {
         
             </div>
             <div className={`${styles.base}`}>
-                <Dropdown dropDownContent={<Calendar/>}>
+                <Dropdown dropDownContent={<Suspense><Calendar/></Suspense>}>
                     { infoBarBtn('20 Mar 2026 | 20 Jun 2027', '/calender-icon.png', '/chevron-down.png', '', true)}
                 </Dropdown>
             </div>

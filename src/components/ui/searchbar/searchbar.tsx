@@ -12,6 +12,8 @@ const Searchbar = () => {
 
     const [ cities, setCities ] = useState([]);
 
+    const [ value, setValue ] = useState('');
+
     const { isLoading, error, sendRequest } = useHttp({ callback: setCities });
 
     const debouncer = useDebounce(500, (val) => {

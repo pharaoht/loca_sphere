@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './calender.module.css';
 import Image from 'next/image';
+import useParams from '@/hooks/useParams';
 
 const months = [ 'January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 
@@ -9,19 +10,19 @@ const days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
 
 const date = new Date();
 
-const DaysOfTheWeekHeader: React.FC<{day: string}> = ({ day }) => 
-    <div key={day} className={styles.weekday} role='columnheader'>{day}</div>;
-
-const DateOfTheMonthBtn: React.FC<{date: number | null}> = ({ date }) => 
-    <button key={date} className={`${date ? styles.day : styles.none}`} role='gridcell'>{date ? date : null}</button>
-
 const Calendar = () => {
 
     const [ currentMonth, setCurrentMonth ] = useState<number>(date.getMonth());
     
     const [ currentYear, setCurrentYear ] = useState<number>(date.getFullYear());
 
-    const [datesOfMonth, setDatesOfMonth ] = useState<any[]>(renderCalendarDays())
+    const [ datesOfMonth, setDatesOfMonth ] = useState<any[]>(renderCalendarDays());
+
+    const [ moveInDate, setMoveInDate ] = useState<{ day: number, month: number, year: number} | null>(null);
+
+    const [ moveOutDate, setMoveOutDate ] = useState<{ day: number, month: number, year: number} | null>(null);
+
+    const { setParam } = useParams();
 
     const prevMonthHandler = () => {
 
@@ -61,13 +62,90 @@ const Calendar = () => {
         const d = Array.from({length: totalDays}, (ele, idx) => idx + 1);
 
         const x = b.concat(d);
-
+        
         return x;
+    }
+
+    const DaysOfTheWeekHeader: React.FC<{day: string}> = ({ day }) => 
+        <div key={day} className={styles.weekday} role='columnheader'>{day}</div>;
+    
+    const DateOfTheMonthBtn: React.FC<{day: number | null, month: number, year: number }> = ({ day, month, year }) => {
+    
+        const cssStrikeThrough = styles.strikeThrough;
+        const cssDayBtnStyles = styles.day;
+        const cssNoneStyles = styles.none;
+        const cssActiveStyles = styles.active;
+
+        const todayDate = date.getDate();
+        const currentMonth = date.getMonth();
+        const currentYear = date.getFullYear();
+
+        const isSelected =
+            moveInDate &&
+            moveInDate.day === day &&
+            moveInDate.month === month &&
+            moveInDate.year === year;
+
+        const isSelectedTwo =
+            moveOutDate &&
+            moveOutDate.day === day &&
+            moveOutDate.month === month &&
+            moveOutDate.year === year;
+
+        const isBetween = ''
+
+        
+    
+        const isCurrentMonthandDateSame = currentYear === year && currentMonth === month && day != null && day < todayDate;
+    
+        const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+            event.preventDefault();
+
+            if(moveInDate == null && day !== null){
+
+                setMoveInDate({ day: day, month: month, year: year});
+            }
+            else if(moveOutDate == null && day !== null){
+
+                //check that its not less than moveinDate
+                setMoveOutDate({ day: day, month: month, year: year});
+            }
+        };
+
+        const renderStyles = () => {
+            
+            if(!day) return cssNoneStyles;
+            if(isCurrentMonthandDateSame) return cssStrikeThrough;
+            if(moveInDate != null && moveInDate.year == year && moveInDate.month === month && day < moveInDate.day) return cssStrikeThrough;
+            return `${cssDayBtnStyles} ${isSelected && cssActiveStyles} ${isSelectedTwo && cssActiveStyles}`
+            
+        }
+
+        return (
+            <button 
+                key={day} 
+                className={renderStyles()} 
+                type='button' role='gridcell' 
+                disabled={isCurrentMonthandDateSame ? true : false }
+                onClick={(e) => onClickHandler(e)}
+            >
+                {day}
+            </button>
+        )
+    }
+
+    const clearDates = (event: React.MouseEvent<HTMLButtonElement>) => {
+        
+        event.preventDefault();
+
+        setMoveInDate(null);
+        setMoveOutDate(null);
     }
 
     useEffect(() => {
         setDatesOfMonth(renderCalendarDays())
-    }, [currentMonth])
+    }, [currentMonth]);
 
     
     return (
@@ -95,12 +173,12 @@ const Calendar = () => {
                 </button>
             </header>
             <section className={styles.calendarGrid} role='grid'>
-                {
-                    days.map(day => <DaysOfTheWeekHeader key={day} day={day}/>)
-                }
-                {   
-                    datesOfMonth.map((date, idx) => <DateOfTheMonthBtn key={idx} date={date}/>)
-                }
+                {   days.map(day => <DaysOfTheWeekHeader key={day} day={day}/>) }
+                {   datesOfMonth.map((day, idx) => <DateOfTheMonthBtn key={idx} day={day} month={currentMonth} year={currentYear} /> )    }
+            </section>
+            <section>
+                <button type='button' onClick={clearDates}>Clear dates</button>
+                <button>Select dates</button>
             </section>
 
         </div>

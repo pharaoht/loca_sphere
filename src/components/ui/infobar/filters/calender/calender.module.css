@@ -55,8 +55,25 @@
     background: #fff;
 }
 
+.strikeThrough{
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    text-decoration: line-through;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .day:hover {
     background: var(--third-color-blue);
+}
+
+.active {
+    background-color: var(--third-color-blue);
+    border: 1px solid var(--secondary-color-blue);
 }
 
 @media (max-width: 500px){
