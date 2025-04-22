@@ -19,7 +19,7 @@ const Searchbar = () => {
     const debouncer = useDebounce(500, (val) => {
 
         const requestConfig = {
-            url: `aities?location=${val}`,
+            url: `cities?location=${val}`,
         }
 
         sendRequest({ requestConfig: requestConfig });
@@ -48,7 +48,7 @@ const Searchbar = () => {
                 </div>
             </label>
 
-            <Dropdown dropDownContent={<RenderCities cities={cities} isLoading={isLoading} error={error}/>} onInputChange={handleOnChange}>
+            <Dropdown dropDownContent={<RenderCities cities={cities || []} isLoading={isLoading} error={error}/>} onInputChange={handleOnChange}>
                 <input             
                     id='destination-search' 
                     name='destination' 
