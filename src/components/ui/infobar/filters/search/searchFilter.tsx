@@ -20,7 +20,7 @@ const SearchFilter = () => {
             url: `cities?location=${val}`,
         }
 
-        sendRequest({ requestConfig: requestConfig });
+        sendRequest({ requestConfig: requestConfig, callback: setCities });
     });
 
     
