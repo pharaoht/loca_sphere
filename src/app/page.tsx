@@ -10,6 +10,7 @@ export default function Home() {
             </header>
             <div className={`${styles.top} ${styles.stickywrapper}`}>
                 <Searchbar/>
+
             </div>
             <h3>Best price guaranteed: if you find it cheaper elsewhere, we’ll refund the difference</h3>
             <div className={styles.listings_grid}>

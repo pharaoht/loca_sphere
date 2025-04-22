@@ -56,7 +56,11 @@ const useHttp = ({ callback }: useHttpProps) => {
                 method: requestConfig.method || 'GET'
             });
 
-            if(response.status !== 200) throw new Error('Request failed');
+            if (response.status !== 200) {
+
+                setError(`Unexpected status: ${response.status}`);
+                return;
+            }
 
             if(callback) return callback(response?.data);
 
@@ -65,7 +69,7 @@ const useHttp = ({ callback }: useHttpProps) => {
         }
         catch(err: any){
 
-            const error = err?.response?.data?.message || undefined;
+            const error = err?.message || undefined;
             const status = err?.status;
 
             if(axios.isCancel(err)) return;

@@ -52,7 +52,7 @@ const Slider: React.FC<SlideProps> = ({ listings, title }) => {
                 {
                     listings.map((itm, idx) => (
                         <li key={idx}>
-                            <Link href='/accommodations'>
+                            <Link href='/accommodations?long=-0.083333333&lat=51.5&cityName=Greater%20London&radius=10'>
                                 <Card/>
                             </Link>
                         </li>

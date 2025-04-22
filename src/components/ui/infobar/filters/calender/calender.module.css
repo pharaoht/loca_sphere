@@ -74,6 +74,16 @@
 .active {
     background-color: var(--third-color-blue);
     border: 1px solid var(--secondary-color-blue);
+    padding: 15px;
+}
+
+.highlight{
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--five-blue);
+    border: 1px solid var(--secondary-color-blue);
+
 }
 
 @media (max-width: 500px){

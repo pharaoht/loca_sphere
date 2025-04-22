@@ -19,7 +19,7 @@ const Searchbar = () => {
     const debouncer = useDebounce(500, (val) => {
 
         const requestConfig = {
-            url: `cities?location=${val}`,
+            url: `aities?location=${val}`,
         }
 
         sendRequest({ requestConfig: requestConfig });

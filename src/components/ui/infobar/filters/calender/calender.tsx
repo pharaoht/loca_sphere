@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './calender.module.css';
 import Image from 'next/image';
 import useParams from '@/hooks/useParams';
+import moment from 'moment';
 
 const months = [ 'January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 
@@ -75,6 +76,7 @@ const Calendar = () => {
         const cssDayBtnStyles = styles.day;
         const cssNoneStyles = styles.none;
         const cssActiveStyles = styles.active;
+        const cssIsBetween = styles.highlight;
 
         const todayDate = date.getDate();
         const currentMonth = date.getMonth();
@@ -115,10 +117,15 @@ const Calendar = () => {
 
         const renderStyles = () => {
             
+            const buttonDate = moment(`${year}-${month}-${day}`);
+            const miDate = moment(`${moveInDate?.year}-${moveInDate?.month}-${moveInDate?.day}`);
+            const moDate = moment(`${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`);
+
             if(!day) return cssNoneStyles;
             if(isCurrentMonthandDateSame) return cssStrikeThrough;
             if(moveInDate != null && moveInDate.year == year && moveInDate.month === month && day < moveInDate.day) return cssStrikeThrough;
-            return `${cssDayBtnStyles} ${isSelected && cssActiveStyles} ${isSelectedTwo && cssActiveStyles}`
+            if(moveInDate != null && moveOutDate != null && buttonDate.isAfter(miDate) && buttonDate.isBefore(moDate)) return cssIsBetween;
+            return `${cssDayBtnStyles} ${isSelected ? cssActiveStyles : null} ${isSelectedTwo && cssActiveStyles}`
             
         }
 
