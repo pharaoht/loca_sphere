@@ -12,7 +12,7 @@ const SearchFilter = () => {
 
     const [ cities, setCities ] = useState<City[]>([]);
 
-    const { isLoading, error, sendRequest } = useHttp({ callback: setCities });
+    const { isLoading, error, sendRequest } = useHttp();
 
     const debouncer = useDebounce(500, (val) => {
 
