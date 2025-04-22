@@ -14,15 +14,17 @@ const Searchbar = () => {
 
     const [ value, setValue ] = useState('');
 
-    const { isLoading, error, sendRequest } = useHttp({ callback: setCities });
+    const { isLoading, error, sendRequest } = useHttp();
 
-    const debouncer = useDebounce(500, (val) => {
+    const debouncer = useDebounce(500, async (val) => {
 
         const requestConfig = {
-            url: `cities?location=${val}`,
+            url: `aities?location=${val}`,
         }
 
-        sendRequest({ requestConfig: requestConfig });
+    
+        await sendRequest({ requestConfig: requestConfig, callback: setCities });
+
     });
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,6 @@ const Searchbar = () => {
         debouncer(inputValue)
 
     };
-
 
     return (
         <form
@@ -48,7 +49,7 @@ const Searchbar = () => {
                 </div>
             </label>
 
-            <Dropdown dropDownContent={<RenderCities cities={cities || []} isLoading={isLoading} error={error}/>} onInputChange={handleOnChange}>
+            <Dropdown dropDownContent={<RenderCities cities={cities} isLoading={isLoading} error={error}/>} onInputChange={handleOnChange}>
                 <input             
                     id='destination-search' 
                     name='destination' 

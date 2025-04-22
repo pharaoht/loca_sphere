@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 
 interface useHttpProps {
-    callback: (...args: any) => void
+    
 }
 
 interface requestProps {
@@ -14,12 +14,13 @@ interface requestProps {
             [key: string]: string
         },
         signal?: AbortSignal,
-    }
+    },
+    callback?: (...args: any) => void | null
 }
 
 const environment = process.env.NEXT_PUBLIC_ENV;
 
-const useHttp = ({ callback }: useHttpProps) => {
+const useHttp = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -37,7 +38,7 @@ const useHttp = ({ callback }: useHttpProps) => {
         return ''
     }
 
-    const sendRequest = useCallback(async ({ requestConfig }: requestProps) => {
+    const sendRequest = useCallback(async ({ requestConfig, callback }: requestProps) => {
 
         try{
 
@@ -62,7 +63,10 @@ const useHttp = ({ callback }: useHttpProps) => {
                 return;
             }
 
-            if(callback) return callback(response?.data);
+            if(callback) {
+
+                return callback(response?.data);
+            }
 
             return response?.data;
             
@@ -81,7 +85,7 @@ const useHttp = ({ callback }: useHttpProps) => {
 
             setIsLoading(false);
         }
-    }, [callback]);
+    }, []);
 
 
     return {
