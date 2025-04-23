@@ -1,10 +1,13 @@
 .calendar {
+    display: flex;
+    flex-direction: column;
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     opacity: 0;
     animation: fadeIn 0.5s ease-in forwards;
+    gap: 1rem;
 }
 
 .calendarHeader {
@@ -84,6 +87,31 @@
     background-color: var(--five-blue);
     border: 1px solid var(--secondary-color-blue);
 
+}
+
+.queryHolder{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.queryBtn {
+    font-size: min(14px, .8rem);
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--secondary-color-blue);
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--secondary-color-blue);
+    padding: 10px 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 @media (max-width: 500px){

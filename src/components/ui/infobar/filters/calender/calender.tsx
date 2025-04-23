@@ -23,7 +23,7 @@ const Calendar = () => {
 
     const [ moveOutDate, setMoveOutDate ] = useState<{ day: number, month: number, year: number} | null>(null);
 
-    const { setParam } = useParams();
+    const { setParam, deleteParam } = useParams();
 
     const prevMonthHandler = () => {
 
@@ -71,61 +71,35 @@ const Calendar = () => {
         <div key={day} className={styles.weekday} role='columnheader'>{day}</div>;
     
     const DateOfTheMonthBtn: React.FC<{day: number | null, month: number, year: number }> = ({ day, month, year }) => {
+
+        if(!day) return ( <div></div>);
     
         const cssStrikeThrough = styles.strikeThrough;
         const cssDayBtnStyles = styles.day;
-        const cssNoneStyles = styles.none;
         const cssActiveStyles = styles.active;
         const cssIsBetween = styles.highlight;
 
-        const todayDate = date.getDate();
-        const currentMonth = date.getMonth();
-        const currentYear = date.getFullYear();
-
-        const isSelected =
-            moveInDate &&
-            moveInDate.day === day &&
-            moveInDate.month === month &&
-            moveInDate.year === year;
-
-        const isSelectedTwo =
-            moveOutDate &&
-            moveOutDate.day === day &&
-            moveOutDate.month === month &&
-            moveOutDate.year === year;
-
-        const isBetween = ''
-
-        
-    
-        const isCurrentMonthandDateSame = currentYear === year && currentMonth === month && day != null && day < todayDate;
+        const buttonDate = moment(`${year}-${month}-${day}`);
+        const td = moment(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`)
+        const miDate = moment(`${moveInDate?.year}-${moveInDate?.month}-${moveInDate?.day}`);
+        const moDate = moment(`${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`);
     
         const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 
             event.preventDefault();
 
-            if(moveInDate == null && day !== null){
-
-                setMoveInDate({ day: day, month: month, year: year});
-            }
-            else if(moveOutDate == null && day !== null){
-
-                //check that its not less than moveinDate
-                setMoveOutDate({ day: day, month: month, year: year});
-            }
+            if(moveInDate == null && day !== null) setMoveInDate({ day: day, month: month, year: year});
+            
+            else if(moveOutDate == null && day !== null) setMoveOutDate({ day: day, month: month, year: year});
+            
         };
 
         const renderStyles = () => {
-            
-            const buttonDate = moment(`${year}-${month}-${day}`);
-            const miDate = moment(`${moveInDate?.year}-${moveInDate?.month}-${moveInDate?.day}`);
-            const moDate = moment(`${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`);
 
-            if(!day) return cssNoneStyles;
-            if(isCurrentMonthandDateSame) return cssStrikeThrough;
-            if(moveInDate != null && moveInDate.year == year && moveInDate.month === month && day < moveInDate.day) return cssStrikeThrough;
+            if(buttonDate.isBefore(td)) return cssStrikeThrough;
+            if(moveInDate != null && buttonDate.isBefore(miDate)) return cssStrikeThrough;
             if(moveInDate != null && moveOutDate != null && buttonDate.isAfter(miDate) && buttonDate.isBefore(moDate)) return cssIsBetween;
-            return `${cssDayBtnStyles} ${isSelected ? cssActiveStyles : null} ${isSelectedTwo && cssActiveStyles}`
+            return `${cssDayBtnStyles} ${buttonDate.isSame(miDate) ? cssActiveStyles : null} ${buttonDate.isSame(moDate) && cssActiveStyles}`
             
         }
 
@@ -134,7 +108,7 @@ const Calendar = () => {
                 key={day} 
                 className={renderStyles()} 
                 type='button' role='gridcell' 
-                disabled={isCurrentMonthandDateSame ? true : false }
+                disabled={buttonDate.isBefore(td) ? true : false }
                 onClick={(e) => onClickHandler(e)}
             >
                 {day}
@@ -148,6 +122,25 @@ const Calendar = () => {
 
         setMoveInDate(null);
         setMoveOutDate(null);
+        deleteParam(['moveIn', 'moveOut']);
+    
+    }
+
+    const submitDates = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+        event.preventDefault();
+
+        if((!moveInDate || !moveOutDate)){
+            return
+        }
+
+        const queries = [
+            { key: 'moveIn', value: `${moveInDate?.year}-${moveInDate?.month}-${moveInDate?.day}`},
+            { key: 'moveOut', value: `${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`}
+        ];
+
+        setParam(queries);
+        
     }
 
     useEffect(() => {
@@ -183,9 +176,16 @@ const Calendar = () => {
                 {   days.map(day => <DaysOfTheWeekHeader key={day} day={day}/>) }
                 {   datesOfMonth.map((day, idx) => <DateOfTheMonthBtn key={idx} day={day} month={currentMonth} year={currentYear} /> )    }
             </section>
-            <section>
-                <button type='button' onClick={clearDates}>Clear dates</button>
-                <button>Select dates</button>
+            <section className={styles.queryHolder}>
+                <button className={styles.queryBtn} type='button' onClick={clearDates}>Clear dates</button>
+                <button 
+                    className={`${styles.queryBtn} ${ (!moveInDate || !moveOutDate) && styles.disabled}`} 
+                    type='button' 
+                    onClick={submitDates}
+                    disabled={(!moveInDate || !moveOutDate) ? true : false}
+                >
+                    Select dates
+                </button>
             </section>
 
         </div>

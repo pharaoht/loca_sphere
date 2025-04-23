@@ -30,7 +30,6 @@ const RenderCities: React.FC<RenderCitiesProps> = ({ cities = [],  isLoading, er
         )
     }
  
-    console.log(cities.length)
     return (
         <ul className={styles.cityContainer} style={ customWidth ? { minWidth: `${customWidth}`} : {}}>
             <li className={styles.header}>Cities</li>

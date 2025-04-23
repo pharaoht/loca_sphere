@@ -15,18 +15,28 @@ const useParams = () => {
         return searchParams.get(key) ?? null;
     };
 
-    const setParam = (key: string, value: string) => {
+    const setParam = (queries: Array<{key: string, value: string}>) => {
 
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams.toString());
 
-        params.set(key, value);
+        queries.forEach((query) => params.set(query.key, query.value));
 
         router.replace(`?${params.toString()}`, { scroll: false });
     };
 
+    const deleteParam = (keys: string[]) => {
+
+        const params = new URLSearchParams(searchParams.toString());
+
+        keys.forEach((key) => params.delete(key))
+
+        router.replace(`?${params.toString()}`, { scroll: false });
+    }
+
     return {
         getParam,
-        setParam
+        setParam,
+        deleteParam
     }
 };
 
