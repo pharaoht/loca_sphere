@@ -109,6 +109,11 @@
     gap: 5px;
 }
 
+.totalDaysText{
+    padding: 10px;
+    font-size: .8rem;
+}
+
 .disabled {
     opacity: 0.5;
     cursor: not-allowed;
