@@ -35,8 +35,8 @@ const RenderCities: React.FC<RenderCitiesProps> = ({ cities = [],  isLoading, er
             <li className={styles.header}>Cities</li>
             { error && <li className={styles.liContainer}> {error} </li> }
             { isLoading && <li className={styles.liContainer}>fetching...</li>}
-            { !error && !isLoading && cities?.length > 0 && render() }
-            { !error && !isLoading && cities?.length === 0 && <li className={styles.liContainer}>No cities found</li>} 
+            { !error && !isLoading && Array.isArray(cities) && cities?.length > 0 && render() }
+            { !error && !isLoading && Array.isArray(cities) && cities?.length === 0 && <li className={styles.liContainer}>No cities found</li>} 
 
         </ul>
     )
