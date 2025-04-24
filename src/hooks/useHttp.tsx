@@ -35,7 +35,7 @@ const useHttp = () => {
             return `http://${devBackendDomain}/api/${resource}`
         }
 
-        return ''
+        return 'http://localhost:8000/api'
     }
 
     const sendRequest = useCallback(async ({ requestConfig, callback }: requestProps) => {
