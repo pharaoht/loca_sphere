@@ -9,11 +9,10 @@ import useDate from "@/hooks/useDate";
 const CalendarWrapper = () => {
 
     const { getParam } = useParams();
-    const { formatDate } = useDate();
+    const { formatDate, getDateAsString } = useDate();
 
-    const movein = getParam('moveIn') ?? '';
-    const moveOut = getParam('moveOut') ?? '';
-
+    const movein = getParam('moveIn');
+    const moveOut = getParam('moveOut');
 
     return (
         <Dropdown dropDownContent={<Calendar/>}>
@@ -25,7 +24,7 @@ const CalendarWrapper = () => {
                 </span>
 
                 <span>
-                    {`${formatDate(movein, 'YYYY-MM-DD')} | ${formatDate(moveOut, 'YYYY-MM-DD')}`}
+                    {`${movein && formatDate(movein, 'YYYY-MM-DD') || getDateAsString()} | ${ moveOut && formatDate(moveOut, 'YYYY-MM-DD') || ''}`}
                 </span>
                 
                 <span className={styles.hide}>

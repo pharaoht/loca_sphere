@@ -48,7 +48,8 @@ const SearchFilter = () => {
                     customWidth={'35vw'}
                 />
             } 
-            onInputChange={handleOnChange} >
+            onInputChange={handleOnChange} 
+        >
             <label className={styles.searchLabel}>
                 <Image src='/search.svg' alt='Search icon' width={22} height={22}/>
             </label>

@@ -24,7 +24,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFro
     };
 
     const handleInputFocus = () => {
-        console.log('hii')
+
         setIsActive(true);
     };
 

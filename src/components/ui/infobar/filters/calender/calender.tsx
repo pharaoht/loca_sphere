@@ -4,7 +4,6 @@ import styles from './calender.module.css';
 import Image from 'next/image';
 import useParams from '@/hooks/useParams';
 import moment from 'moment';
-import useDate from '@/hooks/useDate';
 
 const months = [ '', 'January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 
@@ -19,20 +18,20 @@ const DATEYEAROFTODAY = DATE.getFullYear();
 const DATEDAYOFTODAY = DATE.getDate();
 
 const Calendar = () => {
-
-    const [ monthValueOFCalendar, setCurrentMonth ] = useState<number>(DATEMONTHOFTODAY);
     
-    const [ yearValueOFCalendar, setCurrentYear ] = useState<number>(DATEYEAROFTODAY);
+    const { setParam, deleteParam, getParam } = useParams();
+
+    const [ monthValueOFCalendar, setCurrentMonth ] = useState<number>(getParam('moveIn') ? moment(getParam('moveIn'), 'YYYY-MM-DD').month() + 1 : DATEMONTHOFTODAY);
+    
+    const [ yearValueOFCalendar, setCurrentYear ] = useState<number>(getParam('moveIn') ? moment(getParam('moveIn'), 'YYYY-MM-DD').year() : DATEYEAROFTODAY);
 
     const [ datesOfMonth, setDatesOfMonth ] = useState<any[]>(renderCalendarDays());
 
-    const [ moveInDate, setMoveInDate ] = useState<{ day: number, month: number, year: number} | null>(null);
+    const [ moveInDate, setMoveInDate ] = useState<{ day: number, month: number, year: number} | null>(dateToObject(getParam('moveIn') || '') ?? null);
 
-    const [ moveOutDate, setMoveOutDate ] = useState<{ day: number, month: number, year: number} | null>(null);
+    const [ moveOutDate, setMoveOutDate ] = useState<{ day: number, month: number, year: number} | null>(dateToObject(getParam('moveOut') || '') ?? null);
 
     const [ totalDays, setTotalDays ] = useState<number>(0);
-
-    const { setParam, deleteParam } = useParams();
 
     const prevMonthHandler = () => {
 
@@ -74,6 +73,55 @@ const Calendar = () => {
         const x = b.concat(d);
         
         return x;
+    }
+
+    const clearDates = (event: React.MouseEvent<HTMLButtonElement>) => {
+        
+        event.preventDefault();
+
+        if(moveInDate == null) return
+
+        setMoveInDate(null);
+        setMoveOutDate(null);
+        setTotalDays(0);
+        deleteParam(['moveIn', 'moveOut']);
+    
+    }
+
+    const calulateDays = ( startDate: string, endDate: string): number => {
+
+        if(typeof startDate !== 'string' || typeof endDate !== 'string') return 0;
+
+        const d = moment(startDate);
+        const dd = moment(endDate);
+
+        return dd.diff(d, 'days'); 
+    }
+
+    const submitDates = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+        event.preventDefault();
+
+        if((!moveInDate || !moveOutDate)){
+            return
+        }
+
+        const queries = [
+            { key: 'moveIn', value: `${moveInDate?.year}-${moveInDate?.month}-${moveInDate?.day}`},
+            { key: 'moveOut', value: `${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`}
+        ];
+
+        setParam(queries);
+    }
+
+    function dateToObject(dateString: string): { year: number, month: number, day: number} | null {
+
+        if(dateString === '') return null;
+
+        const strArr = dateString.split('-');
+
+        return { year: +strArr[0], month: +strArr[1], day: +strArr[2] }
+
     }
 
     const DaysOfTheWeekHeader: React.FC<{day: string}> = ({ day }) => 
@@ -125,49 +173,12 @@ const Calendar = () => {
                 key={day} 
                 className={renderStyles()} 
                 type='button' role='gridcell' 
-                disabled={buttonDate && buttonDate.isBefore(td) ? true : false }
+                disabled={buttonDate && buttonDate.isBefore(miDate) ? true : false }
                 onClick={(e) => onClickHandler(e)}
             >
                 {day}
             </button>
         )
-    }
-
-    const clearDates = (event: React.MouseEvent<HTMLButtonElement>) => {
-        
-        event.preventDefault();
-
-        setMoveInDate(null);
-        setMoveOutDate(null);
-        setTotalDays(0);
-        deleteParam(['moveIn', 'moveOut']);
-    
-    }
-
-    const calulateDays = ( startDate: string, endDate: string): number => {
-
-        if(typeof startDate !== 'string' || typeof endDate !== 'string') return 0;
-
-        const d = moment(startDate);
-        const dd = moment(endDate);
-
-        return dd.diff(d, 'days'); 
-    }
-
-    const submitDates = (event: React.MouseEvent<HTMLButtonElement>) => {
-
-        event.preventDefault();
-
-        if((!moveInDate || !moveOutDate)){
-            return
-        }
-
-        const queries = [
-            { key: 'moveIn', value: `${moveInDate?.year}-${moveInDate?.month}-${moveInDate?.day}`},
-            { key: 'moveOut', value: `${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`}
-        ];
-
-        setParam(queries);
     }
 
     useEffect(() => {
@@ -180,9 +191,9 @@ const Calendar = () => {
             const dd = `${moveOutDate?.year}-${moveOutDate?.month}-${moveOutDate?.day}`
             setTotalDays(calulateDays(d, dd))
         }
+
     }, [moveOutDate])
 
-    
     return (
         <div className={styles.calendar}>
             

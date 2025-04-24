@@ -6,6 +6,7 @@ import SearchFilter from './filters/search/searchFilter';
 import styles from './infobar.module.css';
 import InfoButton from '@/components/wrappers/button/infobutton';
 import CalendarWrapper from './filters/calender/wrapper';
+import BudgetFilter from './filters/budget/budgetFilter';
 
 
 
@@ -22,9 +23,7 @@ const Infobar = () => {
                 <CalendarWrapper />
             </div>
             <div className={`${styles.base} ${styles.hide}`}>
-                <Dropdown dropDownContent={<></>}>
-                <InfoButton text='Set Budget' iconOne='/coin-icon.png'  />
-                </Dropdown>
+                <BudgetFilter />
             </div>
             <div className={`${styles.base} ${styles.hide}`}>
                 <Dropdown dropDownContent={<People/>}>

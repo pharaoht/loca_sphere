@@ -1,3 +1,4 @@
+'use client'
 import moment from "moment"
 
 const useDate = () => {
@@ -17,7 +18,7 @@ const useDate = () => {
 
     function formatDate(inputDate: string, format: string, desiredFormat: string = 'YYYY MMM DD', ): string {
 
-        if(inputDate == '') {
+        if(!inputDate) {
 
             console.warn('Make sure to provide an inputDate.');
 
@@ -28,9 +29,15 @@ const useDate = () => {
         return formattedDate;
     }
 
+    function getDateAsString(format: string = 'YYYY-MM-DD' ){
+
+        return moment().format(format)
+    }
+
     return {
         createMomentObj,
-        formatDate
+        formatDate,
+        getDateAsString
     }
 }
 

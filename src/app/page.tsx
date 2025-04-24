@@ -14,8 +14,8 @@ export default function Home() {
             </div>
             <h3>Best price guaranteed: if you find it cheaper elsewhere, we’ll refund the difference</h3>
             <div className={styles.listings_grid}>
-                <Slider title="Lisbon" listings={['hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi',]}/>
-                <Slider title="Lisbon" listings={['hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi',]}/>
+                <Slider title="London, England" listings={['hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi',]}/>
+                <Slider title="Lisbon, Portugal" listings={['hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi', 'hi',]}/>
             </div>
         </main>
     );

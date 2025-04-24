@@ -31,7 +31,7 @@ const Slider: React.FC<SlideProps> = ({ listings, title }) => {
     return (
         <section className={styles.container}>
             <header className={styles.header}>
-                <h4 className={styles.title}>Lisbon, Portugal</h4>
+                <h4 className={styles.title}>{title}</h4>
                 <nav className={styles.navBtns}>
                     <button 
                         className={styles.btns}
