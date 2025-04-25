@@ -9,51 +9,82 @@ const ListingsPage = () => {
 
     return (
         <div className={styles.container}>
-            <header className={styles.headerSection}>
-                <div className={styles.leftSide}>
-                    <h2>Double bedroom, large terrace and private bathroom</h2>
-                    <ul className={styles.infoRoom}>
-                        <li>Double bedroom </li>
-                        <li>•</li>
-                        <li>4-bedrooms apartment</li>
-                        <li>•</li>
-                        <li>2 bathrooms</li>
-                        <li>•</li>
-                        <li>1 person</li>
-                        <li>•</li>
-                        <li>180 m²</li>
-                    </ul>
-                    <div className={styles.location}>
-                        <Image src='/location.png' alt='location icon' height={30} width={30} />
-                        <span>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</span>
+            <div className={styles.top}>
+                <header className={styles.headerSection}>
+                    <div className={styles.leftSide}>
+                        <h2>Double bedroom, large terrace and private bathroom</h2>
+                        <ul className={styles.infoRoom}>
+                            <li>Double bedroom </li>
+                            <li>•</li>
+                            <li>4-bedrooms apartment</li>
+                            <li>•</li>
+                            <li>2 bathrooms</li>
+                            <li>•</li>
+                            <li>1 person</li>
+                            <li>•</li>
+                            <li>180 m²</li>
+                        </ul>
+                        <div className={styles.location}>
+                            <Image src='/location.png' alt='location icon' height={30} width={30} />
+                            <span>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</span>
 
+                        </div>
                     </div>
-                </div>
-                <div className={styles.rightSide}>
-                    <ul className={styles.coas}>
-                        <li>Save</li>
-                        <li>Share</li>
-                        <li>Report</li>
-                    </ul>
-                </div>
-            </header>
-            <section className={styles.imageContainer}>
-                <div className={styles.mainImage}>
-                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill/>
-                </div>
-                <div className={styles.grid}>
-                    <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 1" fill /></div>
-                    <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 2" fill /></div>
-                    <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 3" fill /></div>
-                    <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 4" fill /></div>
-                </div>
-            </section>
+                    <div className={styles.rightSide}>
+                        <ul className={styles.coas}>
+                            <li>Save</li>
+                            <li>Share</li>
+                            <li>Report</li>
+                        </ul>
+                    </div>
+                </header>
+                <section className={styles.imageContainer}>
+                    <div className={styles.mainImage}>
+                        <Image className={styles.listImage} src='/photo.jpg' alt='image' fill/>
+                    </div>
+                    <div className={styles.grid}>
+                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 1" fill /></div>
+                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 2" fill /></div>
+                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 3" fill /></div>
+                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 4" fill /></div>
+                    </div>
+                </section>
+            </div>
             <div className={styles.split}>
                 <div className={styles.leftSplit}>
                     <ul className={styles.btnContainer}>
-                        <li><button>Map</button></li>
-                        <li><button>Floor Plan</button></li>
-                        <li><button>Video</button></li>
+                        <li>
+                            <button className={styles.mapBtn}>
+                                <span className={styles.mapBtnIcon}>
+                                    <Image src='/map.png' alt='Map button icon' height={25} width={25} />
+                                </span>
+                                Map
+                            </button>
+                        </li>
+                        <li>
+                            <button className={styles.mapBtn}>
+                                <span className={styles.mapBtnIcon}>
+                                    <Image src='/floorplan.png' alt='Map button icon' height={25} width={25} />
+                                </span>
+                                Floor plan
+                            </button>
+                        </li>
+                        <li>
+                            <button className={styles.mapBtn}>
+                                <span className={styles.mapBtnIcon}>
+                                    <Image src='/camera.png' alt='Map button icon' height={25} width={25} />
+                                </span>
+                                Photos
+                            </button>
+                        </li>
+                        <li>
+                            <button className={styles.mapBtn}>
+                                <span className={styles.mapBtnIcon}>
+                                    <Image src='/video.png' alt='Map button icon' height={25} width={25} />
+                                </span>
+                                Video
+                            </button>
+                        </li>
                     </ul>
                     <section className={styles.navLinks}>
                         <nav className={styles.navNav}>
@@ -118,10 +149,18 @@ const ListingsPage = () => {
                     <hr/>
 
                     <SectionWrapper id='aboutApartment' headerText='About this apartment'>
-                    
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        <div className={styles.textContainer}>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+
+                            <div className={styles.aiButton}>
+                                <button type='button'>
+                                    <Image src="/ai.png" alt="AI Icon" height={20} width={20} />
+                                    <span className={styles.tooltip}>Summarize with AI</span>
+                                </button>
+                            </div>
+                        </div>
                         <h4>You'll be living with</h4>
                         <ul className={styles.bedroomAdmenities}>
                             <li className={styles.baListItem}>
@@ -225,7 +264,64 @@ const ListingsPage = () => {
                     <hr/>
 
                     <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
-                        <p>Extra services, expenses and fees to be paid directly to the Landlord</p>
+                        <p><b>Extra services, expenses and fees to be paid directly to the Landlord</b></p>
+
+                        <div className={styles.servicesPayment}>
+                            <h3>One-time payments</h3>
+                            <div className={styles.spSd}>
+                                <h4>Security deposit</h4>
+                                <h4><b>$1290</b></h4>
+                            </div>
+                            <span>Refundable payment to be made directly to Landlord, which should be refunded if you meet all the rental conditions.</span>
+                        </div>
+
+                        <div className={styles.servicesPayment}>
+                            <h3>Fixed Monthly Bills</h3>
+
+                            <dl className={styles.spFMB}>
+                                <div className={styles.spFMBContainer}>
+                                    <dt>Water</dt>
+                                    <dd className={styles.spAmenity}>
+                                        <Image src='/x-circle.png' alt='imag' height={30} width={30} />
+                                        <span>Not included in the price</span>
+                                    </dd>
+                                </div>
+
+                                <div className={styles.spFMBContainer}>
+                                    <dt>Electricity</dt>
+                                    <dd className={styles.spAmenity}>
+                                        <Image src='/x-circle.png' alt='imag' height={30} width={30} />
+                                        <span>Not included in the price</span>
+                                    </dd>
+                                </div>
+                                
+                                <div className={styles.spFMBContainer}>
+                                    <dt>Internet</dt>
+                                    <dd className={styles.spAmenity}>
+                                        <Image src='/green-check.png' alt='imag' height={30} width={30} />
+                                        <span className={styles.green}>Included in the price</span>
+                                    </dd>
+                                </div>
+
+                                <div className={styles.spFMBContainer}>
+                                    <dt>Gas</dt>
+                                    <dd className={styles.spAmenity}>
+                                        <Image src='/green-check.png' alt='imag' height={30} width={30} />
+                                        <span className={styles.green}>Included in the price</span>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+
+                        <div className={styles.servicesPayment}>
+                            <h3>Other fees</h3>
+                            <div className={styles.spSd}>
+                                <h4>Admin fee in advance</h4>
+                                <h4><b>$75</b></h4>
+                            </div>
+                            <p>One time fee charged in advance for necessary maintenance.</p>
+
+                        </div>
                     </SectionWrapper>
 
                     <hr/>
@@ -247,6 +343,11 @@ const ListingsPage = () => {
                 <div className={styles.rightSplit}>
                     <BookingForm />
                 </div>
+            </div>
+            <div>
+                <section>
+                    More Place like this
+                </section>
             </div>
         </div>
     )
