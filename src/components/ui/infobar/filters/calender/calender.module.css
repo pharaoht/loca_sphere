@@ -120,13 +120,13 @@
 @media (max-width: 500px){
 
     .calendar {
-        width: calc(100vw - 25px);
+        width: calc(100vw - 15px);
         padding: 20px 5px;
         
     }
 
     .calendarGrid{
-        grid-template-columns: repeat(7, .2fr);
+        grid-template-columns: repeat(7, minmax(40px, 1fr));
         gap: 2px;
     }
 }
