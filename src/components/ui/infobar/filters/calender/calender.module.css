@@ -129,6 +129,18 @@
         grid-template-columns: repeat(7, minmax(40px, 1fr));
         gap: 2px;
     }
+
+    .queryBtn {
+        font-size: min(14px, .8rem);
+        padding: 10px .5rem;
+        gap: 5px;
+    }
+    
+    .totalDaysText{
+        padding: 10px;
+        font-size: .75rem;
+    }
+    
 }
 
 @keyframes fadeIn {
