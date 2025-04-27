@@ -2,6 +2,7 @@
 import { ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
 import styles from './dropdown.module.css';
 import React from 'react';
+import Image from 'next/image';
 
 interface DropdownProps {
     children: ReactNode; 
@@ -62,6 +63,11 @@ const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFro
         
             })}
             <div className={`${styles.dropdown} ${isActive ? styles.active : null} ${startFromRightSide ? styles.rightAlign : null}`}>
+                <div className={styles.closeBtn}>
+                    <button className={styles.btn} type='button' onClick={() => setIsActive(false)}>
+                        <Image src='/x.png' alt='' height={20} width={20} />
+                    </button>
+                </div>
                 {
                     (React.isValidElement(dropDownContent) && dropDownContent.type !== React.Suspense) ? React.cloneElement(dropDownContent) : (
                         dropDownContent

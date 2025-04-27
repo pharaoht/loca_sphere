@@ -27,6 +27,22 @@
     
 }
 
+.btn{
+    cursor: pointer;
+    border: none;
+    background: #fff;
+}
+
+.btn:hover{
+    transform: scale(1.2);
+}
+
+.closeBtn{
+    display: flex;
+    padding: 10px;
+    justify-content: flex-end;
+}
+
 
 /* .dropdown li {
     padding: 10px 15px;

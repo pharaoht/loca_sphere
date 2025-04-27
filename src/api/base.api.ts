@@ -59,7 +59,7 @@ class BaseApi {
                     'Accept': 'application/json'
                 }
             });
-
+            console.log('hiiiiiiii')
             if(response.status !== 200) throw new Error('Request failed');
 
             if(cb) return cb(response?.data);

@@ -327,8 +327,23 @@ const ListingsPage = () => {
                     <hr/>
 
                     <SectionWrapper id='rentalConditions' headerText='Rental Conditions'>
+                        <div>
+                            <Image src='/calender-icon.png' alt='' height={25} width={25} />
+                            <span>Minimum stay 210 nights</span>
+                        </div>
+                        <div>
+                            <h4>Requirements</h4>
+                            <p>You have to provide the landlord with these documents:</p>
+                            <ul>
+                                <li>Tenancy agreement</li>
+                                <li>Passport or ID</li>
+                            </ul>
+                        </div>
                         <ul>
-                            <li>Minimum stay</li>
+                            <li>
+                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
+                                Overnight guests allowed
+                            </li>
                         </ul>
                     </SectionWrapper>
 
@@ -346,7 +361,11 @@ const ListingsPage = () => {
             </div>
             <div>
                 <section>
-                    More Place like this
+                    More Place like this (section)
+                </section>
+
+                <section>
+                    Why LocaSphere (section)
                 </section>
             </div>
         </div>

@@ -20,7 +20,7 @@ const SectionWrapper : React.FC<SectionProps> = ({ id, headerText, children }) =
 
     return (
         <section className={styles.sectionContainer} id={`${id}`}>
-            <h3> { headerText } </h3>
+            <h2> { headerText } </h2>
             { children }
         </section>
     )

@@ -8,6 +8,7 @@ import Listing from '@/components/ui/listing/listing';
 import Sortby from '@/components/ui/sortby/sortby';
 import Banner from '@/components/ui/banner/banner';
 import { notFound } from 'next/navigation';
+import addressApi from '@/api/address/address.api';
 
 
 interface SearchParams {
@@ -22,10 +23,6 @@ interface PageProps {
 
 const apikey = await mapBoxApiKey();
 
-async function getListingsByCoor(long: string, lat:string){
-    //fetch listings
-    
-}
 
 const Accommodations = async ({ searchParams }: PageProps) => {
 
@@ -33,8 +30,7 @@ const Accommodations = async ({ searchParams }: PageProps) => {
 
     const isValidCoords = long && lat && !isNaN(Number(long)) && !isNaN(Number(lat));
 
-    if (!isValidCoords || !cityName) return notFound()
-    
+    if (!isValidCoords || !cityName) return notFound();
 
     return (
         <main>
