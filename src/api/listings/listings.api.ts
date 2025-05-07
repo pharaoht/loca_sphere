@@ -22,6 +22,59 @@ class ListingsApi extends BaseApi {
             cb: () => {}
         })
     };
+
+    public async httpGetBedRoomAmenitiesByListingId(listingId: string){
+
+        const url = this.findHostName();
+
+        const isSS = this.isServerSide();
+
+        const reqObj = {
+            url: `${url}/bedroom/amenities/${listingId}`,
+            method: 'GET'
+        };
+
+        if(isSS){
+
+            const result = await this.ssHttpRequest(reqObj);
+
+            return result;
+        }
+        else {
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+            });
+
+            return result;
+        }
+    }
+
+    public async httpGetListingDetails(listingId: string){
+        
+        const url = this.findHostName();
+        const isSS = this.isServerSide();
+
+        const reqObj = {
+            url: `${url}/bedroom/list-details/${listingId}`,
+            method: 'GET'
+        };
+
+        if(isSS){
+
+            const result = await this.ssHttpRequest(reqObj);
+
+            return result;
+        }
+        else {
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+            });
+
+            return result;
+        }
+    }
 };
 
-export default ListingsApi;
+const listingsApi = new ListingsApi();
+
+export default listingsApi;

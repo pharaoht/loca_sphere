@@ -19,6 +19,7 @@ interface requestProps {
 }
 
 const environment = process.env.NEXT_PUBLIC_ENV;
+const pd = process.env.NEXT_PUBLIC_PROD_DOMAIN;
 
 const useHttp = () => {
 
@@ -28,6 +29,8 @@ const useHttp = () => {
 
     const devBackendDomain = 'localhost:8000';
 
+    const prodBackendDomain = pd;
+
     function findHostName(resource: string): string {
 
         if(environment === 'dev'){
@@ -35,7 +38,7 @@ const useHttp = () => {
             return `http://${devBackendDomain}/api/${resource}`
         }
 
-        return 'http://localhost:8000/api'
+        return `${prodBackendDomain}/api/${resource}`
     }
 
     const sendRequest = useCallback(async ({ requestConfig, callback }: requestProps) => {

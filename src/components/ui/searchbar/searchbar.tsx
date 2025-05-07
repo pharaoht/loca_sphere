@@ -55,7 +55,7 @@ const Searchbar = () => {
                     placeholder='Search your destination' 
                     aria-label='Search for your destination' />
             </Dropdown>
-            <button type='submit' aria-label='Sumbit Search for your destination'>Search</button>
+            <button className={styles.btnbtn} type='submit' aria-label='Sumbit Search for your destination'>Search</button>
         </form>
     )
 };

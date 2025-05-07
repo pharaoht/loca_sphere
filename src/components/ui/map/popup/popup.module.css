@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+}
+  
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+  
+.image {
+    object-fit: cover;
+}
+  
+.textContent {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 5px;
+}
+  
+.title {
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.date {
+    color: #888;
+    font-size: 0.8rem;
+    display: block;
+}
+
+.price {
+    font-size: 1rem;
+}
+
+.link {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    display: block;
+    color: white;
+    background-color: #0070f3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.link:hover {
+    background-color: #005bb5;
+}

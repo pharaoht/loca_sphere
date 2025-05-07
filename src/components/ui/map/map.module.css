@@ -9,7 +9,7 @@
 .mapboxgl-map {
     max-width: 1200px !important;
     margin: 0 auto;
-  }
+}
 
 .marker {
     display: flex;
@@ -29,18 +29,7 @@
     position: relative;
 }
 
-.marker:after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px 7px 0 7px;
-    border-style: solid;
-    border-color: white transparent transparent transparent;
-    display: block;
-    width: 0;
-}
+
 
 .marker:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);

@@ -50,9 +50,9 @@ const SearchFilter = () => {
             } 
             onInputChange={handleOnChange} 
         >
-            <label className={styles.searchLabel}>
+            <div className={styles.searchLabel}>
                 <Image src='/search.svg' alt='Search icon' width={22} height={22}/>
-            </label>
+            </div>
 
             <input className={styles.searchInput} type='text' placeholder='Search' id='search'/>
         </Dropdown>

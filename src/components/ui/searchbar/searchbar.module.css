@@ -28,7 +28,7 @@
     z-index: 1;
 }
 
-.container button {
+.container .btnbtn {
     position: absolute;
     right: 9px;
     top: 50%;
@@ -60,7 +60,7 @@
 }
 
 @media (max-width: 1100px) {
-    .container button {
+    .container .btnbtn {
         width: 10vw;
     }
 }
@@ -70,7 +70,7 @@
         width: 100%;
     }
 
-    .container button {
+    .container .btnbtn {
         display: none;
     }
 }

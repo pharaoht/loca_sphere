@@ -51,3 +51,23 @@ body {
   margin: 0 auto;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.mapboxgl-popup{
+  background: none;
+  box-shadow: none;
+}
+
+.mapboxgl-popup-content {
+  background: none;
+  padding: 0 !important;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+  color: inherit;
+  font: inherit;
+  max-width: none;
+}
+
+.mapboxgl-popup-tip {
+  display: none;
+}

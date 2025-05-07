@@ -8,10 +8,10 @@ const CityListItem: React.FC<City> = ({ id, name, city, country, countryCode, la
     return (
         <li key={id} >
             <Link className={styles.liContainer} href={`/accommodations?long=${longitude}&lat=${latitude}&cityName=${city}&radius=10`}>
-                <label className={styles.liLabel} htmlFor={`${id}`}>
+                <label className={styles.liLabel}>
                     <Image src='/building.png' alt='' height={25} width={25}/>
                 </label>
-                <p id={`${id}`}>
+                <p>
                     <span>{city}, {region}, {country}</span>
                 </p>
             </Link>

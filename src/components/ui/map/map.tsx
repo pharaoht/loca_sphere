@@ -3,46 +3,131 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './map.module.css';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import useHttp from '@/hooks/useHttp';
+import useParams from '@/hooks/useParams';
+import ReactDOMServer from 'react-dom/server';
+import PopupContent from './popup/popup';
+
+type listingsType = {
+    id: string;
+    listingId: string;
+    latitude: number;
+    longitude: number;
+    distance: number;
+    city: string;
+    stateOrProvince: string;
+    postalCode: string;
+    countryCode: string;
+    streetAddress: string;
+    houseNumber: string;
+    extraInfo: string;
+    monthlyRent: string;
+    currency: string;
+    title: string;
+}
 
 interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; }
 
 const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
 
-    const [ listings, setListings ] = useState([]);
+    mapboxgl.accessToken = mpKey;
+
+    const [ listings, setListings ] = useState<listingsType[]>([]);
+
+    const { getParam, setParam, } = useParams();
+
+    const { sendRequest, isLoading, error } = useHttp();
+
+    const lat = getParam('lat') || 0;
+
+    const long = getParam('long') || 0;
 
     const mapContainerRef = useRef<HTMLDivElement>(null);
 
-    mapboxgl.accessToken = mpKey;
+    const mapRef = useRef<mapboxgl.Map | null>(null);
+
+    const mapMarkerRef = useRef(new Map());
+
+    const getListings = async () => {
+        
+        const reqObj = {
+            url: `address/coordinates?lat=${lat}&long=${long}`,
+            method: 'GET'
+        };
+
+        const d = await sendRequest({
+            requestConfig: reqObj,
+            callback: setListings
+        });
+
+        return d;
+
+    };
 
     useEffect(() => {
 
-        if(!mapContainerRef.current) return;
+        if (!mapContainerRef.current) return;
 
-        const map = new mapboxgl.Map({
-            container: mapContainerRef.current,
-            style: 'mapbox://styles/mapbox/streets-v11', 
-            center: coordinates,
-            zoom: 12, 
+        mapRef.current = new mapboxgl.Map({
+          container: mapContainerRef.current,
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: coordinates,
+          zoom: 12,
         });
 
-        map.resize()
+        mapRef.current.on('moveend', () => {
 
-        map.on('load', () => {
-
-            map.addControl(new mapboxgl.NavigationControl(), 'right');
-
-            // create a HTML element for each feature
-            
-
-
-        })
+            const { lng, lat } = mapRef.current!.getCenter();
     
-        return () => {
+            setParam([
+                { key: 'long', value: String(lng)},
+                { key: 'lat', value: String(lat)}
+            ]);
+        });
 
-            map.remove()
+            
+        return () => {
+            
+            mapRef.current!.remove();
+        };
+    
+    }, []);
+
+    useEffect(() => {
+
+        if (!mapRef.current) return;
+        
+        listings.forEach((itm) => {
+    
+            if(mapMarkerRef.current.has(itm.id)) return null;
+
+            const el = document.createElement('div');
+
+            el.className = styles.marker;
+            el.innerHTML = itm.monthlyRent;
+        
+            const htmlString = ReactDOMServer.renderToString(<PopupContent photos={[]} price={itm.monthlyRent} id={itm.id} title={itm.title} currency={itm.currency}/>)
+
+            new mapboxgl.Marker(el)
+                .setLngLat([itm.longitude, itm.latitude])
+                .setPopup(new mapboxgl.Popup({ offset: -75, anchor: 'bottom' }).setHTML(htmlString))
+                .addTo(mapRef.current!);
+
+            mapMarkerRef.current.set(itm.id, [itm.longitude, itm.latitude]);
+        });
+
+    }, [listings]);
+
+
+    useEffect(() => {
+        
+        const fetchListings = async () => {
+            await getListings()
         };
 
-    }, []);
+        fetchListings();
+
+    }, [lat, long])
 
     return (
       <div id='main_map' className={styles.map} ref={mapContainerRef}>
@@ -52,21 +137,3 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
 }
 
 export default Mapbox;
-
-            // for(const feature of geojson.features){
-            //     const el = document.createElement('div');
-            //     el.className = styles.marker;
-            //     el.innerHTML = '$40'
-
-            //     new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
-
-            //     new mapboxgl.Marker(el)
-            //     .setLngLat(feature.geometry.coordinates)
-            //     .setPopup(
-            //         new mapboxgl.Popup({ offset: 25 }) // add popups
-            //         .setHTML(
-            //             `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-            //         )
-            //     )
-            //     .addTo(map);
-            // }

@@ -2,10 +2,25 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import SectionWrapper from '@/components/wrappers/section/section';
 import Link from 'next/link';
-import AvailabilityCalendar from '@/components/ui/availabilitycalendar/availabilitycalendar';
 import BookingForm from '@/components/ui/bookingform/bookingform';
+import Yourbedroom from '@/components/wrappers/accommodations/overview/bedroom/yourbedroom';
+import About from '@/components/wrappers/accommodations/overview/about/about';
+import Availability from '@/components/wrappers/accommodations/availability/availability';
 
-const ListingsPage = () => {
+interface ListParams {
+    listingId: string
+};
+
+interface PageProps {
+    params: Promise<ListParams>;
+}
+
+
+const ListingsPage = async ({ params }: PageProps ) => {
+
+    const { listingId } = await params;
+
+
 
     return (
         <div className={styles.container}>
@@ -101,6 +116,9 @@ const ListingsPage = () => {
                                 <li className={styles.link}>
                                     <Link href='#servicesandexpenses'>Services and expenses</Link>
                                 </li>
+                                <li>
+                                    <Link href='#reviews'>Reviews</Link>
+                                </li>
                                 <li className={styles.link}>
                                     <Link href='#contract'>Contract</Link>
                                 </li>
@@ -108,80 +126,11 @@ const ListingsPage = () => {
                         </nav>
                     </section>
 
-                    <SectionWrapper id='overview' headerText='Your bedroom'>
-                        <ul className={styles.bedroomAdmenities}>
-                            <li className={styles.baListItem}>
-                                <Image src='/bed.png' alt='bed icon' width={40} height={40}  />
-                                <span>Double bed</span>
-                            </li>
-                            <li className={styles.baListItem}>
-                                <Image src='/wardrobe.png' alt='bed icon' width={40} height={40}  />
-                                <span>Wardrobe</span>
-                            </li>
-                            <li className={styles.baListItem}>
-                                <Image src='/desk.png' alt='bed icon' width={40} height={40}  />
-                                <span>Desk</span></li>
-                            <li className={styles.baListItem}>
-                                <Image src='/office_chair.png' alt='bed icon' width={40} height={40}  />
-                                <span>Chairs</span>
-                            </li>
-                            <li className={styles.baListItem}>
-                                <Image src='/sofa.png' alt='bed icon' width={40} height={40}  />
-                                <span>Sofa bed</span>
-                            </li>
-                        </ul>
-                        <div className={styles.baInfo}>
-                            <div>
-                                <Image src='/bnf.svg' alt='bed icon' width={125} height={125}  />
-                            </div>
-                            <div className={styles.baBedRoomText}>
-                                <p className={styles.baHeader}>This is a <b>Private bedroom</b></p>
-                                <p className={styles.baSmallTxt}>You won't have to share the bedroom with anyone else</p>
-                                <p className={styles.baSmallTxt}>This room has a total of 1 beds available</p>
-                                <p><b>4 rooms in total</b></p>
-                            </div>
-                        </div>
-                        <div>
-                            <button type='button'>See all features</button>
-                        </div>
-                    </SectionWrapper>
+                    <Yourbedroom id={listingId}/>
 
                     <hr/>
 
-                    <SectionWrapper id='aboutApartment' headerText='About this apartment'>
-                        <div className={styles.textContainer}>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-
-                            <div className={styles.aiButton}>
-                                <button type='button'>
-                                    <Image src="/ai.png" alt="AI Icon" height={20} width={20} />
-                                    <span className={styles.tooltip}>Summarize with AI</span>
-                                </button>
-                            </div>
-                        </div>
-                        <h4>You'll be living with</h4>
-                        <ul className={styles.bedroomAdmenities}>
-                            <li className={styles.baListItem}>
-                                <Image src='/gender.png' alt='gender icon' width={40} height={40}  />
-                                <span>Mixed gender</span>
-                            </li>
-                            <li className={styles.baListItem}>
-                                <Image src='/landlord.png' alt='gender icon' width={40} height={40}  />
-                                <span>Resident landlord</span>
-                            </li>
-                            <li className={styles.baListItem}>
-                                <Image src='/family.png' alt='gender icon' width={40} height={40}  />
-                                <span>Landlord lives with family</span>
-                            </li>
-                            <li className={styles.baListItem}>
-                                <Image src='/pets.png' alt='gender icon' width={40} height={40}  />
-                                <span>Landlord has pets</span>
-                            </li>
-                            
-                        </ul>
-                    </SectionWrapper>
+                    <About id={listingId}/>
 
                     <hr/>
 
@@ -212,46 +161,7 @@ const ListingsPage = () => {
 
                     <hr/>
 
-                    <SectionWrapper id='availability' headerText='Availability'>
-                        <div className={styles.availabilitySection}>
-                            <div className={styles.availabilityCalendar}>
-                                <AvailabilityCalendar year={new Date().getFullYear()}/>
-                                <AvailabilityCalendar year={new Date().getFullYear() + 1}/>
-                            </div>
-                        
-                            <ul className={styles.availabilityLegend}>
-                                <li className={styles.legendLi}>
-                                    <span className={styles.availableBlock}></span>
-                                    <span>Available</span>
-                                </li>
-                                <li className={styles.legendLi}>
-                                    <span className={styles.occupiedBlock}></span>
-                                    <span>Occupied</span>
-                                </li>
-                            </ul>
-
-                            <div className={styles.avInfoContainer}>
-                                <div className={styles.avInfoRow}>
-                                    <dt className={styles.avInfoLabel}>Available from:</dt>
-                                    <dd><b>May 2025</b></dd>
-                                </div>
-                                <div className={styles.avInfoRow}>
-                                    <dt className={styles.avInfoLabel}>Last updated:</dt>
-                                    <dd><b>Apr 2025</b></dd>
-                                </div>
-                                <div className={styles.avInfoRow}>
-                                    <dt className={styles.avInfoLabel}>Minimum stay:</dt>
-                                    <dd><b>140 nights</b></dd>
-                                </div>
-                                <div></div>
-                                <div className={styles.avInfoRow}>
-                                    <dt className={styles.avInfoLabel}>Maximum stay:</dt>
-                                    <dd><b>No maximum stay</b></dd>
-                                </div>   
-                                    
-                            </div>
-                        </div>
-                    </SectionWrapper>
+                   <Availability id={listingId}/>
 
                     <hr/>
 
@@ -315,22 +225,37 @@ const ListingsPage = () => {
 
                         <div className={styles.servicesPayment}>
                             <h3>Other fees</h3>
-                            <div className={styles.spSd}>
-                                <h4>Admin fee in advance</h4>
-                                <h4><b>$75</b></h4>
+                            <div >
+                                <div className={styles.spSd}>
+                                    <h4>Admin fee in advance</h4>
+                                    <h4><b>$75</b></h4>
+                                </div>
+                                <p>One time fee charged in advance for necessary maintenance.</p>
                             </div>
-                            <p>One time fee charged in advance for necessary maintenance.</p>
 
+                            <div>
+                                <div className={styles.spSd}>
+                                    <h4>Cleaning fee</h4>
+                                    <h4><b>Included</b></h4>
+                                </div>
+                                <p>One less thing on your to-do list! Cleaning is covered for you.</p>
+                            </div>
+
+
+                        </div>
+                    </SectionWrapper>
+
+                    <hr/>
+                    
+                    <SectionWrapper id='reviews' headerText='Reviews'>
+                        <div>
+                            Reviews
                         </div>
                     </SectionWrapper>
 
                     <hr/>
 
                     <SectionWrapper id='rentalConditions' headerText='Rental Conditions'>
-                        <div>
-                            <Image src='/calender-icon.png' alt='' height={25} width={25} />
-                            <span>Minimum stay 210 nights</span>
-                        </div>
                         <div>
                             <h4>Requirements</h4>
                             <p>You have to provide the landlord with these documents:</p>
@@ -342,7 +267,23 @@ const ListingsPage = () => {
                         <ul>
                             <li>
                                 <Image src='/calender-icon.png' alt='' height={25} width={25} />
+                                <span>Minimum stay 210 nights</span>
+                            </li>
+                            <li>
+                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
                                 Overnight guests allowed
+                            </li>
+                            <li>
+                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
+                                Couples allowed
+                            </li>
+                            <li>
+                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
+                                Pets allowed
+                            </li>
+                            <li>
+                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
+                                Smoking allowed
                             </li>
                         </ul>
                     </SectionWrapper>
@@ -373,7 +314,3 @@ const ListingsPage = () => {
 };
 
 export default ListingsPage;
-
-
-
-

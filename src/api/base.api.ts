@@ -24,7 +24,7 @@ class BaseApi {
 
     constructor(resource: string, httpClient: AxiosInstance ){
         this.devBackendDomain = 'localhost:8000';
-        this.prodDomain = '';
+        this.prodDomain = 'https://locaspherebackend-locasphere.up.railway.app';
         this.resource = resource;
         this.httpClient = httpClient;
         this._isLoading = false;
@@ -37,12 +37,50 @@ class BaseApi {
         return this._isLoading;
     }
 
+    isServerSide(): boolean {
+
+        if(typeof window === 'undefined'){
+            return true
+        }
+
+        return false
+    }
+
     findHostName(): string{
 
         if(this.environment === 'dev') return `http://${this.devBackendDomain}/api/${this.resource}`;
 
         return `${this.prodDomain}/api/${this.resource}`;
     };
+
+    public async ssHttpRequest(reqObj: { url: string, method: string }, cb?: (...args: any) => void ){
+
+        try {
+
+            const response = await fetch(reqObj.url, {
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                method: reqObj.method || 'GET'
+            });
+
+            if(response.status !== 200){
+                throw new Error('Request failed');
+            };
+
+            const data = response.json();
+
+            if(cb) return cb(data);
+
+            return data;
+
+        }
+        catch(error){
+
+            return undefined
+        }
+    }
 
     public async httpRequest({ requestConfig, cb }: httpConfigType){
 
@@ -59,7 +97,7 @@ class BaseApi {
                     'Accept': 'application/json'
                 }
             });
-            console.log('hiiiiiiii')
+           
             if(response.status !== 200) throw new Error('Request failed');
 
             if(cb) return cb(response?.data);

@@ -1,0 +1,67 @@
+.availabilitySection{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.availabilityCalendar{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.availabilityLegend{
+    display: flex;
+    gap: 1rem;
+    font-size: 1.1rem;
+  
+}
+
+.legendLi{
+    display: flex;
+    align-items: center;
+    cursor: default;
+    gap: 1rem;
+}
+
+.availableBlock::before{
+    content: " ";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--four-blue);
+    border-radius: .5rem;
+}
+
+.occupiedBlock::before{
+    content: " ";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    background-color: var( --primary-red);
+    border-radius: .5rem;
+}
+
+.unavailableBlock::before{
+    content: " ";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--light-gray);
+    border-radius: .5rem;
+}
+
+.avInfoContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(3, auto);
+    gap: .5rem;   
+}
+.avInfoRow{
+    display: flex;
+    gap: 1rem;
+}
+
+.avInfoLabel{
+    min-width: 120px;
+}

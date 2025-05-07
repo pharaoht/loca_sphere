@@ -14,7 +14,7 @@ const Infobar = () => {
     
     return (
         <>
-        <form className={styles.container}>
+        <div className={styles.container}>
             <div className={`${styles.base} ${styles.search} ${styles.hide}`}>
                 <SearchFilter />
         
@@ -42,7 +42,7 @@ const Infobar = () => {
             <div className={`${styles.item3} ${styles.noDesktop}`}>
                 <MobileCoa/>
             </div>
-        </form>
+        </div>
         </>
     )
 };

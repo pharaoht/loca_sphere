@@ -18,10 +18,11 @@ const useParams = () => {
     const setParam = (queries: Array<{key: string, value: string}>) => {
 
         const params = new URLSearchParams(searchParams.toString());
-
+        
         queries.forEach((query) => params.set(query.key, query.value));
 
         router.replace(`?${params.toString()}`, { scroll: false });
+
     };
 
     const deleteParam = (keys: string[]) => {
@@ -36,7 +37,9 @@ const useParams = () => {
     return {
         getParam,
         setParam,
-        deleteParam
+        deleteParam,
+        searchParams, 
+        router
     }
 };
 

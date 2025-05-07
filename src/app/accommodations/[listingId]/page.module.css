@@ -107,6 +107,7 @@
 .links {
     display: flex;
     justify-content: space-around;
+    font-size: .9rem;
     font-weight: 600;
 
 }
@@ -114,40 +115,6 @@
 .link{
     cursor: pointer;
 }
-
-.bedroomAdmenities{
-    cursor: default;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.baListItem{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.baInfo{
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.baBedRoomText{
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-}
-
-.baHeader{
-    font-size: 1.2rem;
-}
-
-.baSmallTxt{
-    font-size: .9rem;
-}
-
 
 .shareAdmenities{
     display: grid;
@@ -162,74 +129,6 @@
     width: 100%;
     object-fit:fill;
     
-}
-
-.availabilitySection{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.availabilityCalendar{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-}
-
-.availabilityLegend{
-    display: flex;
-    gap: 1rem;
-    font-size: 1.1rem;
-  
-}
-
-.legendLi{
-    display: flex;
-    align-items: center;
-    cursor: default;
-    gap: 1rem;
-}
-
-.availableBlock::before{
-    content: " ";
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    background-color: var(--four-blue);
-    border-radius: .5rem;
-}
-
-.occupiedBlock::before{
-    content: " ";
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    background-color: var( --primary-red);
-    border-radius: .5rem;
-}
-
-.unavailableBlock::before{
-    content: " ";
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    background-color: var(--light-gray);
-    border-radius: .5rem;
-}
-
-.avInfoContainer{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-template-rows: repeat(3, auto);
-    gap: .5rem;   
-}
-.avInfoRow{
-    display: flex;
-    gap: 1rem;
-}
-
-.avInfoLabel{
-    min-width: 120px;
 }
 
 .rightSplit{
@@ -310,47 +209,3 @@
     display: flex;
     align-items: center;
 }
-
-
-
-
-.textContainer {
-    position: relative;
-    padding-bottom: 2.5rem; /* optional, to make space for button */
-  }
-  
-  .aiButton {
-    position: absolute;
-    bottom: .5rem;
-    right: 1rem;
-  }
-  
-  .aiButton button {
-    position: relative;
-    background: none;
-    border: none;
-    border-radius: .5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Tooltip text */
-  .tooltip {
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 0;
-    opacity: 0;
-    transition: max-width 0.4s ease, opacity 0.3s ease;
-    margin-left: 0.5rem;
-    color: #333;
-    font-size: 0.875rem;
-  }
-  
-  /* Reveal on hover */
-  .aiButton button:hover .tooltip {
-    max-width: 200px;
-    opacity: 1;
-  }

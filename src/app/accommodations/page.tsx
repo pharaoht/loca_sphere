@@ -8,7 +8,6 @@ import Listing from '@/components/ui/listing/listing';
 import Sortby from '@/components/ui/sortby/sortby';
 import Banner from '@/components/ui/banner/banner';
 import { notFound } from 'next/navigation';
-import addressApi from '@/api/address/address.api';
 
 
 interface SearchParams {
@@ -65,7 +64,7 @@ const Accommodations = async ({ searchParams }: PageProps) => {
                 </section>
                 <section id='rightSide' className={`${styles.rightSide} ${styles.mapHide}`}>
                     <Suspense fallback={<>Loading</>}>
-                        <Mapbox key={`${lat}-${long}`} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
+                        <Mapbox key={cityName} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
                    </Suspense>
                 </section>
             </div>
