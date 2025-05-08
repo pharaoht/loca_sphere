@@ -62,7 +62,7 @@ body {
   padding: 0 !important;
   margin: 0;
   box-shadow: none;
-  border-radius: 0;
+  border-radius: 15px !important;
   color: inherit;
   font: inherit;
   max-width: none;

@@ -4,10 +4,10 @@ import Mapbox from '@/components/ui/map/map';
 import Breadcrumbs from '@/components/layout/breadcrumbs/breadcumbs';
 import { Suspense } from 'react';
 import { mapBoxApiKey } from '@/server_actions/mapbox';
-import Listing from '@/components/ui/listing/listing';
 import Sortby from '@/components/ui/sortby/sortby';
 import Banner from '@/components/ui/banner/banner';
 import { notFound } from 'next/navigation';
+import Listings from '@/components/ui/listings/listings';
 
 
 interface SearchParams {
@@ -52,14 +52,9 @@ const Accommodations = async ({ searchParams }: PageProps) => {
                         linkLabel='Learn more'
                         link='/'
                     />
-
-                    <ul className={styles.listingContainer}>
-                        
-                        <li><Listing/></li>
-                        <li><Listing/></li>
-                        <li><Listing/></li>
-                        <li><Listing/></li>
-                    </ul>
+                    <Suspense fallback={<>Loading</>}>
+                        <Listings longitude={Number(long) || 0.0} latitude={Number(lat) || 0.0} />
+                    </Suspense>
 
                 </section>
                 <section id='rightSide' className={`${styles.rightSide} ${styles.mapHide}`}>

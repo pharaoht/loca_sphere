@@ -34,7 +34,7 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
 
     const [ listings, setListings ] = useState<listingsType[]>([]);
 
-    const { getParam, setParam, } = useParams();
+    const { getParam, setParam, searchParams } = useParams();
 
     const { sendRequest, isLoading, error } = useHttp();
 
@@ -72,20 +72,9 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
           container: mapContainerRef.current,
           style: 'mapbox://styles/mapbox/streets-v11',
           center: coordinates,
-          zoom: 12,
+          zoom: 11.5,
         });
 
-        mapRef.current.on('moveend', () => {
-
-            const { lng, lat } = mapRef.current!.getCenter();
-    
-            setParam([
-                { key: 'long', value: String(lng)},
-                { key: 'lat', value: String(lat)}
-            ]);
-        });
-
-            
         return () => {
             
             mapRef.current!.remove();
@@ -117,6 +106,23 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
         });
 
     }, [listings]);
+
+    useEffect(() => {
+
+        if(mapRef.current){
+            mapRef.current.on('moveend', () => {
+
+                const { lng, lat } = mapRef.current!.getCenter();
+
+                setParam([
+                    { key: 'long', value: String(lng)},
+                    { key: 'lat', value: String(lat)}
+                ]);
+            });
+        }
+
+        
+    }, [searchParams]);
 
 
     useEffect(() => {

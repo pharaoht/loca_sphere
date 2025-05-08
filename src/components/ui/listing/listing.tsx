@@ -3,10 +3,17 @@ import { useState } from 'react';
 import styles from './listing.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { List } from '../listings/listings';
 
-const Listing = () => {
+interface Props {
+    listingInfo: List
+}
+
+const Listing: React.FC<Props> = ({ listingInfo }) => {
     
     const [ isHovered, setIsHovered ] = useState<boolean>(false);
+
+    const { id, listingId, title, monthlyRent } = listingInfo
 
     return (
         <section className={styles.container}
@@ -21,7 +28,7 @@ const Listing = () => {
                 }
             }}
         >
-            <Link href='/accommodations/:id'>
+            <Link href={`/accommodations/${listingId}`}>
                 <figure className={styles.image}>
                     <Image src='/photo.jpg' alt='image of listing' fill/>
                     {/* <div className={styles.heart}>
@@ -38,9 +45,9 @@ const Listing = () => {
                 </figure>
                 <div className={styles.details}>
                     <span className={styles.info}>Up to 2 people - 1 bedroom</span>
-                    <p className={styles.type}> 1 Bedroom apartment in Barcelona</p>
+                    <p className={styles.type}>{title}</p>
                     <p className={styles.date}>From 15 Apr 2025</p>
-                    <p><strong>$1200</strong> / month <span className={styles.info}><i>Bills included</i></span></p>
+                    <p><strong>${monthlyRent}</strong> / month <span className={styles.info}><i>Bills included</i></span></p>
                 </div>
             </Link>
         </section>

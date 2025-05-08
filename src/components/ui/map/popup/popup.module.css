@@ -31,29 +31,35 @@
 .title {
     font-size: .8rem;
     font-weight: 600;
+    color: var(--dark-font-gray);
 }
 
 .date {
-    color: #888;
+    color: var(  --secondary-color-blue);
     font-size: 0.8rem;
     display: block;
 }
 
-.price {
-    font-size: 1rem;
+.price{
+    font-size: .9rem;
+}
+
+.price b{
+    font-size: 1.2rem;
+    margin-right: 2px;
+}
+
+.price i{
+    font-size: .7rem;
+    color: var(--gray-color-2)
 }
 
 .link {
-    padding: 0.75rem 1rem;
-    text-align: center;
-    display: block;
-    color: white;
-    background-color: #0070f3;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
+    padding: 2px;
 }
 
-.link:hover {
-    background-color: #005bb5;
+.link:focus {
+    border-radius: .5rem;
+    outline: 1px solid var(--four-blue)
+        
 }

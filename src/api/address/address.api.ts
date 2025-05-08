@@ -8,7 +8,7 @@ class AddressApi extends BaseApi {
         super('address', axios)
     };
 
-    async getAddressesByCoordinates(lat: string, long: string, radius: string){
+    async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number){
 
         const url = this.findHostName();
 

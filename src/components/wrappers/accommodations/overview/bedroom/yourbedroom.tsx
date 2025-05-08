@@ -27,9 +27,12 @@ interface BedroomProps {
 
 const getBedRoomAmenities = async (id: string) => {
 
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
     const bedroomAmenities = await listingsApi.httpGetBedRoomAmenitiesByListingId(id)
 
     return bedroomAmenities;
+
 }
 
 const PBR = 'Private Bedroom';

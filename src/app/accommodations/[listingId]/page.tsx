@@ -6,6 +6,7 @@ import BookingForm from '@/components/ui/bookingform/bookingform';
 import Yourbedroom from '@/components/wrappers/accommodations/overview/bedroom/yourbedroom';
 import About from '@/components/wrappers/accommodations/overview/about/about';
 import Availability from '@/components/wrappers/accommodations/availability/availability';
+import { Suspense } from 'react';
 
 interface ListParams {
     listingId: string
@@ -125,8 +126,9 @@ const ListingsPage = async ({ params }: PageProps ) => {
                             </ul>
                         </nav>
                     </section>
-
-                    <Yourbedroom id={listingId}/>
+                    <Suspense fallback={<>Loading...</>}>
+                        <Yourbedroom id={listingId}/>
+                    </Suspense>
 
                     <hr/>
 
