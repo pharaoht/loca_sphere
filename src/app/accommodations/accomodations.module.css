@@ -23,12 +23,6 @@
 
 }
 
-.listingContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
 .rightSide{
     height: 100%; 
     overflow: hidden;
@@ -58,12 +52,6 @@
         overflow:auto;
     }
 
-    .listingContainer {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-
     .mapHide{
         position: absolute;
         visibility: hidden;
@@ -80,9 +68,5 @@
 
     .leftSide{
         padding: 10px 10px;
-    }
-    
-    .listingContainer{
-        grid-template-columns: 1fr;
     }
 }

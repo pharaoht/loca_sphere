@@ -29,7 +29,7 @@ const useDate = () => {
         return formattedDate;
     }
 
-    function getDateAsString(format: string = 'YYYY-MM-DD' ){
+    function getDateAsString(format: string = 'YYYY-MMM-DD' ){
 
         return moment().format(format)
     }

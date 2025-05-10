@@ -17,7 +17,7 @@ const useParams = () => {
 
     const setParam = (queries: Array<{key: string, value: string}>) => {
 
-        const params = new URLSearchParams(searchParams.toString());
+        const params = new URLSearchParams(window.location.search);
         
         queries.forEach((query) => params.set(query.key, query.value));
 

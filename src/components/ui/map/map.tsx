@@ -75,6 +75,17 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
           zoom: 11.5,
         });
 
+        mapRef.current.on('moveend', () => {
+
+            const { lng, lat } = mapRef.current!.getCenter();
+       
+            setParam([
+                { key: 'long', value: String(lng)},
+                { key: 'lat', value: String(lat)}
+            ]);
+        });
+    
+
         return () => {
             
             mapRef.current!.remove();
@@ -108,32 +119,15 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
     }, [listings]);
 
     useEffect(() => {
-
-        if(mapRef.current){
-            mapRef.current.on('moveend', () => {
-
-                const { lng, lat } = mapRef.current!.getCenter();
-
-                setParam([
-                    { key: 'long', value: String(lng)},
-                    { key: 'lat', value: String(lat)}
-                ]);
-            });
-        }
-
-        
-    }, [searchParams]);
-
-
-    useEffect(() => {
         
         const fetchListings = async () => {
+           
             await getListings()
         };
 
         fetchListings();
 
-    }, [lat, long])
+    }, [lat])
 
     return (
       <div id='main_map' className={styles.map} ref={mapContainerRef}>

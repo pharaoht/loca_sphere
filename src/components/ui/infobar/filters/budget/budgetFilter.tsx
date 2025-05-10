@@ -32,6 +32,7 @@ const BudgetFilter = () => {
             </div>
         </div>
     )
+
     return (
         <Dropdown dropDownContent={<Content/>} >
             <button className={`${styles.btnBaseClass} ${styles.default} ${styles.selectorBtn}`} type='button' >

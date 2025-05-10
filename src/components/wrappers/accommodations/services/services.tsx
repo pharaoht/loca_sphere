@@ -1,0 +1,91 @@
+import SectionWrapper from '../../section/section';
+import styles from './services.module.css';
+import Image from 'next/image';
+
+
+interface Props {
+    id: string
+}
+
+const getListingUtilities = async () => {
+    
+}
+
+const Services: React.FC<Props> = ({ id }) => {
+
+    return (
+        <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
+            <p><b>Extra services, expenses and fees to be paid directly to the Landlord</b></p>
+
+            <div className={styles.servicesPayment}>
+                <h3>One-time payments</h3>
+                <div className={styles.spSd}>
+                    <h4>Security deposit</h4>
+                    <h4><b>$1290</b></h4>
+                </div>
+                <span>Refundable payment to be made directly to Landlord, which should be refunded if you meet all the rental conditions.</span>
+            </div>
+
+            <div className={styles.servicesPayment}>
+                <h3>Fixed Monthly Bills</h3>
+
+                <dl className={styles.spFMB}>
+                    <div className={styles.spFMBContainer}>
+                        <dt>Water</dt>
+                        <dd className={styles.spAmenity}>
+                            <Image src='/x-circle.png' alt='imag' height={30} width={30} />
+                            <span>Not included in the price</span>
+                        </dd>
+                    </div>
+
+                    <div className={styles.spFMBContainer}>
+                        <dt>Electricity</dt>
+                        <dd className={styles.spAmenity}>
+                            <Image src='/x-circle.png' alt='imag' height={30} width={30} />
+                            <span>Not included in the price</span>
+                        </dd>
+                    </div>
+                    
+                    <div className={styles.spFMBContainer}>
+                        <dt>Internet</dt>
+                        <dd className={styles.spAmenity}>
+                            <Image src='/green-check.png' alt='imag' height={30} width={30} />
+                            <span className={styles.green}>Included in the price</span>
+                        </dd>
+                    </div>
+
+                    <div className={styles.spFMBContainer}>
+                        <dt>Gas</dt>
+                        <dd className={styles.spAmenity}>
+                            <Image src='/green-check.png' alt='imag' height={30} width={30} />
+                            <span className={styles.green}>Included in the price</span>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div className={styles.servicesPayment}>
+                <h3>Other fees</h3>
+                <div >
+                    <div className={styles.spSd}>
+                        <h4>Admin fee in advance</h4>
+                        <h4><b>$75</b></h4>
+                    </div>
+                    <p>One time fee charged in advance for necessary maintenance.</p>
+                </div>
+
+                <div>
+                    <div className={styles.spSd}>
+                        <h4>Cleaning fee</h4>
+                        <h4><b>Included</b></h4>
+                    </div>
+                    <p>One less thing on your to-do list! Cleaning is covered for you.</p>
+                </div>
+
+
+            </div>
+        </SectionWrapper>
+    )
+};
+
+export default Services;
