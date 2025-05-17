@@ -17,7 +17,7 @@ const Searchbar = () => {
     const debouncer = useDebounce(500, async (val) => {
 
         const requestConfig = {
-            url: `aities?location=${val}`,
+            url: `cities?location=${val}`,
         }
 
     

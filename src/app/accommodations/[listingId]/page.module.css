@@ -116,20 +116,6 @@
     cursor: pointer;
 }
 
-.shareAdmenities{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    
-}
-
-.shareAdmenImage {
-    position: relative;
-    aspect-ratio: 1/1;
-    width: 100%;
-    object-fit:fill;
-    
-}
 
 .rightSplit{
     width: 35%;

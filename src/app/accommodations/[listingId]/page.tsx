@@ -8,6 +8,7 @@ import About from '@/components/wrappers/accommodations/overview/about/about';
 import Availability from '@/components/wrappers/accommodations/availability/availability';
 import { Suspense } from 'react';
 import Services from '@/components/wrappers/accommodations/services/services';
+import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces';
 
 interface ListParams {
     listingId: string
@@ -127,47 +128,25 @@ const ListingsPage = async ({ params }: PageProps ) => {
                             </ul>
                         </nav>
                     </section>
+
                     <Suspense fallback={<>Loading...</>}>
                         <Yourbedroom id={listingId}/>
                     </Suspense>
-
                     <hr/>
+
                     <Suspense fallback={<>Loading...</>}>
                         <About id={listingId}/>
                     </Suspense>
-
                     <hr/>
 
-                    <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>
-                        <ul className={styles.shareAdmenities}>
-                            <li>
-                                <div className={styles.shareAdmenImage}>
-                                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
-                                </div>
-                                <h4>Kitchen</h4>
-                            </li>
-                            <li>
-                                <div className={styles.shareAdmenImage}>
-                                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
-                                </div>
-                                <h4>Bathroom</h4>
-                            </li>
-                            <li>
-                                <div className={styles.shareAdmenImage}>
-                                    <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
-                                </div>
-                                <h4>Living room</h4>
-                            </li>
-
-                        </ul>
-                        <button>See all shared admentities</button>
-                    </SectionWrapper>
-
+                    <Suspense fallback={<>Loading...</>}>
+                        <Spaces id={listingId}/>
+                    </Suspense>
                     <hr/>
+
                     <Suspense fallback={<>Loading...</>}>
                         <Availability id={listingId}/>
                     </Suspense>
-
                     <hr/>
 
                     <SectionWrapper id='landlord' headerText='Landlord'>
