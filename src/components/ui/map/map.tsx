@@ -8,23 +8,48 @@ import useParams from '@/hooks/useParams';
 import ReactDOMServer from 'react-dom/server';
 import PopupContent from './popup/popup';
 
-type listingsType = {
-    id: string;
-    listingId: string;
-    latitude: number;
-    longitude: number;
-    distance: number;
-    city: string;
-    stateOrProvince: string;
-    postalCode: string;
-    countryCode: string;
-    streetAddress: string;
-    houseNumber: string;
-    extraInfo: string;
-    monthlyRent: string;
-    currency: string;
-    title: string;
-}
+export type Currency = {
+	id: string;
+	code: string;
+	symbol: string;
+};
+
+export type List = {
+	id: string;
+	userId: string;
+	title: string;
+	monthlyRent: string;
+	currencyId: string;
+	description: string;
+	bedrooms: number;
+	beds: number;
+	bathrooms: number;
+	roomAreaSqm: number;
+	placeAreaSqm: number;
+	minimumStayDays: number;
+	maxStayDays: number;
+	listingTypeId: string;
+	isChecked: boolean;
+	createdAt: string;
+	updatedAt: string; 
+	currency: Currency;
+};
+
+export type Address = {
+	id: string;
+	listingId: string;
+	streetAddress: string;
+	houseNumber: string;
+	postalCode: string;
+	city: string;
+	stateOrProvince: string;
+	countryCode: string;
+	latitude: number;
+	longitude: number;
+	extraInfo: string;
+	listing: List;
+};
+
 
 interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; }
 
@@ -32,7 +57,7 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
 
     mapboxgl.accessToken = mpKey;
 
-    const [ listings, setListings ] = useState<listingsType[]>([]);
+    const [ listings, setListings ] = useState<Address[]>([]);
 
     const { getParam, setParam, searchParams } = useParams();
 
@@ -104,9 +129,9 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
             const el = document.createElement('div');
 
             el.className = styles.marker;
-            el.innerHTML = itm.monthlyRent;
+            el.innerHTML = `${itm.listing.currency.symbol} ${itm?.listing?.monthlyRent}` || '';
         
-            const htmlString = ReactDOMServer.renderToString(<PopupContent photos={[]} price={itm.monthlyRent} id={itm.id} title={itm.title} currency={itm.currency}/>)
+            const htmlString = ReactDOMServer.renderToString(<PopupContent photos={[]} price={itm.listing.monthlyRent} id={itm.id} title={itm.listing.title} currency={itm.listing.currency.symbol}/>)
 
             new mapboxgl.Marker(el)
                 .setLngLat([itm.longitude, itm.latitude])

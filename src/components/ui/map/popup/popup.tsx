@@ -22,7 +22,7 @@ const PopupContent: React.FC<Props> = ({ id, price, currency, photos, title }) =
                 <Link className={styles.link} href={`/accommodations/:id`} >
                     <p className={styles.title}>{title}</p>
                     <span className={styles.date}>Date</span>
-                    <p className={styles.price}><b>{price}</b>/ month <i>Bills included</i></p>
+                    <p className={styles.price}><b>{currency}{price}</b>/ month <i>Bills included</i></p>
                 </Link>
             </div>
         </div>

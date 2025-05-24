@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './listing.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { List } from '../listings/listings';
+import { List } from '../map/map';
 
 interface Props {
     listingInfo: List
@@ -13,7 +13,7 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
     
     const [ isHovered, setIsHovered ] = useState<boolean>(false);
 
-    const { id, listingId, title, monthlyRent } = listingInfo
+    const { id, title, monthlyRent, } = listingInfo
 
     return (
         <section className={styles.container}
@@ -43,7 +43,7 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
                     </div>
                 )}
             </figure>
-            <Link href={`/accommodations/${listingId}`}>
+            <Link href={`/accommodations/${id}`}>
                 <div className={styles.details}>
                     <span className={styles.info}>Up to 2 people - 1 bedroom</span>
                     <p className={styles.type}>{title}</p>

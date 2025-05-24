@@ -1,28 +1,11 @@
 import addressApi from '@/api/address/address.api';
 import Listing from '../listing/listing';
 import styles from './listings.module.css';
+import { Address } from '../map/map';
 
 interface Props {
     longitude: number,
     latitude: number,
-}
-
-export type List = {
-    id: string;
-    listingId: string;
-    latitude: string;
-    longitude: string;
-    distance: number;
-    city: string;
-    stateOrProvince: string;
-    postalCode: string;
-    countryCode: string;
-    streetAddress: string;
-    houseNumber: string;
-    extraInfo: string;
-    monthlyRent: number;
-    currency: string;
-    title: string;
 }
 
 const getListings = async (longitude: number, latitude: number) => {
@@ -34,7 +17,7 @@ const getListings = async (longitude: number, latitude: number) => {
 
 const Listings: React.FC<Props> = async ({ longitude, latitude }) => {
 
-    const listings : List[] = await getListings(longitude, latitude);
+    const listings : Address[] = await getListings(longitude, latitude);
 
     if(!listings || listings.length === 0){
         return (
@@ -48,7 +31,7 @@ const Listings: React.FC<Props> = async ({ longitude, latitude }) => {
                 listings.map((itm, idx) => (
                     <li key={itm.id}>
                         <Listing
-                            listingInfo={itm}
+                            listingInfo={itm.listing}
                         />
                     </li>
                 ))
