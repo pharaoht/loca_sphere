@@ -59,7 +59,7 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
 
     const [ listings, setListings ] = useState<Address[]>([]);
 
-    const { getParam, setParam, searchParams } = useParams();
+    const { getParam, setParam } = useParams();
 
     const { sendRequest, isLoading, error } = useHttp();
 

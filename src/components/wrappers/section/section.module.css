@@ -3,3 +3,32 @@
     gap: 1rem;
     padding: 1rem;
 }
+
+.sectionContainer h2{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.statusLabel {
+  display: inline-flex;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: .9rem;
+  font-weight: 500;
+  background-color: var(--primary-green);
+  border-radius: 1rem;
+  letter-spacing: .5px;
+  padding: .4rem .8rem;
+  color: #fff;
+  
+}
+
+.statusIcon {          
+  color: #fff;
+  margin-right: 8px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

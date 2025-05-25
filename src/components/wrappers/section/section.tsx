@@ -1,11 +1,13 @@
 import { ReactNode } from 'react';
 import styles from './section.module.css';
+import Image from 'next/image';
 
 interface SectionProps {
     /** Unique section ID (used for navigation or anchoring) */
     id: string
     //**Provide a string to display the header <h3> tag */
     headerText: string
+    isChecked?: boolean
     children: ReactNode
 }
 
@@ -15,12 +17,22 @@ interface SectionProps {
  * @param id - The unique identifier for the section.
  * @param children - The content to render inside the section.
  */
-const SectionWrapper : React.FC<SectionProps> = ({ id, headerText, children }) => {
+const SectionWrapper : React.FC<SectionProps> = ({ id, headerText, children, isChecked = false }) => {
 
+    function CheckedLabel() {
+        return (
+            <span className={styles.statusLabel}>
+                <span className={styles.statusIcon}>
+                    <Image src='/info.svg' alt='' height={20} width={20}/>
+                </span>
+                Checked
+            </span>
+        );
+    }
 
     return (
         <section className={styles.sectionContainer} id={`${id}`}>
-            <h2> { headerText } </h2>
+            <h2> { headerText } { isChecked && CheckedLabel() }</h2>
             { children }
         </section>
     )

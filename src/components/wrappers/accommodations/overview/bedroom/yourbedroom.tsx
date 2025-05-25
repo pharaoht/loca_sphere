@@ -1,7 +1,7 @@
 import SectionWrapper from "@/components/wrappers/section/section";
 import styles from './ybstyles.module.css';
 import Image from "next/image";
-import listingsApi from "@/api/listings/listings.api";
+import bedroomAmenityApi from "@/api/bedroomAmenity/bedroomamenity.api";
 
 interface BedroomAmenity {
     id: number;
@@ -10,14 +10,14 @@ interface BedroomAmenity {
 }
   
 interface Amenity {
-    title: string;
-    monthlyRent: string;
-    currency: string;
-    description: string;
-    bedrooms: string;
-    bathrooms: string;
-    listingType: string;
-    listingTypeId: string;
+    listing: {
+        id: string,
+        beds: string,
+        bedrooms: string,
+        isChecked: boolean,
+        listingType: string,
+        listingTypeId: string,
+    }
     bedroomAmenities: BedroomAmenity[];
 }
 
@@ -27,9 +27,9 @@ interface BedroomProps {
 
 const getBedRoomAmenities = async (id: string) => {
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // await new Promise(resolve => setTimeout(resolve, 2000));
     
-    const bedroomAmenities = await listingsApi.httpGetBedRoomAmenitiesByListingId(id)
+    const bedroomAmenities = await bedroomAmenityApi.httpGetBedRoomAmenitiesByListingId(id)
 
     return bedroomAmenities;
 
@@ -53,7 +53,9 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
         )
     }
 
-    const { listingType, bedrooms, bathrooms, bedroomAmenities } = bas;
+    const { listing, bedroomAmenities } = bas;
+
+    const { id: listId, listingType, beds, bedrooms, isChecked } = listing;
 
     const renderAmenities = () => (
 
@@ -66,7 +68,7 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
     )
 
     return (
-        <SectionWrapper id='overview' headerText='Your bedroom'>
+        <SectionWrapper id='overview' headerText='Your bedroom' isChecked={isChecked}>
             <ul className={styles.bedroomAdmenities}>
                 { renderAmenities() }
             </ul>
@@ -91,7 +93,7 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
                         <>
                             <p className={styles.baHeader}>This is a <b>Private bedroom</b></p>
                             <p className={styles.baSmallTxt}>You won't have to share the bedroom with anyone else</p>
-                            <p className={styles.baSmallTxt}>This room has a total of 1 beds available</p>
+                            <p className={styles.baSmallTxt}>This room has a total of {beds} beds available</p>
                             <p><b>{bedrooms} room(s) in total</b></p>
                         </>
                     }
@@ -100,7 +102,7 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
                         <>
                             <p className={styles.baHeader}>This is a <b>Shared bedroom</b></p>
                             <p className={styles.baSmallTxt}>You will be sharing the bedroom</p>
-                            <p className={styles.baSmallTxt}>This room has a total of 1 beds available</p>
+                            <p className={styles.baSmallTxt}>This room has a total of {beds} beds available</p>
                             <p><b>{bedrooms} room(s) in total</b></p>
                         </>
                     }
