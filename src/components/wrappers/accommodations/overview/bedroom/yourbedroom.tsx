@@ -31,6 +31,7 @@ const getBedRoomAmenities = async (id: string) => {
     
     const bedroomAmenities = await bedroomAmenityApi.httpGetBedRoomAmenitiesByListingId(id)
 
+    console.log(bedroomAmenities)
     return bedroomAmenities;
 
 }
