@@ -69,7 +69,7 @@ class BaseApi {
                 throw new Error('Request failed');
             };
 
-            const data = response.json();
+            const data = await response.json();
 
             if(cb) return cb(data);
 

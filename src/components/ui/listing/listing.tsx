@@ -13,7 +13,7 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
     
     const [ isHovered, setIsHovered ] = useState<boolean>(false);
 
-    const { id, title, monthlyRent, currency } = listingInfo;
+    const { id, title, monthlyRent, currency, } = listingInfo;
 
     const { symbol } = currency;
 

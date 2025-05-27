@@ -9,6 +9,7 @@ import Availability from '@/components/wrappers/accommodations/availability/avai
 import { Suspense } from 'react';
 import Services from '@/components/wrappers/accommodations/services/services';
 import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces';
+import ListingInfo, { ListingInfoSkeleton } from './sa/ListingInfo';
 
 interface ListParams {
     listingId: string
@@ -18,36 +19,17 @@ interface PageProps {
     params: Promise<ListParams>;
 }
 
-
 const ListingsPage = async ({ params }: PageProps ) => {
 
     const { listingId } = await params;
-
-
 
     return (
         <div className={styles.container}>
             <div className={styles.top}>
                 <header className={styles.headerSection}>
-                    <div className={styles.leftSide}>
-                        <h2>Double bedroom, large terrace and private bathroom</h2>
-                        <ul className={styles.infoRoom}>
-                            <li>Double bedroom </li>
-                            <li>•</li>
-                            <li>4-bedrooms apartment</li>
-                            <li>•</li>
-                            <li>2 bathrooms</li>
-                            <li>•</li>
-                            <li>1 person</li>
-                            <li>•</li>
-                            <li>180 m²</li>
-                        </ul>
-                        <div className={styles.location}>
-                            <Image src='/location.png' alt='location icon' height={30} width={30} />
-                            <span>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</span>
-
-                        </div>
-                    </div>
+                    <Suspense fallback={<ListingInfoSkeleton/>}>
+                        {<ListingInfo id={listingId} />}
+                    </Suspense>
                     <div className={styles.rightSide}>
                         <ul className={styles.coas}>
                             <li>Save</li>
@@ -229,3 +211,24 @@ const ListingsPage = async ({ params }: PageProps ) => {
 };
 
 export default ListingsPage;
+
+
+                    // <div className={styles.leftSide}>
+                    //     <h2>Double bedroom, large terrace and private bathroom</h2>
+                    //     <ul className={styles.infoRoom}>
+                    //         <li>Double bedroom </li>
+                    //         <li>•</li>
+                    //         <li>4-bedrooms apartment</li>
+                    //         <li>•</li>
+                    //         <li>2 bathrooms</li>
+                    //         <li>•</li>
+                    //         <li>1 person</li>
+                    //         <li>•</li>
+                    //         <li>180 m²</li>
+                    //     </ul>
+                    //     <div className={styles.location}>
+                    //         <Image src='/location.png' alt='location icon' height={30} width={30} />
+                    //         <span>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</span>
+
+                    //     </div>
+                    // </div>

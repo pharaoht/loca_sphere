@@ -31,7 +31,6 @@ const getBedRoomAmenities = async (id: string) => {
     
     const bedroomAmenities = await bedroomAmenityApi.httpGetBedRoomAmenitiesByListingId(id)
 
-    console.log(bedroomAmenities)
     return bedroomAmenities;
 
 }
@@ -131,5 +130,7 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
         </SectionWrapper>
     )
 };
+
+
 
 export default Yourbedroom;
