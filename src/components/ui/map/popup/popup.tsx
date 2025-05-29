@@ -19,7 +19,7 @@ const PopupContent: React.FC<Props> = ({ id, price, currency, photos, title }) =
                 <Image className={styles.image} src='/photo.jpg' alt='photo of listing' fill/>
             </div>
             <div className={styles.textContent}>
-                <Link className={styles.link} href={`/accommodations/:id`} >
+                <Link className={styles.link} href={`/accommodations/${id}`} >
                     <p className={styles.title}>{title}</p>
                     <span className={styles.date}>Date</span>
                     <p className={styles.price}><b>{currency}{price}</b>/ month <i>Bills included</i></p>
