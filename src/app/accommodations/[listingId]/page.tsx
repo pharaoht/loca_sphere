@@ -10,6 +10,7 @@ import { Suspense } from 'react';
 import Services from '@/components/wrappers/accommodations/services/services';
 import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces';
 import ListingInfo, { ListingInfoSkeleton } from './sa/ListingInfo';
+import ImageContainer, { SkeletonImageContainer } from '../../../components/wrappers/accommodations/listingImage/ImageContainer';
 
 interface ListParams {
     listingId: string
@@ -28,7 +29,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
             <div className={styles.top}>
                 <header className={styles.headerSection}>
                     <Suspense fallback={<ListingInfoSkeleton/>}>
-                        {<ListingInfo id={listingId} />}
+                        <ListingInfo id={listingId} />
                     </Suspense>
                     <div className={styles.rightSide}>
                         <ul className={styles.coas}>
@@ -38,17 +39,9 @@ const ListingsPage = async ({ params }: PageProps ) => {
                         </ul>
                     </div>
                 </header>
-                <section className={styles.imageContainer}>
-                    <div className={styles.mainImage}>
-                        <Image className={styles.listImage} src='/photo.jpg' alt='image' fill/>
-                    </div>
-                    <div className={styles.grid}>
-                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 1" fill /></div>
-                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 2" fill /></div>
-                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 3" fill /></div>
-                        <div className={styles.smallImage}><Image className={styles.listImage} src="/photo.jpg" alt="Small 4" fill /></div>
-                    </div>
-                </section>
+                <Suspense fallback={<SkeletonImageContainer />}>
+                    <ImageContainer />
+                </Suspense>
             </div>
             <div className={styles.split}>
                 <div className={styles.leftSplit}>

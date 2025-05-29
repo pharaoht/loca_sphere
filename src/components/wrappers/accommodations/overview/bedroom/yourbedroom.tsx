@@ -132,5 +132,8 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
 };
 
 
+export const SkeletonYourBedRoom = () => {
+
+};
 
 export default Yourbedroom;

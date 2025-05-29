@@ -45,37 +45,6 @@
     gap: 10px;
 }
 
-.imageContainer {
-    display: flex;
-    height: 450px;
-    width: 100%;
-    gap: 15px;
-}
-
-.mainImage{
-    position: relative;
-    height: 100%;
-    width: 60%;
-    aspect-ratio: 16 / 9;
-}
-
-.listImage{
-    border-radius: 20px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    width: 40%;
-    height: 100%;
-}
-
-.smallImage {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
 
 .btnContainer{
     display: flex;

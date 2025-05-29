@@ -5,7 +5,7 @@ import styles from '../page.module.css';
 
 export default async function ListingInfo({ id }: { id: string}){
 
-    // const w = await new Promise((resolve) => setTimeout(resolve, 2000));
+    const w = await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const data = await listingsApi.httpGetListingbyId(id);
 
@@ -54,26 +54,26 @@ export default async function ListingInfo({ id }: { id: string}){
 };
 
 export function ListingInfoSkeleton() {
-  return (
-    <div className={styles.leftSide}>
-      <div className={styles.title}></div>
+    return (
+        <div className={styles.leftSide}>
+            <div className={styles.title}></div>
 
-      <ul className={styles.infoRoom}>
-        <li className={styles.chip}></li>
-        <li>•</li>
-        <li className={styles.chip}></li>
-        <li>•</li>
-        <li className={styles.chip}></li>
-        <li>•</li>
-        <li className={styles.chip}></li>
-        <li>•</li>
-        <li className={styles.chip}></li>
-      </ul>
+            <ul className={styles.infoRoom}>
+                <li className={styles.chip}></li>
+                <li>•</li>
+                <li className={styles.chip}></li>
+                <li>•</li>
+                <li className={styles.chip}></li>
+                <li>•</li>
+                <li className={styles.chip}></li>
+                <li>•</li>
+                <li className={styles.chip}></li>
+            </ul>
 
-      <div className={styles.location}>
-        <div className={styles.icon}></div>
-        <div className={styles.text}></div>
-      </div>
-    </div>
-  );
+            <div className={styles.location}>
+                <div className={styles.icon}></div>
+                <div className={styles.text}></div>
+            </div>
+        </div>
+    );
 }

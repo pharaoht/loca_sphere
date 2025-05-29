@@ -1,14 +1,13 @@
-import BaseApi from '../base.api';
-import axios from 'axios';
+import axios from "axios";
+import BaseApi from "../base.api";
 
-class BedroomAmenityApi extends BaseApi {   
+class AmenityApi extends BaseApi {
 
     constructor(){
-
-        super('bedroom-amenity', axios)
+        super('amenity', axios)
     }
 
-    public async httpGetBedRoomAmenitiesByListingId(listingId: string){
+    public async getAmenityByListingId(listingId: string){
 
         const url = this.findHostName();
 
@@ -33,8 +32,8 @@ class BedroomAmenityApi extends BaseApi {
             return result;
         }
     }
-};
+}
 
-const bedroomAmenityApi = new BedroomAmenityApi();
+const amenityApi = new AmenityApi();
 
-export default bedroomAmenityApi;
+export default amenityApi;
