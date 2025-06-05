@@ -38,8 +38,8 @@ const getShareSpaceDetails = async (id: string) => {
 const Spaces: React.FC<Props> = async ({ id }) => {
 
     const amenities = await getShareSpaceDetails(id);
-
-    if(!amenities ){
+    
+    if(!amenities){
 
         return (
             <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>
@@ -47,7 +47,7 @@ const Spaces: React.FC<Props> = async ({ id }) => {
             </SectionWrapper>
         )
     };
-
+    
     const { listingAmenities, fixures } = amenities;
 
     return (

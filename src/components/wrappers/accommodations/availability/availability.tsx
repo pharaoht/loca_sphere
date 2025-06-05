@@ -21,14 +21,14 @@ interface ListingDetails {
 
 const getListingAvailability = async (id: string) => {
 
-    const results = await listingsApi.httpGetListingDetails(id);
+    const results = await listingsApi.httpGetListingbyId(id);
 
     return results;
 }
 
 const Availability: React.FC<Props> = async ({ id }) => {
 
-    const details: ListingDetails[] = await getListingAvailability(id);
+    const details: ListingDetails = await getListingAvailability(id);
 
     if(!details){
 
@@ -39,7 +39,7 @@ const Availability: React.FC<Props> = async ({ id }) => {
         )
     };
 
-    const { minimumStayDays, maxStayDays, updatedAt, } = details[0];
+    const { minimumStayDays, maxStayDays, updatedAt, } = details;
 
     return (
         <SectionWrapper id='availability' headerText='Availability'>

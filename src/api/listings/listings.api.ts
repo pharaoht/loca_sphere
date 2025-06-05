@@ -81,7 +81,7 @@ class ListingsApi extends BaseApi {
         const isSS = this.isServerSide();
 
         const reqObj = {
-            url: `${url}/bedroom/list-details/${listingId}`,
+            url: `${url}/host-details/${listingId}`,
             method: 'GET'
         };
 

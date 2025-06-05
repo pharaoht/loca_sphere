@@ -7,18 +7,31 @@ interface AboutProps {
     id: string
 }
 
+export type Gender = 'male' | 'female' | 'non-binary' | string;
+export type AgeRange = '18-25 years' | '26-30 years' | '31-40 years' | '41+ years' | string;
+export type AllowedGender = 'Males' | 'Females' | 'Mixed Gender' | string;
+
+export interface GenderMapping {
+  id: number;
+  sex: AllowedGender;
+}
+
 interface ListingDetails {
-    id: number;
-    title: string;
-    monthlyRent: number;
     description: string;
-    livesInProperty: boolean;
-    hostAgeRange: string;
-    livesWithFamily: boolean;
-    hasPets: boolean;
-    hostGender: string;
-    isChecked: boolean;
-    sex: string;
+    hostingDetails: {
+        id: string;
+        listingId: string;
+        livesInProperty: boolean;
+        hostGender: Gender;
+        hostAgeRange: AgeRange;
+        livesWithFamily: boolean;
+        hasPets: boolean;
+        isVerified: boolean;
+        createdAt: string; // Use `Date` if you parse it
+        genderAllowedId: number;
+        userId: string;
+        genderMapping: GenderMapping;
+    }
 }
 
 const getListingDetails = async (id: string) =>  {
@@ -34,9 +47,9 @@ const FEMALES = 'Females'
 
 const About = async ({ id }: AboutProps ) => {
 
-    const details : ListingDetails[] = await getListingDetails(id);
+    const details : ListingDetails = await getListingDetails(id);
 
-    if(!details || details.length === 0){
+    if(!details){
 
         return (
             <SectionWrapper id='aboutApartment' headerText='About this apartment'>
@@ -45,7 +58,11 @@ const About = async ({ id }: AboutProps ) => {
         )
     };
 
-    const { description, sex, livesInProperty, livesWithFamily, hasPets } = details[0];
+    const { description, hostingDetails } = details;
+
+    const { livesInProperty, livesWithFamily, hasPets, genderMapping } = hostingDetails;
+
+    const { sex } = genderMapping
 
     return (
         <SectionWrapper id='aboutApartment' headerText='About this apartment'>
