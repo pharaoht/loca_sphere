@@ -1,6 +1,6 @@
 import listingsApi from "@/api/listings/listings.api";
 import Image from 'next/image';
-import styles from '../page.module.css';
+import styles from './li.module.css';
 
 
 export default async function ListingInfo({ id }: { id: string}){

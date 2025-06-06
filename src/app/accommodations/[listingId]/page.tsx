@@ -9,7 +9,7 @@ import Availability from '@/components/wrappers/accommodations/availability/avai
 import { Suspense } from 'react';
 import Services from '@/components/wrappers/accommodations/services/services';
 import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces';
-import ListingInfo, { ListingInfoSkeleton } from './sa/ListingInfo';
+import ListingInfo, { ListingInfoSkeleton } from '../../../components/wrappers/accommodations/listingInfo/ListingInfo';
 import ImageContainer, { SkeletonImageContainer } from '../../../components/wrappers/accommodations/listingImage/ImageContainer';
 
 interface ListParams {

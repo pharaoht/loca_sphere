@@ -1,9 +1,16 @@
 import Image from "next/image";
 import styles from './ic.module.css';
 
+const getImagesById = async () => {
+
+};
+
 const ImageContainer = async () => {
 
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const images = await getImagesById();
+
     return (
         <section className={styles.imageContainer}>
             <div className={styles.mainImage}>

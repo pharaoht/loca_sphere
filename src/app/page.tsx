@@ -1,8 +1,13 @@
 import Searchbar from "@/components/ui/searchbar/searchbar";
 import styles from "./page.module.css";
 import Slider from "@/components/ui/slider/slides";
+import listingsApi from "@/api/listings/listings.api";
+import addressApi from "@/api/address/address.api";
 
-export default function Home() {
+export default async function Home() {
+
+    const londonListings = await addressApi.getAddressesByCoordinates(1.23,2.3,0);
+
     return (
         <main className={styles.main}>
             <header>

@@ -65,3 +65,11 @@
 .avInfoLabel{
     min-width: 120px;
 }
+
+@media (max-width: 600px) {
+
+    .availabilityCalendar{
+        display: flex;
+        flex-direction: column;
+    }
+}
