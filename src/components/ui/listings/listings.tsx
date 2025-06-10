@@ -17,7 +17,7 @@ const getListings = async (longitude: number, latitude: number) => {
 
 const Listings: React.FC<Props> = async ({ longitude, latitude }) => {
 
-    const listings : Address[] = await getListings(longitude, latitude);
+    const listings = await getListings(longitude, latitude);
 
     if(!listings || listings.length === 0){
         return (
