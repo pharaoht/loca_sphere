@@ -5,6 +5,13 @@
     
 }
 
+.container {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    aspect-ratio: 3 / 2;
+    position: relative;
+}
+
 .shareAdmenImage {
     position: relative;
     aspect-ratio: 1/1;
@@ -16,3 +23,5 @@
 .listImage{
     border-radius: 20px;
 }
+
+

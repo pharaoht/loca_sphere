@@ -1,18 +1,20 @@
 'use client'
-import Link from 'next/link';
-import Card from '../card/card';
 import styles from './slider.module.css';
-import { useRef } from 'react';
+import { ReactElement, ReactNode, useRef } from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 interface SlideProps {
-    listings: Array<{}>
-    title: string
+    children: ReactElement | ReactNode;
+    title: string | null;
+    apiData?: any
 }
 
-const Slider: React.FC<SlideProps> = ({ listings, title }) => {
+const Slider: React.FC<SlideProps> = ({ children, title, apiData }) => {
 
     const sliderRef = useRef<HTMLUListElement>(null);
+
+    const props = { apiData: apiData }
 
     const swipeLeft = () => {
 
@@ -31,12 +33,11 @@ const Slider: React.FC<SlideProps> = ({ listings, title }) => {
     return (
         <section className={styles.container}>
             <header className={styles.header}>
-                <h4 className={styles.title}>{title}</h4>
+                { title && <h4 className={styles.title}>{title}</h4> }
                 <nav className={styles.navBtns}>
                     <button 
                         className={styles.btns}
                         onClick={swipeLeft}
-
                     >
                         <Image src='/chevron-left.png' alt='Left Chevron Swipe' height={20} width={20} />
                     </button>
@@ -48,17 +49,16 @@ const Slider: React.FC<SlideProps> = ({ listings, title }) => {
                     </button>
                 </nav>
             </header>
+
             <ul className={styles.cardList} ref={sliderRef}>
                 {
-                    listings.map((itm, idx) => (
-                        <li key={idx}>
-                            <Link href='/accommodations?long=-0.083333333&lat=51.5&cityName=Greater%20London&radius=10'>
-                                <Card/>
-                            </Link>
-                        </li>
-                    ))
+                    React.Children.map(children, (child) => {
+
+                        return child
+                    })
                 }
             </ul>
+
         </section>
     )
 };

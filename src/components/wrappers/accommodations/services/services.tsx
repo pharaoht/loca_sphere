@@ -1,3 +1,4 @@
+import listingsApi from '@/api/listings/listings.api';
 import SectionWrapper from '../../section/section';
 import styles from './services.module.css';
 import Image from 'next/image';
@@ -7,11 +8,62 @@ interface Props {
     id: string
 }
 
-const getListingUtilities = async () => {
-    
+type Utility = {
+    waterIncluded: boolean,
+    electricIncluded: boolean,
+    gasIncluded: boolean,
+    internetIncluded: boolean,
+    cleaningIncluded: boolean,
+    cleaningFee: number | null
 }
 
-const Services: React.FC<Props> = ({ id }) => {
+type Services = {
+    utilityMap: Utility
+}
+
+const getListingServices = async (listingId: string) => {
+    
+    const result = await listingsApi.httpGetListingServices(listingId);
+
+    return result
+}
+
+const Services: React.FC<Props> = async ({ id }) => {
+
+    const services: Services = await getListingServices(id);
+
+    if(!services){
+
+        return (
+            <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
+                <p>No services found...</p>
+            </SectionWrapper>
+        )
+    };
+
+    const { utilityMap } = services;
+
+    const { waterIncluded, electricIncluded, gasIncluded, internetIncluded, cleaningIncluded, cleaningFee } = utilityMap;
+
+    const isIncluded = (condition: boolean) => {
+
+        return (
+            <>
+                {
+                    !condition ? 
+                        <>
+                            <Image src='/x-circle.png' alt='imag' height={30} width={30} />
+                            <span>Not included in the price</span>
+                        </>
+                            :
+                        <>
+                            <Image src='/green-check.png' alt='imag' height={30} width={30} />
+                            <span className={styles.green}>Included in the price</span>
+                        </>
+                }
+            </>
+        )
+    }
 
     return (
         <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
@@ -33,32 +85,28 @@ const Services: React.FC<Props> = ({ id }) => {
                     <div className={styles.spFMBContainer}>
                         <dt>Water</dt>
                         <dd className={styles.spAmenity}>
-                            <Image src='/x-circle.png' alt='imag' height={30} width={30} />
-                            <span>Not included in the price</span>
+                            {isIncluded(waterIncluded)}
                         </dd>
                     </div>
 
                     <div className={styles.spFMBContainer}>
                         <dt>Electricity</dt>
                         <dd className={styles.spAmenity}>
-                            <Image src='/x-circle.png' alt='imag' height={30} width={30} />
-                            <span>Not included in the price</span>
+                           {isIncluded(electricIncluded)}
                         </dd>
                     </div>
                     
                     <div className={styles.spFMBContainer}>
                         <dt>Internet</dt>
                         <dd className={styles.spAmenity}>
-                            <Image src='/green-check.png' alt='imag' height={30} width={30} />
-                            <span className={styles.green}>Included in the price</span>
+                            {isIncluded(internetIncluded)}
                         </dd>
                     </div>
 
                     <div className={styles.spFMBContainer}>
                         <dt>Gas</dt>
                         <dd className={styles.spAmenity}>
-                            <Image src='/green-check.png' alt='imag' height={30} width={30} />
-                            <span className={styles.green}>Included in the price</span>
+                            {isIncluded(gasIncluded)}
                         </dd>
                     </div>
                 </dl>
@@ -77,7 +125,7 @@ const Services: React.FC<Props> = ({ id }) => {
                 <div>
                     <div className={styles.spSd}>
                         <h4>Cleaning fee</h4>
-                        <h4><b>Included</b></h4>
+                        <h4><b>{ cleaningIncluded ? 'Included' : cleaningFee }</b></h4>
                     </div>
                     <p>One less thing on your to-do list! Cleaning is covered for you.</p>
                 </div>

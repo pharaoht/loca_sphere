@@ -26,9 +26,20 @@
 .coas{
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 1.1rem;
 }
 
+.coasBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    gap: 5px;
+    font-size: .9rem;
+    color: var(--gray-color-3);
+    cursor: pointer;
+}
 
 .btnContainer{
     display: flex;

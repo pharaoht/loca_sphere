@@ -99,6 +99,32 @@ class ListingsApi extends BaseApi {
             return result;
         }
     }
+
+    public async httpGetListingServices(listingId: string){
+
+        const url = this.findHostName();
+        const isSS = this.isServerSide();
+
+        const reqObj = {
+            url: `${url}/utilities/${listingId}`,
+            method: 'GET'
+        };
+
+        if(isSS){
+
+            const result = await this.ssHttpRequest(reqObj);
+
+            return result;
+        }
+        else {
+
+            const result = await this.httpRequest({
+                requestConfig: reqObj,
+            });
+
+            return result;
+        }
+    }
 };
 
 const listingsApi = new ListingsApi();

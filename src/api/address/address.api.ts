@@ -1,5 +1,6 @@
 import axios from "axios";
 import BaseApi from "../base.api";
+import { Address } from "@/components/ui/map/map";
 
 class AddressApi extends BaseApi {
 
@@ -8,7 +9,7 @@ class AddressApi extends BaseApi {
         super('address', axios)
     };
 
-    async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number){
+    async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number): Promise<Address[] | null>{
 
         const url = this.findHostName();
 

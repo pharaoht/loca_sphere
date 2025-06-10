@@ -35,7 +35,7 @@ const getBedRoomAmenities = async (id: string) => {
 
 }
 
-const PBR = 'Private Bedroom';
+const PBR = 'Private Room';
 const APR = 'Apartment';
 const STU = 'Studio';
 const SHR = 'Shared Room';
@@ -66,7 +66,7 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
             </li>
         ))
     )
-
+    
     return (
         <SectionWrapper id='overview' headerText='Your bedroom' isChecked={isChecked}>
             <ul className={styles.bedroomAdmenities}>
@@ -75,7 +75,7 @@ const Yourbedroom = async ({ id }: BedroomProps) => {
             <div className={styles.baInfo}>
                 <div>
                     {
-                        listingType === PBR || listingType === SHR &&
+                        (listingType === PBR || listingType === SHR) &&
                             <Image src='/bedroomAmenities/bnf.svg' alt='bed icon' width={125} height={125}  />
                     } 
                     {

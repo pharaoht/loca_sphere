@@ -33,9 +33,30 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     </Suspense>
                     <div className={styles.rightSide}>
                         <ul className={styles.coas}>
-                            <li>Save</li>
-                            <li>Share</li>
-                            <li>Report</li>
+                            <li>
+                                <button className={styles.coasBtn}>
+                                    <span className={styles.mapBtnIcon}>
+                                        <Image src='/heart.png' alt='Heart button icon' height={25} width={25} />
+                                    </span>
+                                    Save
+                                </button>
+                            </li>
+                            <li>
+                                <button className={styles.coasBtn}>
+                                    <span>
+                                        <Image src='/share.svg' alt='Share button icon' height={25} width={25} />
+                                    </span>
+                                    Share
+                                </button>
+                            </li>
+                            <li>
+                                <button className={styles.coasBtn}>
+                                    <span>
+                                        <Image src='/report.png' alt='Report button icon' height={25} width={25} />
+                                    </span>
+                                    Report
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </header>

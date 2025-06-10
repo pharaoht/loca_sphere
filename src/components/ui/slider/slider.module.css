@@ -50,6 +50,7 @@
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     flex-grow: 1;
+     min-width: 0; 
 }
 
 

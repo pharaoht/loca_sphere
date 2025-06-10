@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import styles from './section.module.css';
 import Image from 'next/image';
+import React from 'react';
 
 interface SectionProps {
     /** Unique section ID (used for navigation or anchoring) */
@@ -17,7 +18,7 @@ interface SectionProps {
  * @param id - The unique identifier for the section.
  * @param children - The content to render inside the section.
  */
-const SectionWrapper : React.FC<SectionProps> = ({ id, headerText, children, isChecked = false }) => {
+const SectionWrapper : React.FC<SectionProps> = async ({ id, headerText, children, isChecked = false }) => {
 
     function CheckedLabel() {
         return (

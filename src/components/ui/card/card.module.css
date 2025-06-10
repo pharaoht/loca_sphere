@@ -12,13 +12,15 @@
     aspect-ratio: 3 / 2;
     object-fit: cover;
     position: relative;
+   
 }
 
 .image > span {
     /* position: unset !important; Reset the position set by Next.js <Image> */
 }
 
-.image > img {
+.image img {
+    border-radius: 1rem;
     /* object-fit: cover; Maintain aspect ratio and cover the container */
 }
 
