@@ -1,3 +1,4 @@
+import { ListingDetails } from '@/components/wrappers/accommodations/overview/about/about';
 import BaseApi from '../base.api';
 import axios from 'axios';
 
@@ -75,7 +76,7 @@ class ListingsApi extends BaseApi {
         }
     }
 
-    public async httpGetListingDetails(listingId: string){
+    public async httpGetListingDetails(listingId: string): Promise<ListingDetails | null>{
         
         const url = this.findHostName();
         const isSS = this.isServerSide();

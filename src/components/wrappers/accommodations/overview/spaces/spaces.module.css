@@ -1,22 +1,20 @@
 .shareAdmenities{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
     gap: 1rem;
+    overflow-x: scroll;
+        scroll-snap-type: x mandatory;
     
 }
 
-.container {
+.liContainer {
     scroll-snap-align: start;
     flex-shrink: 0;
-    aspect-ratio: 3 / 2;
-    position: relative;
 }
 
 .shareAdmenImage {
     position: relative;
-    aspect-ratio: 1/1;
-    width: 100%;
-    object-fit:fill;
+    aspect-ratio: 4/3;
+    width: 15rem;
     
 }
 

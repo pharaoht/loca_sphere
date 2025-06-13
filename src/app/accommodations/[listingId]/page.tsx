@@ -11,6 +11,7 @@ import Services from '@/components/wrappers/accommodations/services/services';
 import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces';
 import ListingInfo, { ListingInfoSkeleton } from '../../../components/wrappers/accommodations/listingInfo/ListingInfo';
 import ImageContainer, { SkeletonImageContainer } from '../../../components/wrappers/accommodations/listingImage/ImageContainer';
+import Landlord from '@/components/wrappers/accommodations/landlord/landlord';
 
 interface ListParams {
     listingId: string
@@ -145,11 +146,9 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     </Suspense>
                     <hr/>
 
-                    <SectionWrapper id='landlord' headerText='Landlord'>
-                        <ul>
-                            <li>male 40's</li>
-                        </ul>
-                    </SectionWrapper>
+                    <Suspense fallback={<>Loading...</>}>
+                        <Landlord id={listingId} />
+                    </Suspense>
 
                     <hr/>
                     <Suspense fallback={<>Loading...</>}>
@@ -204,21 +203,42 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     <SectionWrapper id='contract' headerText='Contract'>
                         <p>text</p>
                     </SectionWrapper>
+
+                    <hr/>
      
                 </div>
 
                 <div className={styles.rightSplit}>
                     <BookingForm />
                 </div>
+
+                
             </div>
             <div>
                 <section>
                     More Place like this (section)
                 </section>
 
-                <section>
-                    Why LocaSphere (section)
-                </section>
+                <SectionWrapper id='whyLocaSphere' headerText='Why Loca-Sphere?'>
+                    <ul className={styles.wslGrid}>
+                        <li className={styles.wlsContainer}>
+                            <h3>No guarantor, no bureaucracies</h3>
+                            <p>Say goodbye to guarantors, income proofs, and endless calls. Book your stay online effortlessly with Uniplaces from anywhere in the world.</p>
+                        </li>
+                        <li className={styles.wlsContainer}>
+                            <h3>Safe arrival</h3>
+                            <p>If your property isn’t as listed, report it within 24 hours of your move-in. We’ll freeze your payment and help resolve the issue fast.</p>
+                        </li>
+                        <li className={styles.wlsContainer}>
+                            <h3>Certificate of Prepaid Accommodation</h3>
+                            <p>Need a document for your visa application? We’ve got you covered with a prepaid accommodation certificate.</p>
+                        </li>
+                        <li className={styles.wlsContainer}>
+                            <h3>Send multiple booking requests, only pay one</h3>
+                            <p>Interested in more than one place? Send multiple booking requests! The first accepted one will be confirmed and paid automatically.</p>
+                        </li>
+                    </ul>
+                </SectionWrapper>
             </div>
         </div>
     )

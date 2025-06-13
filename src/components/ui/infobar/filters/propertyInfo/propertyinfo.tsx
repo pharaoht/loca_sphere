@@ -4,7 +4,7 @@ import styles from './propertyinfo.module.css';
 type InfoType = {
     label: string
     value: string
-    
+    type?: string
 }
 
 type PropertyType = {
@@ -30,12 +30,24 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
                 <span className={styles.detailSpan}>{detail}</span>
             </legend>
             {
-                info.map((itm, idx) => (
-                    <label key={idx} className={styles.fieldSetLabel}>
-                        <input id={name} type='checkbox' name={name} value={itm.value}/>
-                        {itm.label}
-                    </label>
-                ))
+                info.map((itm, idx) => {
+
+                    if(itm.type){
+
+                        return (
+                            <label key={idx} className={styles.fieldSetLabel}>
+                                button
+                            </label>
+                        )
+                    }
+                    return (
+                        
+                        <label key={idx} className={styles.fieldSetLabel}>
+                            <input id={name} type='checkbox' name={name} value={itm.value}/>
+                            {itm.label}
+                        </label>
+                    )
+                })
             }
         </fieldset>
     )

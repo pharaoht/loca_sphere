@@ -10,6 +10,8 @@ interface SectionProps {
     headerText: string
     isChecked?: boolean
     children: ReactNode
+    checkText?: string
+    title?: string
 }
 
 /**
@@ -18,15 +20,15 @@ interface SectionProps {
  * @param id - The unique identifier for the section.
  * @param children - The content to render inside the section.
  */
-const SectionWrapper : React.FC<SectionProps> = async ({ id, headerText, children, isChecked = false }) => {
+const SectionWrapper : React.FC<SectionProps> = async ({ id, headerText, children, isChecked = false, checkText = 'Checked' , title }) => {
 
     function CheckedLabel() {
         return (
             <span className={styles.statusLabel}>
-                <span className={styles.statusIcon}>
-                    <Image src='/info.svg' alt='' height={20} width={20}/>
+                <span className={styles.statusIcon} title={title}>
+                    <Image src='/info.svg' alt='' height={20} width={20} />
                 </span>
-                Checked
+                {checkText}
             </span>
         );
     }

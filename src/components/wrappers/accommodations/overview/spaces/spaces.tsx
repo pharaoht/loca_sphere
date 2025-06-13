@@ -53,7 +53,18 @@ const Spaces: React.FC<Props> = async ({ id }) => {
 
     return (
         <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>
-            
+            <ul className={styles.shareAdmenities}>
+                {
+                    fixures.map((itm, idx) => (
+                        <li key={itm.id} className={styles.liContainer}>
+                            <div className={styles.shareAdmenImage}>
+                                <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
+                            </div>
+                            <h4>{itm.name}</h4>
+                        </li>
+                    ))
+                }
+            </ul>
             <button>See all shared admentities</button>
         </SectionWrapper>
     )

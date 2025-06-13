@@ -16,7 +16,7 @@ export interface GenderMapping {
   sex: AllowedGender;
 }
 
-interface ListingDetails {
+export interface ListingDetails {
     description: string;
     hostingDetails: {
         id: string;
@@ -26,6 +26,7 @@ interface ListingDetails {
         hostAgeRange: AgeRange;
         livesWithFamily: boolean;
         hasPets: boolean;
+        peopleHosted: string;
         isVerified: boolean;
         createdAt: string; // Use `Date` if you parse it
         genderAllowedId: number;
@@ -47,7 +48,7 @@ const FEMALES = 'Females'
 
 const About = async ({ id }: AboutProps ) => {
 
-    const details : ListingDetails = await getListingDetails(id);
+    const details = await getListingDetails(id);
 
     if(!details){
 

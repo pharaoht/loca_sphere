@@ -15,10 +15,6 @@
    
 }
 
-.image > span {
-    /* position: unset !important; Reset the position set by Next.js <Image> */
-}
-
 .image img {
     border-radius: 1rem;
     /* object-fit: cover; Maintain aspect ratio and cover the container */
@@ -46,4 +42,22 @@
 .price {
     font-weight: 600;
     font-size: 20px;
+}
+
+.skeleton {
+	animation: pulse 1.5s infinite;
+	background-color: #ddd;
+	border-radius: 8px;
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 1;
+	}
 }

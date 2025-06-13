@@ -1,11 +1,10 @@
 import Searchbar from "@/components/ui/searchbar/searchbar";
 import styles from "./page.module.css";
-import Slider from "@/components/ui/slider/slides";
-import listingsApi from "@/api/listings/listings.api";
 import addressApi from "@/api/address/address.api";
 import ApiContainer from "@/components/containers/apiContainer";
-import Card from "@/components/ui/card/card";
-import ListingByLocations from "@/components/wrappers/home";
+
+import ListingByLocations, { ListingLocationSkeleton } from "@/components/wrappers/home";
+import { Suspense } from "react";
 
 export default async function Home() {
 
@@ -21,9 +20,11 @@ export default async function Home() {
             <h3>Best price guaranteed: if you find it cheaper elsewhere, we’ll refund the difference</h3>
             <div className={styles.listings_grid}>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('51.50839697136402', '-0.1287844755969445', 10)}>
-                    <ListingByLocations location="London, England"  />
-                </ApiContainer> 
+                <Suspense fallback={<ListingLocationSkeleton/>}>
+                    <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('51.50839697136402', '-0.1287844755969445', 10)}>
+                        <ListingByLocations location="London, England"  />
+                    </ApiContainer> 
+                </Suspense>
 
                 <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('38.71667', '-9.13333', 10)}>
                     <ListingByLocations location="Lisbon, Portugal" />

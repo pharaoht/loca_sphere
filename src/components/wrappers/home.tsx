@@ -1,4 +1,4 @@
-import Card from "../ui/card/card";
+import Card, { CardLoadingSkeleton } from "../ui/card/card";
 import { Address } from "../ui/map/map";
 import Slider from "../ui/slider/slides"
 
@@ -37,5 +37,20 @@ const ListingByLocations: React.FC<Props> = ({ apiData, location }) => {
         </Slider>
     )
 };
+
+export const ListingLocationSkeleton = () => {
+
+    const l = [null, null, null, null, null, null];
+
+    return (
+        <Slider title={''}>
+            {
+                l.map((itm, idx) => (
+                    <CardLoadingSkeleton key={idx} />
+                ))
+            }
+        </Slider>
+    )
+}
 
 export default ListingByLocations;
