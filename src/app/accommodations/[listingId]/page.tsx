@@ -12,6 +12,8 @@ import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces'
 import ListingInfo, { ListingInfoSkeleton } from '../../../components/wrappers/accommodations/listingInfo/ListingInfo';
 import ImageContainer, { SkeletonImageContainer } from '../../../components/wrappers/accommodations/listingImage/ImageContainer';
 import Landlord from '@/components/wrappers/accommodations/landlord/landlord';
+import listingsApi from '@/api/listings/listings.api';
+import { notFound } from 'next/navigation';
 
 interface ListParams {
     listingId: string
@@ -21,16 +23,38 @@ interface PageProps {
     params: Promise<ListParams>;
 }
 
+const getListingDetails = async (listingId: string) => {
+
+    const qs = 'address,amenity,utility,bedroomAmenity,hostRules,currency,listingType,host';
+
+    const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
+
+    return result;
+}
+
 const ListingsPage = async ({ params }: PageProps ) => {
 
     const { listingId } = await params;
+
+    const listing = await getListingDetails(listingId);
+
+    if(!listing) return notFound();
+    
+    const { bedrooms, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing;
 
     return (
         <div className={styles.container}>
             <div className={styles.top}>
                 <header className={styles.headerSection}>
                     <Suspense fallback={<ListingInfoSkeleton/>}>
-                        <ListingInfo id={listingId} />
+                        <ListingInfo
+                            address={address}
+                            listingType={listingType}
+                            title={title}
+                            placeAreaSqM={bathrooms}
+                            bathrooms={bathrooms}
+                            bedrooms={bedrooms}
+                        />
                     </Suspense>
                     <div className={styles.rightSide}>
                         <ul className={styles.coas}>
@@ -127,33 +151,51 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     </section>
 
                     <Suspense fallback={<>Loading...</>}>
-                        <Yourbedroom id={listingId}/>
+                        <Yourbedroom 
+                            id={listingId}
+                            beds={beds}
+                            bedrooms={bedrooms}
+                            isChecked={isChecked}
+                            bedroomAmenity={bedroomAmenityMap}
+                            listingType={listingType}
+                        />
+                    </Suspense> 
+                    <hr/>
+
+                    <Suspense fallback={<>Loading...</>}>
+                        <About
+                            hostingDetails={hostingDetails}
+                            description={description}
+                        />
+                    </Suspense>
+                    <hr/>
+                    
+                    <Suspense fallback={<>Loading...</>}>
+                        <Spaces id={listingId} amenity={amenity}/>
+                    </Suspense>
+                    <hr/>
+                   
+                    <Suspense fallback={<>Loading...</>}>
+                        <Availability 
+                            id={listingId}
+                            maxStayDays={maxStayDays}
+                            minimumStayDays={minimumStayDays}
+                            updatedAt={updatedAt}
+                        />
                     </Suspense>
                     <hr/>
 
                     <Suspense fallback={<>Loading...</>}>
-                        <About id={listingId}/>
+                        <Landlord 
+                            id={listingId} 
+                            hostingDetails={hostingDetails}
+                        />
                     </Suspense>
-                    <hr/>
-
-                    <Suspense fallback={<>Loading...</>}>
-                        <Spaces id={listingId}/>
-                    </Suspense>
-                    <hr/>
-
-                    <Suspense fallback={<>Loading...</>}>
-                        <Availability id={listingId}/>
-                    </Suspense>
-                    <hr/>
-
-                    <Suspense fallback={<>Loading...</>}>
-                        <Landlord id={listingId} />
-                    </Suspense>
-
+                    
                     <hr/>
                     <Suspense fallback={<>Loading...</>}>
-                        <Services id={listingId} />
-                    </Suspense>
+                        <Services id={listingId} utilityMap={utilityMap[0]} />
+                    </Suspense>  
 
                     <hr/>
                     

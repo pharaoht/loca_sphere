@@ -1,15 +1,27 @@
-import listingsApi from "@/api/listings/listings.api";
 import Image from 'next/image';
 import styles from './li.module.css';
 
+interface Props {
+    address: {
+        streetAddress: string, 
+        city: string, 
+        stateOrProvince: string, 
+        countryCode: string
+    },
+    title: string, 
+    placeAreaSqM: string, 
+    bathrooms: string, 
+    bedrooms: string, 
+    listingType: {
+        name: string
+    } 
+};
 
-export default async function ListingInfo({ id }: { id: string}){
+export default async function ListingInfo({ address, title, placeAreaSqM, bathrooms, bedrooms, listingType }: Props){
 
     const w = await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const data = await listingsApi.httpGetListingbyId(id);
-
-    if(!data){
+    if(!address){
 
         return (
             <div className={styles.leftSide}>
@@ -24,8 +36,6 @@ export default async function ListingInfo({ id }: { id: string}){
             </div>
         )
     }
-
-    const { address, title, placeAreaSqM, bathrooms, bedrooms, listingType } = data;
 
     const { streetAddress, city, stateOrProvince, countryCode} = address;
 

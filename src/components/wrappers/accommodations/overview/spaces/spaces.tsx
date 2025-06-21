@@ -1,8 +1,6 @@
 import SectionWrapper from "@/components/wrappers/section/section";
 import styles from './spaces.module.css';
 import Image from "next/image";
-import amenityApi from "@/api/amenity/amenity.api";
-import Slider from "@/components/ui/slider/slides";
 
 type ListingAmenity = {
     id: string;
@@ -27,20 +25,14 @@ interface Amenity {
 
 interface Props {
     id: string
+    amenity: {}
 }
 
-const getShareSpaceDetails = async (id: string) => {
 
-    const spaces: Amenity = await amenityApi.getAmenityByListingId(id);
+const Spaces: React.FC<Props> = async ({ id, amenity }) => {
 
-    return spaces;
-}
-
-const Spaces: React.FC<Props> = async ({ id }) => {
-
-    const amenities = await getShareSpaceDetails(id);
-    
-    if(!amenities){
+    console.log(amenity)
+    if(!id){
 
         return (
             <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>
@@ -49,7 +41,7 @@ const Spaces: React.FC<Props> = async ({ id }) => {
         )
     };
     
-    const { listingAmenities, fixures } = amenities;
+
 
     return (
         <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>

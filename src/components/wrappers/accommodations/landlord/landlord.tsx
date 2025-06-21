@@ -1,24 +1,29 @@
-import listingsApi from "@/api/listings/listings.api";
+
 import SectionWrapper from "../../section/section";
 import styles from './landlord.module.css';
 import Image from "next/image";
 
 interface Props {
     id: string
+    hostingDetails: {
+        listingId: string;
+        livesInProperty: boolean;
+        hostGender: string;
+        hostAgeRange: string;
+        livesWithFamily: boolean;
+        hasPets: boolean;
+        isVerified: boolean;
+        createdAt: string;
+        genderAllowedId: number;
+        userId: string;
+        peopleHosted: number;
+    }
 }
 
-const getLandlordDetails = async (listId: string) => {
-    
-    const listingDetails = await listingsApi.httpGetListingDetails(listId);
-     
-    return listingDetails;
-};
 
-const Landlord: React.FC<Props> = async ({ id }) => {
+const Landlord: React.FC<Props> = async ({ id, hostingDetails }) => {
 
-    const details = await getLandlordDetails(id);
-
-    if(!details){
+    if(!id){
 
         return (
             <SectionWrapper id="landlord" headerText="LandLord">
@@ -27,12 +32,10 @@ const Landlord: React.FC<Props> = async ({ id }) => {
         )
     };
 
-    const { hostingDetails } = details;
-
-    const { peopleHosted, hostGender, hostAgeRange } = hostingDetails;
+    const { hostGender, peopleHosted, hostAgeRange, isVerified } = hostingDetails;
 
     return (
-        <SectionWrapper id="landlord" headerText="Landlord" isChecked={true} checkText="Verified" title="This host went through our verification process">
+        <SectionWrapper id="landlord" headerText="Landlord" isChecked={isVerified} checkText="Verified" title="This host went through our verification process">
             <ul className={styles.ulContainer}>
                 <li className={styles.item} >
                     <Image src='/gender.png' alt='gender icon' width={40} height={40}/>

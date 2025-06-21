@@ -13,37 +13,35 @@ import BudgetFilter from './filters/budget/budgetFilter';
 const Infobar = () => {
     
     return (
-        <>
-        <div className={styles.container}>
-            <div className={`${styles.base} ${styles.search} ${styles.hide}`}>
+        <header className={styles.container}>
+            <section className={`${styles.base} ${styles.search} ${styles.hide}`}>
                 <SearchFilter />
         
-            </div>
-            <div className={`${styles.base}`}>
+            </section>
+            <section className={`${styles.base}`}>
                 <CalendarWrapper />
-            </div>
-            <div className={`${styles.base} ${styles.hide}`}>
+            </section>
+            <section className={`${styles.base} ${styles.hide}`}>
                 <BudgetFilter />
-            </div>
-            <div className={`${styles.base} ${styles.hide}`}>
+            </section>
+            <section className={`${styles.base} ${styles.hide}`}>
                 <Dropdown dropDownContent={<People/>}>
                     <InfoButton text='People' iconOne='/man-icon.png' />
                 </Dropdown>
-            </div>
-            <div className={`${styles.base}`}>
+            </section>
+            <section className={`${styles.base}`}>
                 <Dropdown dropDownContent={<PropertyInfo propertyInfoData={sampleData} />} startFromRightSide={true}>
                     <InfoButton text='Filters' iconOne='/filter-icon.png'/>
                 </Dropdown>
-            </div>
-            <div className={`${styles.base} ${styles.hide}`}></div>
-            <div className={`${styles.base} ${styles.hide}`}>
+            </section>
+            <section className={`${styles.base} ${styles.hide}`}></section>
+            <section className={`${styles.base} ${styles.hide}`}>
                 <InfoButton text='Set Alert' iconOne='/bell-icon.svg' />
-            </div>
-            <div className={`${styles.item3} ${styles.noDesktop}`}>
+            </section>
+            <section className={`${styles.item3} ${styles.noDesktop}`}>
                 <MobileCoa/>
-            </div>
-        </div>
-        </>
+            </section>
+        </header>
     )
 };
 

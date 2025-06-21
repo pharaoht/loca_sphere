@@ -9,32 +9,16 @@ class ListingsApi extends BaseApi {
         super('listings', axios)
     }
 
-    public httpGetListings(long: string, lat: string){
-
-        const url = this.findHostName();
-
-        const reqObj = {
-            url: url,
-            method: 'GET'
-        }
-
-        this.httpRequest({
-            requestConfig: reqObj,
-            cb: () => {}
-        })
-    };
-
-    public async httpGetListingbyId(listingId: string){
+    public async httpGetDetailsForListing(queryString: string, listId: string){
 
         const url = this.findHostName();
 
         const isSS = this.isServerSide();
 
         const reqObj = {
-            url: `${url}/${listingId}`,
+            url: `${url}/${listId}?includes=${queryString}`,
             method: 'GET'
         };
-
         if(isSS){
 
             const result = await this.ssHttpRequest(reqObj);
@@ -49,83 +33,6 @@ class ListingsApi extends BaseApi {
             return result;
         }
     };
-
-    public async httpGetBedRoomAmenitiesByListingId(listingId: string){
-
-        const url = this.findHostName();
-
-        const isSS = this.isServerSide();
-
-        const reqObj = {
-            url: `${url}/bedroom-amenity${listingId}`,
-            method: 'GET'
-        };
-
-        if(isSS){
-
-            const result = await this.ssHttpRequest(reqObj);
-
-            return result;
-        }
-        else {
-            const result = await this.httpRequest({
-                requestConfig: reqObj,
-            });
-
-            return result;
-        }
-    }
-
-    public async httpGetListingDetails(listingId: string): Promise<ListingDetails | null>{
-        
-        const url = this.findHostName();
-        const isSS = this.isServerSide();
-
-        const reqObj = {
-            url: `${url}/host-details/${listingId}`,
-            method: 'GET'
-        };
-
-        if(isSS){
-
-            const result = await this.ssHttpRequest(reqObj);
-
-            return result;
-        }
-        else {
-            const result = await this.httpRequest({
-                requestConfig: reqObj,
-            });
-
-            return result;
-        }
-    }
-
-    public async httpGetListingServices(listingId: string){
-
-        const url = this.findHostName();
-        const isSS = this.isServerSide();
-
-        const reqObj = {
-            url: `${url}/utilities/${listingId}`,
-            method: 'GET'
-        };
-
-        if(isSS){
-
-            const result = await this.ssHttpRequest(reqObj);
-
-            return result;
-        }
-        else {
-
-            const result = await this.httpRequest({
-                requestConfig: reqObj,
-            });
-
-            return result;
-        }
-    }
 };
 
 const listingsApi = new ListingsApi();

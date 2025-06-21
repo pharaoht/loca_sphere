@@ -6,7 +6,7 @@ class AddressApi extends BaseApi {
 
     constructor(){
 
-        super('address', axios)
+        super('listings/address', axios)
     };
 
     async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number): Promise<Address[] | null>{
@@ -17,7 +17,7 @@ class AddressApi extends BaseApi {
             url: `${url}/coordinates?lat=${lat}&long=${long}&radius=${radius}`,
             method: 'GET'
         };
-       
+       console.log(reqObj.url)
         const result = await this.httpRequest({
             requestConfig: reqObj,  
         });

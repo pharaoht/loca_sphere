@@ -5,7 +5,7 @@ import styles from './sortby.module.css';
 const Sortby = () => {
 
     const SortMethods: React.FC<{}> = () => (
-        <div>
+        <section>
             <ul className={styles.smContainer}>
                 <li className={styles.active}>
                     <button className={styles.defaultBtn} type='button'>
@@ -18,7 +18,7 @@ const Sortby = () => {
                 <li>Recently added</li>
                 <li>Rating</li>
             </ul>
-        </div>
+        </section>
     )
 
     return (

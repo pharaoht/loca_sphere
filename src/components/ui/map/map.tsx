@@ -76,7 +76,7 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
     const getListings = async () => {
         
         const reqObj = {
-            url: `address/coordinates?lat=${lat}&long=${long}`,
+            url: `listings/address/coordinates?lat=${lat}&long=${long}`,
             method: 'GET'
         };
 

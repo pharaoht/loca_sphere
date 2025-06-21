@@ -1,36 +1,22 @@
 import AvailabilityCalendar from "@/components/ui/availabilitycalendar/availabilitycalendar";
 import SectionWrapper from "../../section/section";
 import styles from './a.module.css';
-import listingsApi from "@/api/listings/listings.api";
 
 interface Props {
-    id: string
-}
-
-interface ListingDetails {
-    id: number;
-
-    monthlyRent: number;
-    hostGender: string;
-    isChecked: boolean;
+    id: string;
+    monthlyRent?: number;
+    hostGender?: string;
+    isChecked?: boolean;
     minimumStayDays: number;
     maxStayDays: number;
     updatedAt: string;
     
-}
+};
 
-const getListingAvailability = async (id: string) => {
+const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays, updatedAt }) => {
 
-    const results = await listingsApi.httpGetListingbyId(id);
 
-    return results;
-}
-
-const Availability: React.FC<Props> = async ({ id }) => {
-
-    const details: ListingDetails = await getListingAvailability(id);
-
-    if(!details){
+    if(!id){
 
         return (
             <SectionWrapper id='availability' headerText='Availability'>
@@ -38,8 +24,6 @@ const Availability: React.FC<Props> = async ({ id }) => {
             </SectionWrapper>
         )
     };
-
-    const { minimumStayDays, maxStayDays, updatedAt, } = details;
 
     return (
         <SectionWrapper id='availability' headerText='Availability'>

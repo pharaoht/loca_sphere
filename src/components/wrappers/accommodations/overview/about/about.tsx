@@ -1,11 +1,7 @@
 import SectionWrapper from "@/components/wrappers/section/section";
 import styles from './about.module.css';
 import Image from "next/image";
-import listingsApi from "@/api/listings/listings.api";
 
-interface AboutProps {
-    id: string
-}
 
 export type Gender = 'male' | 'female' | 'non-binary' | string;
 export type AgeRange = '18-25 years' | '26-30 years' | '31-40 years' | '41+ years' | string;
@@ -35,22 +31,14 @@ export interface ListingDetails {
     }
 }
 
-const getListingDetails = async (id: string) =>  {
-
-    const listingDetails = await listingsApi.httpGetListingDetails(id);
-     
-    return listingDetails;
-}
-
 const MIXEDGENDER = 'Mixed Gender';
 const MALES = 'Males';
 const FEMALES = 'Females'
 
-const About = async ({ id }: AboutProps ) => {
+const About = async ({ description, hostingDetails }: ListingDetails ) => {
 
-    const details = await getListingDetails(id);
 
-    if(!details){
+    if(!hostingDetails){
 
         return (
             <SectionWrapper id='aboutApartment' headerText='About this apartment'>
@@ -58,8 +46,6 @@ const About = async ({ id }: AboutProps ) => {
             </SectionWrapper>
         )
     };
-
-    const { description, hostingDetails } = details;
 
     const { livesInProperty, livesWithFamily, hasPets, genderMapping } = hostingDetails;
 

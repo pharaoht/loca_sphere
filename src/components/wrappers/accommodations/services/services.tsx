@@ -5,7 +5,8 @@ import Image from 'next/image';
 
 
 interface Props {
-    id: string
+    id: string;
+    utilityMap: Utility
 }
 
 type Utility = {
@@ -17,22 +18,9 @@ type Utility = {
     cleaningFee: number | null
 }
 
-type Services = {
-    utilityMap: Utility
-}
+const Services: React.FC<Props> = async ({ id, utilityMap }) => {
 
-const getListingServices = async (listingId: string) => {
-    
-    const result = await listingsApi.httpGetListingServices(listingId);
-
-    return result
-}
-
-const Services: React.FC<Props> = async ({ id }) => {
-
-    const services: Services = await getListingServices(id);
-
-    if(!services){
+    if(!id){
 
         return (
             <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
@@ -40,8 +28,6 @@ const Services: React.FC<Props> = async ({ id }) => {
             </SectionWrapper>
         )
     };
-
-    const { utilityMap } = services;
 
     const { waterIncluded, electricIncluded, gasIncluded, internetIncluded, cleaningIncluded, cleaningFee } = utilityMap;
 
