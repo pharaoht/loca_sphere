@@ -1,3 +1,4 @@
+
 import People from '../people/people';
 import styles from './propertyinfo.module.css';
 
@@ -23,6 +24,13 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
 
     const cssClassName = isDouble ? styles.split : styles.fieldSet;
 
+
+
+    const handleOnClick = (event: React.MouseEvent<HTMLLabelElement>) => {
+
+        event.preventDefault();
+    }
+
     return (
         <fieldset className={cssClassName}>
             <legend className={styles.legend}>
@@ -42,8 +50,8 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
                     }
                     return (
                         
-                        <label key={idx} className={styles.fieldSetLabel}>
-                            <input id={name} type='checkbox' name={name} value={itm.value}/>
+                        <label key={idx} className={styles.fieldSetLabel} >
+                            <input type='checkbox' name={name} value={itm.value}/>
                             {itm.label}
                         </label>
                     )
@@ -90,11 +98,11 @@ export const sampleData = [
     {
         title: 'Place',
         info: [
-            { label: 'Entire house', value: '1'},
-            { label: 'Private bedroom', value: '2'},
-            { label: 'Shared bedroom', value: '2'}
+            { label: 'Entire Place', value: '1,2'},
+            { label: 'Private bedroom', value: '3'},
+            { label: 'Shared bedroom', value: '4'}
         ],
-        name: 'place',
+        name: 'listingType',
         isDouble: false
     },
     {
@@ -186,7 +194,7 @@ export const sampleData = [
             { label: 'Trusted landlords', value: '1'},
             { label: 'Checked places', value: '2'},
         ],
-        name: 'verification',
+        name: 'isVerified',
         isDouble: false
     }
 ]

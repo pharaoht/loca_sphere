@@ -1,22 +1,55 @@
+'use client'
 import Image from "next/image";
 import Dropdown from "../dropdown/dropdown"
 import styles from './sortby.module.css';
 
-const Sortby = () => {
+interface Props {
+    length: number
+}
 
-    const SortMethods: React.FC<{}> = () => (
+const sortValues = [
+    {
+        title:'Best matches',
+        key: 'orderBy',
+        value: 'distance',
+        direction: 'asc'
+    },
+    {
+        title: 'Price - low to high',
+        key: 'orderBy',
+        value: 'price',
+        direction: 'asc',
+    },
+    {
+        title: 'Price - high to low',
+        key: 'orderBy',
+        value: 'price',
+        direction: 'desc',
+    }
+];
+
+const Sortby: React.FC<Props> = ({ length = 0 }) => {
+
+    const onClickHandler = () => {
+        
+    };
+
+
+    const SortMethods = () => (
         <section>
             <ul className={styles.smContainer}>
-                <li className={styles.active}>
-                    <button className={styles.defaultBtn} type='button'>
-                        Best matches
-                    </button>
-                </li>
-                <li>Price - low to high</li>
-                <li>Price - High to low</li>
-                <li>Recently updated</li>
-                <li>Recently added</li>
-                <li>Rating</li>
+                {
+                    sortValues.map((itm, idx) => {
+
+                        return (
+                            <li key={idx} className={styles.active}>
+                                <button className={styles.defaultBtn} type='button' value={itm.value} onClick={onClickHandler}>
+                                    {itm.title}
+                                </button>
+                            </li>
+                        )
+                    })
+                }
             </ul>
         </section>
     )
@@ -31,7 +64,7 @@ const Sortby = () => {
                             <Image src='/chevron-down.png' alt="Option Icon" height={16} width={16} />
                         </span>
                     </div>
-                    <span className={styles.lText}>13 places matched</span>
+                    <span className={styles.lText}>{length} places matched</span>
                 </button>
             </Dropdown>
         </div>
@@ -39,3 +72,8 @@ const Sortby = () => {
 };
 
 export default Sortby;
+
+
+{/* <li>Recently updated</li>              
+  <li>Recently added</li>             
+   <li>Rating</li> */}

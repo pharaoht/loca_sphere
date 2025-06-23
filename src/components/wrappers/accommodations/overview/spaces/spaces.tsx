@@ -2,36 +2,28 @@ import SectionWrapper from "@/components/wrappers/section/section";
 import styles from './spaces.module.css';
 import Image from "next/image";
 
-type ListingAmenity = {
-    id: string;
-    amenityName: string;
-    amenityTypeId: string;
-    location: string;
-    roomNumber: string;
-}
-
-type Fixures = {
-    id: string;
-    name: string;
-}
-
 interface Amenity {
     id: string;
     listingId: string;
     amenityId: string;
-    listingAmenities: ListingAmenity[];
-    fixures: Fixures[]
+    roomNumber: String | null
+    listingAmenityMap: {
+        id: string
+        amenityName: string
+    }
 }
 
 interface Props {
     id: string
-    amenity: {}
+    amenity: {
+        amenityTypes: String[],
+        amenities: Amenity
+    }
 }
 
 
 const Spaces: React.FC<Props> = async ({ id, amenity }) => {
 
-    console.log(amenity)
     if(!id){
 
         return (
@@ -41,18 +33,19 @@ const Spaces: React.FC<Props> = async ({ id, amenity }) => {
         )
     };
     
+    const { amenities, amenityTypes } = amenity;
 
 
     return (
         <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>
             <ul className={styles.shareAdmenities}>
                 {
-                    fixures.map((itm, idx) => (
-                        <li key={itm.id} className={styles.liContainer}>
+                    amenityTypes.map((itm, idx) => (
+                        <li key={idx} className={styles.liContainer}>
                             <div className={styles.shareAdmenImage}>
                                 <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
                             </div>
-                            <h4>{itm.name}</h4>
+                            <h4>{itm}</h4>
                         </li>
                     ))
                 }
@@ -62,12 +55,4 @@ const Spaces: React.FC<Props> = async ({ id, amenity }) => {
     )
 };
 
-export default Spaces
-
-
-                        // <li key={itm.id}>
-                        //     <div className={styles.shareAdmenImage}>
-                        //         <Image className={styles.listImage} src='/photo.jpg' alt='image' fill />
-                        //     </div>
-                        //     <h4>{itm.name}</h4>
-                        // </li>
+export default Spaces;

@@ -1,10 +1,10 @@
 'use client'
-import moment from "moment"
+import moment, { Moment } from "moment"
 
 const useDate = () => {
 
 
-    function createMomentObj(yyyy?: string | number, mm?: string | number, dd?: string | number){
+    function createMomentObj(yyyy?: string | number, mm?: string | number, dd?: string | number): Moment | ''{
 
         if(!yyyy || !mm || !dd){
 
@@ -13,7 +13,10 @@ const useDate = () => {
             return '';
         }
 
-        return moment(`${yyyy}-${mm}-${dd}`);
+        if(Number(mm) < 10) mm = `0${mm}`;
+        if(Number(dd) < 10) dd = `0${dd}`;
+        
+        return moment(`${yyyy}-${mm}-${dd}`, 'YYYY-MM-DD');
     }
 
     function formatDate(inputDate: string, format: string, desiredFormat: string = 'YYYY MMM DD', ): string {

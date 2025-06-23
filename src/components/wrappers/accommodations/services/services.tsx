@@ -113,7 +113,10 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
                         <h4>Cleaning fee</h4>
                         <h4><b>{ cleaningIncluded ? 'Included' : cleaningFee }</b></h4>
                     </div>
-                    <p>One less thing on your to-do list! Cleaning is covered for you.</p>
+                    {
+                        cleaningIncluded ? <p>One less thing on your to-do list! Cleaning is covered for you.</p> : <p></p>
+                    }
+                    
                 </div>
 
 

@@ -8,6 +8,7 @@ import Sortby from '@/components/ui/sortby/sortby';
 import Banner from '@/components/ui/banner/banner';
 import { notFound } from 'next/navigation';
 import Listings from '@/components/ui/listings/listings';
+import addressApi from '@/api/address/address.api';
 
 
 interface SearchParams {
@@ -22,6 +23,12 @@ interface PageProps {
 
 const apikey = await mapBoxApiKey();
 
+const getAddressByCoordinates = async (latitude: string, longitude: string) => {
+    
+    const ls = await addressApi.getAddressesByCoordinates(latitude, longitude, 10);
+
+    return ls
+};
 
 const Accommodations = async ({ searchParams }: PageProps) => {
 
@@ -30,6 +37,8 @@ const Accommodations = async ({ searchParams }: PageProps) => {
     const isValidCoords = long && lat && !isNaN(Number(long)) && !isNaN(Number(lat));
 
     if (!isValidCoords || !cityName) return notFound();
+
+    const listings = await getAddressByCoordinates(lat, long);
 
     return (
         <main>
@@ -41,7 +50,7 @@ const Accommodations = async ({ searchParams }: PageProps) => {
                     <div className={styles.coas}>
                         <p>Long term accommodations in {cityName}</p>
                         <div className={styles.mapHide}>
-                            <Sortby/>
+                            <Sortby length={listings?.length || 0}/>
                         </div>
                         
                         
@@ -53,13 +62,13 @@ const Accommodations = async ({ searchParams }: PageProps) => {
                         link='/'
                     />
                     <Suspense fallback={<>Loading</>}>
-                        <Listings longitude={Number(long) || 0.0} latitude={Number(lat) || 0.0} />
+                        <Listings listings={listings || []} />
                     </Suspense>
 
                 </section>
                 <section id='rightSide' className={`${styles.rightSide} ${styles.mapHide}`}>
                     <Suspense fallback={<>Loading</>}>
-                        <Mapbox key={cityName} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
+                        <Mapbox key={cityName} listings={listings || []} coordinates={[Number(long) || 0.0, Number(lat) || 0.0]} mpKey={apikey}/>
                    </Suspense>
                 </section>
             </div>

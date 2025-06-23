@@ -4,6 +4,7 @@ import styles from './calender.module.css';
 import Image from 'next/image';
 import useParams from '@/hooks/useParams';
 import moment from 'moment';
+import useDate from '@/hooks/useDate';
 
 const months = [ '', 'January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 
@@ -20,6 +21,8 @@ const DATEDAYOFTODAY = DATE.getDate();
 const Calendar = () => {
     
     const { setParam, deleteParam, getParam } = useParams();
+
+    const { createMomentObj } = useDate();
 
     const [ monthValueOFCalendar, setCurrentMonth ] = useState<number>(getParam('moveIn') ? moment(getParam('moveIn'), 'YYYY-MM-DD').month() + 1 : DATEMONTHOFTODAY);
     
@@ -92,8 +95,13 @@ const Calendar = () => {
 
         if(typeof startDate !== 'string' || typeof endDate !== 'string') return 0;
 
-        const d = moment(startDate);
-        const dd = moment(endDate);
+        const dArr = startDate.split('-');
+        const ddArr = endDate.split('-');
+
+        const d = createMomentObj(dArr[0], dArr[1], dArr[2])
+        const dd = createMomentObj(ddArr[0], ddArr[1], ddArr[2])
+
+        if(dd === '') return 0;
 
         return dd.diff(d, 'days'); 
     }
@@ -143,7 +151,7 @@ const Calendar = () => {
             if(moveInDate == null && day !== null) setMoveInDate({ day: day, month: month, year: year});
             
             else if(moveOutDate == null && day !== null){
-
+   
                 setMoveOutDate({ day: day, month: month, year: year});
             }
             
@@ -151,7 +159,8 @@ const Calendar = () => {
 
         function createDateString(yyyy?: number, mm?: number, dd?: number){
             if(!yyyy || !mm || !dd) return null
-            return moment(`${yyyy}-${mm}-${dd}`);
+
+            return createMomentObj(yyyy, mm, dd);
         }
 
         const renderStyles = () => {
@@ -256,4 +265,4 @@ const Calendar = () => {
 };
 
 
-export default Calendar
+export default Calendar;

@@ -51,43 +51,19 @@ export type Address = {
 };
 
 
-interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; }
+interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; listings: Array<Address>}
 
-const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
+const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) => {
 
     mapboxgl.accessToken = mpKey;
 
-    const [ listings, setListings ] = useState<Address[]>([]);
-
-    const { getParam, setParam } = useParams();
-
-    const { sendRequest, isLoading, error } = useHttp();
-
-    const lat = getParam('lat') || 0;
-
-    const long = getParam('long') || 0;
+    const { setParam } = useParams();
 
     const mapContainerRef = useRef<HTMLDivElement>(null);
 
     const mapRef = useRef<mapboxgl.Map | null>(null);
 
     const mapMarkerRef = useRef(new Map());
-
-    const getListings = async () => {
-        
-        const reqObj = {
-            url: `listings/address/coordinates?lat=${lat}&long=${long}`,
-            method: 'GET'
-        };
-
-        const d = await sendRequest({
-            requestConfig: reqObj,
-            callback: setListings
-        });
-
-        return d;
-
-    };
 
     useEffect(() => {
 
@@ -123,7 +99,7 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
         if (!mapRef.current) return;
         
         listings.forEach((itm) => {
-    
+            
             if(mapMarkerRef.current.has(itm.id)) return null;
 
             const el = document.createElement('div');
@@ -142,17 +118,6 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey }) => {
         });
 
     }, [listings]);
-
-    useEffect(() => {
-        
-        const fetchListings = async () => {
-           
-            await getListings()
-        };
-
-        fetchListings();
-
-    }, [lat])
 
     return (
       <div id='main_map' className={styles.map} ref={mapContainerRef}>

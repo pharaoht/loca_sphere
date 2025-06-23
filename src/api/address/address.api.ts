@@ -9,7 +9,11 @@ class AddressApi extends BaseApi {
         super('listings/address', axios)
     };
 
-    async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number): Promise<Address[] | null>{
+    static formatFilterString(){
+        
+    }
+
+    async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number, filters = {}): Promise<Address[] | null>{
 
         const url = this.findHostName();
 
@@ -17,7 +21,7 @@ class AddressApi extends BaseApi {
             url: `${url}/coordinates?lat=${lat}&long=${long}&radius=${radius}`,
             method: 'GET'
         };
-       console.log(reqObj.url)
+     
         const result = await this.httpRequest({
             requestConfig: reqObj,  
         });
