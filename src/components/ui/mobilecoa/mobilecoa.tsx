@@ -49,7 +49,7 @@ const MobileCoa: React.FC<MobileCoaProps> = ({  }) => {
                 </span>
                 { !isMapHidden ? 'Map' : 'List'}
             </button>
-            <Sortby/>
+            <Sortby length={0}/>
         </div>
     )
 };

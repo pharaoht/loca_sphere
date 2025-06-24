@@ -23,7 +23,7 @@ const useParams = () => {
 
         router.replace(`?${params.toString()}`, { scroll: false });
 
-    };
+    }
 
     const deleteParam = (keys: string[]) => {
 

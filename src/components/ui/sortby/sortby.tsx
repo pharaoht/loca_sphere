@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Dropdown from "../dropdown/dropdown"
 import styles from './sortby.module.css';
+import useParams from "@/hooks/useParams";
 
 interface Props {
     length: number
@@ -30,8 +31,18 @@ const sortValues = [
 
 const Sortby: React.FC<Props> = ({ length = 0 }) => {
 
-    const onClickHandler = () => {
+    const { setParam } = useParams();
+
+    const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>, key: string = '', value: string = '', direction: string = '') => {
         
+        event.preventDefault();
+
+        if(direction != ''){
+            setParam([{ key: key, value: value }, { key: 'direction', value: direction}]);
+            return
+        }
+
+        setParam([{ key: key, value: value }]);
     };
 
 
@@ -43,7 +54,12 @@ const Sortby: React.FC<Props> = ({ length = 0 }) => {
 
                         return (
                             <li key={idx} className={styles.active}>
-                                <button className={styles.defaultBtn} type='button' value={itm.value} onClick={onClickHandler}>
+                                <button 
+                                    className={styles.defaultBtn} 
+                                    type='button' 
+                                    value={itm.value} 
+                                    onClick={(event) => onClickHandler(event, itm.key, itm.value, itm.direction)}
+                                >
                                     {itm.title}
                                 </button>
                             </li>
