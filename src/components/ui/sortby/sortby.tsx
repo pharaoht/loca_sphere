@@ -18,13 +18,13 @@ const sortValues = [
     {
         title: 'Price - low to high',
         key: 'orderBy',
-        value: 'price',
+        value: 'monthlyRent',
         direction: 'asc',
     },
     {
         title: 'Price - high to low',
         key: 'orderBy',
-        value: 'price',
+        value: 'monthlyRent',
         direction: 'desc',
     }
 ];

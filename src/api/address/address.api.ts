@@ -9,16 +9,25 @@ class AddressApi extends BaseApi {
         super('listings/address', axios)
     };
 
-    static formatFilterString(){
+    formatFilterString(searchParams = {}){
         
+        if(Object.keys(searchParams).length === 0 || !searchParams) return ''
+
+        let str = '?'
+
+        Object.entries(searchParams).forEach(([key, value], idx) => idx === 0 ? str += `${key}=${value}` : str += `&${key}=${value}`)
+
+        return str;
     }
 
-    async getAddressesByCoordinates(lat: string | number, long: string | number, radius: string | number, filters = {}): Promise<Address[] | null>{
+    async getAddressesByCoordinates(searchParams = {}): Promise<Address[] | null>{
 
         const url = this.findHostName();
 
+        const paramStr = this.formatFilterString(searchParams)
+
         const reqObj = {
-            url: `${url}/coordinates?lat=${lat}&long=${long}&radius=${radius}`,
+            url: `${url}/coordinates${paramStr}`,
             method: 'GET'
         };
      

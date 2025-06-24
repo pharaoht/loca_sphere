@@ -10,35 +10,30 @@ import { notFound } from 'next/navigation';
 import Listings from '@/components/ui/listings/listings';
 import addressApi from '@/api/address/address.api';
 
-
-interface SearchParams {
-    lat?: string;
-    long?: string;
-    cityName?: string;
-}
-
 interface PageProps {
-    searchParams: Promise<SearchParams>;
+    searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 const apikey = await mapBoxApiKey();
 
-const getAddressByCoordinates = async (latitude: string, longitude: string) => {
+const getAddressByCoordinates = async (searchParams = {}) => {
     
-    const ls = await addressApi.getAddressesByCoordinates(latitude, longitude, 10);
+    const ls = await addressApi.getAddressesByCoordinates(searchParams);
 
     return ls
 };
 
 const Accommodations = async ({ searchParams }: PageProps) => {
 
-    const { lat, long, cityName } = await searchParams;
+    const params = await searchParams;
+
+    const { lat, long, cityName } = params;
 
     const isValidCoords = long && lat && !isNaN(Number(long)) && !isNaN(Number(lat));
 
     if (!isValidCoords || !cityName) return notFound();
 
-    const listings = await getAddressByCoordinates(lat, long);
+    const listings = await getAddressByCoordinates(params);
 
     return (
         <main>

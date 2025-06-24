@@ -38,7 +38,6 @@ const useParams = () => {
         getParam,
         setParam,
         deleteParam,
-        searchParams, 
         router
     }
 };
