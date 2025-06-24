@@ -24,7 +24,7 @@ class AddressApi extends BaseApi {
 
         const url = this.findHostName();
 
-        const paramStr = this.formatFilterString(searchParams)
+        const paramStr = this.formatFilterString(searchParams);
 
         const reqObj = {
             url: `${url}/coordinates${paramStr}`,

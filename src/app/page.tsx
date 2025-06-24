@@ -21,24 +21,24 @@ export default async function Home() {
             <div className={styles.listings_grid}>
 
                 <Suspense fallback={<ListingLocationSkeleton/>}>
-                    <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('51.50839697136402', '-0.1287844755969445', 10)}>
+                    <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat: '51.50839697136402', long: '-0.1287844755969445', radius: 10})}>
                         <ListingByLocations location="London, England"  />
                     </ApiContainer> 
                 </Suspense>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('38.71667', '-9.13333', 10)}>
+                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat: '38.71667', long: '-9.13333', radius: 10})}>
                     <ListingByLocations location="Lisbon, Portugal" />
                 </ApiContainer>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('52.516666666', '13.383333333', 10)}>
+                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat:'52.516666666', long: '13.383333333', radius:10})}>
                     <ListingByLocations location="Berlin, Germany" />
                 </ApiContainer>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('40.416944444', '-3.703333333', 10)}>
+                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat:'52.516666666', long: '13.383333333', radius:10})}>
                     <ListingByLocations location="Madrid, Spain" />
                 </ApiContainer>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates('40.416944444', '-3.703333333', 10)}>
+                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat:'52.516666666', long: '13.383333333', radius:10})}>
                     <ListingByLocations location="New York, United States" />
                 </ApiContainer>
 
