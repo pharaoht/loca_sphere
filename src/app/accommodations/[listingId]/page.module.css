@@ -171,9 +171,7 @@
         display: none;
     }
 
-    .btnContainer{
-   
-    }
+
 
     .mapBtn {
         padding: .5rem .6rem;
@@ -200,6 +198,11 @@
 
 
 @media (max-width: 500px) {
+
+    .btnContainer{
+        display: flex;
+        justify-content: space-between;
+    }
 
     .mapBtnIcon{
         display: none;

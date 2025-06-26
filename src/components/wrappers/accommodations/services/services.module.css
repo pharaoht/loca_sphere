@@ -44,3 +44,10 @@
 .green{
     color: var(--secondary-green);
 }
+
+@media (max-width: 500px){
+    .spFMB{
+        display: flex;
+        flex-direction: column;
+    }
+}

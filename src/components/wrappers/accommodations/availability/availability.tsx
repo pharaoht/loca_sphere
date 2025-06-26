@@ -47,20 +47,20 @@ const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays,
                 <div className={styles.avInfoContainer}>
                     <div className={styles.avInfoRow}>
                         <dt className={styles.avInfoLabel}>Available from:</dt>
-                        <dd><b>May 2025</b></dd>
+                        <dd className={styles.avText}><b>May 2025</b></dd>
                     </div>
                     <div className={styles.avInfoRow}>
                         <dt className={styles.avInfoLabel}>Last updated:</dt>
-                        <dd><b>{updatedAt}</b></dd>
+                        <dd className={styles.avText}><b>{updatedAt}</b></dd>
                     </div>
                     <div className={styles.avInfoRow}>
                         <dt className={styles.avInfoLabel}>Minimum stay:</dt>
-                        <dd><b>{minimumStayDays} days</b></dd>
+                        <dd className={styles.avText}><b>{minimumStayDays} days</b></dd>
                     </div>
                     <div></div>
                     <div className={styles.avInfoRow}>
                         <dt className={styles.avInfoLabel}>Maximum stay:</dt>
-                        <dd><b>{maxStayDays} days</b></dd>
+                        <dd className={styles.avText}><b>{maxStayDays} days</b></dd>
                     </div>   
                         
                 </div>

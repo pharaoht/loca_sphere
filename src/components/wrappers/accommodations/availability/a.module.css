@@ -72,4 +72,11 @@
         display: flex;
         flex-direction: column;
     }
+
+
+
+    .avInfoContainer{
+        display: flex;
+        flex-direction: column;
+    }
 }

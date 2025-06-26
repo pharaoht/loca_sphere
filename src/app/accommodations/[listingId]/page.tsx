@@ -43,7 +43,6 @@ const ListingsPage = async ({ params }: PageProps ) => {
     
     const { bedrooms, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing;
 
-    console.log(hostRulesMap)
     return (
         <div className={styles.container}>
             <div className={styles.top}>
