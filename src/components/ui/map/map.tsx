@@ -1,9 +1,8 @@
 'use client'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './map.module.css';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import useHttp from '@/hooks/useHttp';
 import useParams from '@/hooks/useParams';
 import ReactDOMServer from 'react-dom/server';
 import PopupContent from './popup/popup';
@@ -80,9 +79,12 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) =>
 
             const { lng, lat } = mapRef.current!.getCenter();
        
+            const ln = lng.toFixed(6);
+            const la = lat.toFixed(6);
+            
             setParam([
-                { key: 'long', value: String(lng)},
-                { key: 'lat', value: String(lat)}
+                { key: 'long', value: String(ln)},
+                { key: 'lat', value: String(la)}
             ]);
         });
     
@@ -97,6 +99,17 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) =>
     useEffect(() => {
 
         if (!mapRef.current) return;
+
+        const currentListingIds = new Set(listings.map(itm => itm.id));
+
+        for (const [key, value] of mapMarkerRef.current){
+
+            if(!currentListingIds.has(key)){
+                value.remove();
+                mapMarkerRef.current.delete(key)
+            }
+
+        }
         
         listings.forEach((itm) => {
             
@@ -107,17 +120,29 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) =>
             el.className = styles.marker;
             el.innerHTML = `${itm.listing.currency.symbol} ${itm?.listing?.monthlyRent}` || '';
         
-            const htmlString = ReactDOMServer.renderToString(<PopupContent photos={[]} price={itm.listing.monthlyRent} id={itm.id} title={itm.listing.title} currency={itm.listing.currency.symbol}/>)
+            const htmlString = ReactDOMServer.renderToString(
+                <PopupContent 
+                    photos={[]} 
+                    price={itm.listing.monthlyRent} 
+                    id={itm.id} 
+                    title={itm.listing.title} 
+                    currency={itm.listing.currency.symbol}
+                />
+            )
 
-            new mapboxgl.Marker(el)
+            const marker = new mapboxgl.Marker(el)
                 .setLngLat([itm.longitude, itm.latitude])
                 .setPopup(new mapboxgl.Popup({ offset: -75, anchor: 'bottom' }).setHTML(htmlString))
                 .addTo(mapRef.current!);
 
-            mapMarkerRef.current.set(itm.id, [itm.longitude, itm.latitude]);
+            mapMarkerRef.current.set(itm.id, marker);
         });
 
     }, [listings]);
+
+    useEffect(() => {
+        return () => {mapMarkerRef.current = new Map()}
+    }, [])
 
     return (
       <div id='main_map' className={styles.map} ref={mapContainerRef}>

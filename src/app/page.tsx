@@ -1,10 +1,19 @@
 import Searchbar from "@/components/ui/searchbar/searchbar";
 import styles from "./page.module.css";
 import addressApi from "@/api/address/address.api";
-import ApiContainer from "@/components/containers/apiContainer";
-
 import ListingByLocations, { ListingLocationSkeleton } from "@/components/wrappers/home";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
+
+const LocationRender: React.FC<{ lat: string, long: string, radius: number, location: string }> = async ({ lat, long, radius, location }) => {
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const listings = await addressApi.getAddressesByCoordinates({ lat , long, radius });
+
+    return (
+        <ListingByLocations location={location} apiData={listings}  />
+    )
+}
 
 export default async function Home() {
 
@@ -21,27 +30,24 @@ export default async function Home() {
             <div className={styles.listings_grid}>
 
                 <Suspense fallback={<ListingLocationSkeleton/>}>
-                    <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat: '51.50839697136402', long: '-0.1287844755969445', radius: 10})}>
-                        <ListingByLocations location="London, England"  />
-                    </ApiContainer> 
+                    <LocationRender lat='51.508396' long='-0.12878' radius={10} location='London, England'/> 
                 </Suspense>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat: '38.71667', long: '-9.13333', radius: 10})}>
-                    <ListingByLocations location="Lisbon, Portugal" />
-                </ApiContainer>
+                <Suspense fallback={<ListingLocationSkeleton/>}>
+                    <LocationRender lat='38.71667' long='-9.13333' radius={10} location='Lisbon, Portugal'/> 
+                </Suspense>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat:'52.516666666', long: '13.383333333', radius:10})}>
-                    <ListingByLocations location="Berlin, Germany" />
-                </ApiContainer>
+                <Suspense fallback={<ListingLocationSkeleton/>}>
+                    <LocationRender lat='52.51666' long='13.383333' radius={10} location='Berlin, Germany'/> 
+                </Suspense>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat:'52.516666666', long: '13.383333333', radius:10})}>
-                    <ListingByLocations location="Madrid, Spain" />
-                </ApiContainer>
+                <Suspense fallback={<ListingLocationSkeleton/>}>
+                    <LocationRender lat='52.51666' long='13.383333' radius={10} location='Madrid, Spain'/> 
+                </Suspense>
 
-                <ApiContainer apiReqMethod={() => addressApi.getAddressesByCoordinates({lat:'52.516666666', long: '13.383333333', radius:10})}>
-                    <ListingByLocations location="New York, United States" />
-                </ApiContainer>
-
+                <Suspense fallback={<ListingLocationSkeleton/>}>
+                    <LocationRender lat='52.51666' long='13.383333' radius={10} location='New York, United States'/> 
+                </Suspense>
                 
             </div>
         </main>

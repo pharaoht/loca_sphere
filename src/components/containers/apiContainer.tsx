@@ -7,7 +7,6 @@ interface Props {
 
 const apiRequest = async (apiRequest: () => Promise<any> ) => {
 
-  
     const data = await apiRequest();
 
     return data

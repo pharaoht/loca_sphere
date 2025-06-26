@@ -43,7 +43,7 @@ export const ListingLocationSkeleton = () => {
     const l = [null, null, null, null, null, null];
 
     return (
-        <Slider title={''}>
+        <Slider title={'Fetching...'}>
             {
                 l.map((itm, idx) => (
                     <CardLoadingSkeleton key={idx} />

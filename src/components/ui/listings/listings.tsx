@@ -8,7 +8,6 @@ interface Props {
 
 const Listings: React.FC<Props> = async ({ listings }) => {
 
-
     if(!listings || listings.length === 0){
         return (
             <ul><li>No listings found</li></ul>

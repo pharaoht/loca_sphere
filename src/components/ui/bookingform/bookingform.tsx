@@ -3,17 +3,20 @@ import styles from './bookingform.module.css';
 import Image from 'next/image';
 
 interface BookingFormProps {
-
+    monthlyRent: number
+    currency: {
+        symbol: string
+    }
 }
 
-const BookingForm: React.FC<BookingFormProps> = () => {
+const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency }) => {
 
     return (
         <section className={styles.bookingPrice}>
             <form className={styles.bpInnerContainer}>
                 <header className={styles.bpHeader}>
                     <p className={styles.bpTitle}>
-                        <span className={styles.price}>$600</span>
+                        <span className={styles.price}>{currency.symbol} {monthlyRent}</span>
                         <span className={styles.duration}>/month</span>
                     </p>
                     <p>3 people</p>

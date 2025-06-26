@@ -3,34 +3,65 @@ import styles from '../../../../wrappers/button/infobutton.module.css';
 import Dropdown from "@/components/ui/dropdown/dropdown";
 import css from './budget.module.css';
 import Image from 'next/image';
+import useParams from '@/hooks/useParams';
 
 const BudgetFilter = () => {
 
+    const { setParam, getParam } = useParams();
+
+    const minValue = getParam('minRent') || 0;
+    const maxValue = getParam('maxRent') || 0;
+
+    const submitPriceRange = (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+        //uncontrolled inputs
+        const formData = new FormData(e.currentTarget);
+
+        const data = Object.fromEntries(formData);
+
+        const params = Object.entries(data).map(([key, value]) => ({
+            key: key,
+            value: String(value)
+        }));
+
+        setParam(params);
+    }
+
     const Content = () => (
-        <div className={css.container}>
-            <div>slider</div>
-            <div className={css.priceContainer}>
+        <section className={css.container}>
+            <form className={styles.formContainer} onSubmit={submitPriceRange}>
+                <div role="region" aria-label="Price Slider">slider</div>
+                <div className={css.priceContainer}>
 
-                <div className={css.inputContainer}>
-                    <label className={css.inputLabel}>min price</label>
-                    <label className={css.currLabel}>$</label>
-                    <input className={css.fakeInput} type='number' min={0} max={9999}/>
+                    <fieldset  className={css.inputContainer}>
+                        <legend  className={css.inputLabel}>min price</legend >
+                        <label>
+                            <span className={css.currLabel}>$</span>
+                            <input className={css.fakeInput} type='number' name='minRent' min={0} max={9999} defaultValue={minValue} />
+                        </label>
+                    </fieldset >
+
+                    <fieldset className={css.inputContainer}>
+                        <legend className={css.inputLabel}>max price</legend>
+                        <label>
+                            <span className={css.currLabel}>$</span>
+                            <input className={css.fakeInput} type='number' name='maxRent' min={0} max={9999} defaultValue={maxValue}/>
+                        </label>
+                    </fieldset>
                 </div>
 
-                <div className={css.inputContainer}>
-                    <label className={css.inputLabel}>max price</label>
-                    <label className={css.currLabel}>$</label>
-                    <input className={css.fakeInput} type='number' min={0} max={9999}/>
-                </div>
-            </div>
+                <div>
+                    <label>
+                        <input type='checkbox'/>
+                        Include bills
+                    </label>
 
-            <div>
-                <label>
-                    <input type='checkbox'/>
-                    Include bills
-                </label>
-            </div>
-        </div>
+                    <button type='submit'>Submit</button>
+                </div>
+            </form>
+        </section>
     )
 
     return (
@@ -43,7 +74,9 @@ const BudgetFilter = () => {
                 </span>
 
                 <span>
-                    Set Budget
+                    {
+                        minValue !== 0 ? `$${minValue} - $${maxValue}` : 'Set Budget'
+                    }
                 </span>
                 
                 <span className={styles.hide}>

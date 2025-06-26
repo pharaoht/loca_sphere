@@ -40,7 +40,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
 
     if(!listing) return notFound();
     
-    const { bedrooms, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing;
+    const { bedrooms, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing;
 
     return (
         <div className={styles.container}>
@@ -194,7 +194,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     
                     <hr/>
                     <Suspense fallback={<>Loading...</>}>
-                        <Services id={listingId} utilityMap={utilityMap[0]} />
+                        <Services id={listingId} utilityMap={utilityMap} />
                     </Suspense>  
 
                     <hr/>
@@ -251,7 +251,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                 </div>
 
                 <div className={styles.rightSplit}>
-                    <BookingForm />
+                    <BookingForm monthlyRent={monthlyRent} currency={currency} />
                 </div>
 
                 

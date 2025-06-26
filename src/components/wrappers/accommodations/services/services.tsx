@@ -15,7 +15,9 @@ type Utility = {
     gasIncluded: boolean,
     internetIncluded: boolean,
     cleaningIncluded: boolean,
-    cleaningFee: number | null
+    cleaningFee: number | null,
+    securityDeposit: number,
+    currency: string
 }
 
 const Services: React.FC<Props> = async ({ id, utilityMap }) => {
@@ -29,7 +31,7 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
         )
     };
 
-    const { waterIncluded, electricIncluded, gasIncluded, internetIncluded, cleaningIncluded, cleaningFee } = utilityMap;
+    const { waterIncluded, electricIncluded, gasIncluded, internetIncluded, cleaningIncluded, cleaningFee, securityDeposit, currency } = utilityMap;
 
     const isIncluded = (condition: boolean) => {
 
@@ -59,7 +61,7 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
                 <h3>One-time payments</h3>
                 <div className={styles.spSd}>
                     <h4>Security deposit</h4>
-                    <h4><b>$1290</b></h4>
+                    <h4><b>{currency} {securityDeposit}</b></h4>
                 </div>
                 <span>Refundable payment to be made directly to Landlord, which should be refunded if you meet all the rental conditions.</span>
             </div>
@@ -103,7 +105,7 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
                 <div >
                     <div className={styles.spSd}>
                         <h4>Admin fee in advance</h4>
-                        <h4><b>$75</b></h4>
+                        <h4><b>{currency} 75</b></h4>
                     </div>
                     <p>One time fee charged in advance for necessary maintenance.</p>
                 </div>
@@ -111,7 +113,7 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
                 <div>
                     <div className={styles.spSd}>
                         <h4>Cleaning fee</h4>
-                        <h4><b>{ cleaningIncluded ? 'Included' : cleaningFee }</b></h4>
+                        <h4><b>{ cleaningIncluded ? 'Included' : `${currency} ${cleaningFee}` }</b></h4>
                     </div>
                     {
                         cleaningIncluded ? <p>One less thing on your to-do list! Cleaning is covered for you.</p> : <p></p>
