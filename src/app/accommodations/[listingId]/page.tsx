@@ -14,6 +14,7 @@ import ImageContainer, { SkeletonImageContainer } from '../../../components/wrap
 import Landlord from '@/components/wrappers/accommodations/landlord/landlord';
 import listingsApi from '@/api/listings/listings.api';
 import { notFound } from 'next/navigation';
+import Conditions from '@/components/wrappers/accommodations/conditions/conditions';
 
 interface ListParams {
     listingId: string
@@ -42,6 +43,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
     
     const { bedrooms, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing;
 
+    console.log(hostRulesMap)
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -207,38 +209,9 @@ const ListingsPage = async ({ params }: PageProps ) => {
 
                     <hr/>
 
-                    <SectionWrapper id='rentalConditions' headerText='Rental Conditions'>
-                        <div>
-                            <h4>Requirements</h4>
-                            <p>You have to provide the landlord with these documents:</p>
-                            <ul>
-                                <li>Tenancy agreement</li>
-                                <li>Passport or ID</li>
-                            </ul>
-                        </div>
-                        <ul>
-                            <li>
-                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
-                                <span>Minimum stay 210 nights</span>
-                            </li>
-                            <li>
-                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
-                                Overnight guests allowed
-                            </li>
-                            <li>
-                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
-                                Couples allowed
-                            </li>
-                            <li>
-                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
-                                Pets allowed
-                            </li>
-                            <li>
-                                <Image src='/calender-icon.png' alt='' height={25} width={25} />
-                                Smoking allowed
-                            </li>
-                        </ul>
-                    </SectionWrapper>
+                    <Suspense fallback={<>Loading...</>}>
+                        <Conditions hostRulesMap={hostRulesMap}/>
+                    </Suspense>
 
                     <hr/>
 

@@ -1,0 +1,15 @@
+.ruleContainer{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.rule{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.strikeThrough {
+    text-decoration: line-through;
+}
