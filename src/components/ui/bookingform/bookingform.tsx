@@ -12,7 +12,7 @@ interface BookingFormProps {
 const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency }) => {
 
     return (
-        <section className={styles.bookingPrice}>
+        <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
             <form className={styles.bpInnerContainer}>
                 <header className={styles.bpHeader}>
                     <p className={styles.bpTitle}>

@@ -61,7 +61,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                         <ul className={styles.coas}>
                             <li>
                                 <button className={styles.coasBtn}>
-                                    <span className={styles.mapBtnIcon}>
+                                    <span>
                                         <Image src='/heart.png' alt='Heart button icon' height={25} width={25} />
                                     </span>
                                     Save

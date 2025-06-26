@@ -31,7 +31,10 @@ const sortValues = [
 
 const Sortby: React.FC<Props> = ({ length = 0 }) => {
 
-    const { setParam } = useParams();
+    const { setParam, getParam } = useParams();
+
+    const orderByParam = getParam('orderBy') || undefined;
+    const directionParam = getParam('direction') || undefined;
 
     const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>, key: string = '', value: string = '', direction: string = '') => {
         
@@ -53,7 +56,7 @@ const Sortby: React.FC<Props> = ({ length = 0 }) => {
                     sortValues.map((itm, idx) => {
 
                         return (
-                            <li key={idx} className={styles.active}>
+                            <li key={idx} className={`${orderByParam === itm.value && directionParam === itm.direction ? styles.active : styles.base}`}>
                                 <button 
                                     className={styles.defaultBtn} 
                                     type='button' 
