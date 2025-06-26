@@ -194,5 +194,16 @@
     .mapBtnIcon{
         display: flex;
         align-items: center;
+
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .mapBtnIcon{
+        display: none;
+        align-items: center;
+
     }
 }
