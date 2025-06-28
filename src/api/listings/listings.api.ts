@@ -1,4 +1,4 @@
-import { ListingDetails } from '@/components/wrappers/accommodations/overview/about/about';
+import { ListingDetails } from '@/components/wrappers/accommodations/about/about';
 import BaseApi from '../base.api';
 import axios from 'axios';
 

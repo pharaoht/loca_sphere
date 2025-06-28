@@ -30,6 +30,7 @@ const ListingByLocations: React.FC<Props> = ({ apiData, location }) => {
                             beds={listing.listing.bedrooms}
                             city={listing.city}
                             currency={listing.listing.currency.symbol}
+                            peopleAllowed={listing.listing.peopleAllowed}
                         />
                     </li>
                 ))

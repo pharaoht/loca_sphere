@@ -30,7 +30,8 @@ const SHR = 'Shared Room';
 
 const Yourbedroom = async ({ id, beds, bedroomAmenity, bedrooms, listingType, isChecked }: BedroomProps) => {
 
-
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    
     if(!id){
 
         return (
@@ -116,7 +117,30 @@ const Yourbedroom = async ({ id, beds, bedroomAmenity, bedrooms, listingType, is
 
 
 export const SkeletonYourBedRoom = () => {
+    return (
+        <SectionWrapper id="overview" headerText="Your bedroom">
+            <ul className={styles.bedroomAdmenities}>
+                {Array.from({ length: 5 }).map((_, idx) => (
+                    <li className={styles.baListItem} key={idx}>
+                        <div className={`${styles.skeletonBox} ${styles.skeletonIcon}`} />
+                        <div className={`${styles.skeletonBox} ${styles.skeletonText}`} />
+                    </li>
+                ))}
+            </ul>
 
+            <div className={styles.skeletonInfo}>
+                <div className={`${styles.skeletonBox} ${styles.skeletonImage}`} />
+                <div className={styles.skeletonLines}>
+                    <div className={`${styles.skeletonBox} ${styles.skeletonLine}`} />
+                    <div className={`${styles.skeletonBox} ${styles.skeletonLine}`} />
+                    <div className={`${styles.skeletonBox} ${styles.skeletonLine}`} />
+                </div>
+            </div>
+
+            <div>
+                <div className={`${styles.skeletonBox} ${styles.skeletonBtn}`} />
+            </div>
+        </SectionWrapper>
+    );
 };
-
 export default Yourbedroom;

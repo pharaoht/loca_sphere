@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './people.module.css';
 import Image from 'next/image';
+import useParams from '@/hooks/useParams';
 
 interface PeopleProps {
 
@@ -9,14 +10,19 @@ interface PeopleProps {
 
 const People: React.FC<PeopleProps> = () => {
 
-    const [ peopleCount, setPeopleCount ] = useState<number>(1);
+    const { setParam, getParam } = useParams();
+
+    const hasMounted = useRef(false);
+
+    const peopleParam = getParam('peopleAllowed') || 1;
+
+    const [ peopleCount, setPeopleCount ] = useState<number>(Number(peopleParam));
 
     const cssDisableClass = styles.disabled;
 
     const isDisabledBtn1 = peopleCount === 1 ? true : false;
 
     const isDisabledBtn2 = peopleCount === 9 ? true : false;
-
 
     const incrementCountHandler = () => {
 
@@ -32,6 +38,16 @@ const People: React.FC<PeopleProps> = () => {
         setPeopleCount(prevState => prevState - 1);
     };
 
+    useEffect(() => {
+
+        if (hasMounted.current) {
+            setParam([{key: 'peopleAllowed', value: String(peopleCount) }])
+        }
+        else {
+            hasMounted.current = true
+        }
+    
+    }, [peopleCount])
 
     return (
         <div className={styles.peopleContainer}>

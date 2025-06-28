@@ -1,0 +1,100 @@
+.bedroomAdmenities{
+    cursor: default;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.baListItem{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.baInfo{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.baBedRoomText{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.baHeader{
+    font-size: 1.2rem;
+}
+
+.baSmallTxt{
+    font-size: .9rem;
+}
+
+.skeletonBox {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.2s infinite linear;
+  background: linear-gradient(to right, #e0e0e0 8%, #f0f0f0 18%, #e0e0e0 33%);
+  background-size: 1000px 100%;
+}
+
+.skeletonAmenity {
+  width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.skeletonIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.skeletonText {
+  width: 50px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+.skeletonInfo {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.skeletonImage {
+  width: 125px;
+  height: 125px;
+  border-radius: 1rem;
+}
+
+.skeletonLines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeletonLine {
+  height: 16px;
+  width: 200px;
+  border-radius: 4px;
+}
+
+.skeletonBtn {
+  margin-top: 1.5rem;
+  width: 150px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}

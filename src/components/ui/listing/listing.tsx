@@ -13,7 +13,7 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
     
     const [ isHovered, setIsHovered ] = useState<boolean>(false);
 
-    const { id, title, monthlyRent, currency, } = listingInfo;
+    const { id, title, monthlyRent, currency, peopleAllowed, bedrooms } = listingInfo;
 
     const { symbol } = currency;
 
@@ -47,7 +47,7 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
             </figure>
             <Link href={`/accommodations/${id}`}>
                 <div className={styles.details}>
-                    <span className={styles.info}>Up to 2 people - 1 bedroom</span>
+                    <span className={styles.info}>Up to { peopleAllowed == 1 ? `${peopleAllowed} person` : `${peopleAllowed} people`} - {bedrooms == 1 ? `${bedrooms} bedroom` : `${bedrooms} bedrooms`} </span>
                     <p className={styles.type}>{title}</p>
                     <p className={styles.date}>From 15 Apr 2025</p>
                     <p><strong>{symbol}{monthlyRent}</strong> / month <span className={styles.info}><i>Bills included</i></span></p>

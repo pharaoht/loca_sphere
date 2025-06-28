@@ -28,6 +28,7 @@ export type List = {
 	minimumStayDays: number;
 	maxStayDays: number;
 	listingTypeId: string;
+    peopleAllowed: number;
 	isChecked: boolean;
 	createdAt: string;
 	updatedAt: string; 

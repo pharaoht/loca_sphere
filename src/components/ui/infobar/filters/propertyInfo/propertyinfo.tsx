@@ -1,4 +1,5 @@
-
+'use client'
+import useParams from '@/hooks/useParams';
 import People from '../people/people';
 import styles from './propertyinfo.module.css';
 
@@ -22,13 +23,33 @@ interface PropertyInfoProps {
 
 const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = false, detail = '' }) => {
 
+    const { getParam, setParam, deleteParam } = useParams();
+
     const cssClassName = isDouble ? styles.split : styles.fieldSet;
 
+    const onClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        
+        const cbInputName = event.currentTarget.name;
+        const cbInputVal = event.currentTarget.value;
+        const cbIsChecked = event.currentTarget.checked;
 
+        const paramValue = getParam(cbInputName);
+        const currentValues = paramValue?.split(',').filter(Boolean) || [];
 
-    const handleOnClick = (event: React.MouseEvent<HTMLLabelElement>) => {
+        if (cbIsChecked) {
+            // Add value
+            const updatedValues = [...new Set([...currentValues, cbInputVal])];
 
-        event.preventDefault();
+            setParam([{ key: cbInputName, value: updatedValues.toString() }]);
+    
+        } else {
+            // Remove value
+            const updatedValues = currentValues.filter(val => val !== cbInputVal);
+
+            if (updatedValues.length === 0) deleteParam([cbInputName]);
+            else  setParam([{ key: cbInputName, value: updatedValues.toString() }]);
+            
+        }
     }
 
     return (
@@ -39,6 +60,10 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
             </legend>
             {
                 info.map((itm, idx) => {
+
+                    const param = getParam(name)?.split(',') || '';
+
+                    const isDefault = param.includes(itm.value);
 
                     if(itm.type){
 
@@ -51,7 +76,7 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
                     return (
                         
                         <label key={idx} className={styles.fieldSetLabel} >
-                            <input type='checkbox' name={name} value={itm.value}/>
+                            <input type='checkbox' defaultChecked={isDefault} name={name} value={itm.value} onChange={(e) => onClickHandler(e)}/>
                             {itm.label}
                         </label>
                     )
@@ -73,7 +98,7 @@ const PropertyInfo: React.FC<PropertyInfoProps> = ({ propertyInfoData }) => {
     }
 
     return (
-        <div className={styles.infoContainer}>
+        <form className={styles.infoContainer}>
             <div className={styles.toggle}>
                 <People />
             </div>
@@ -89,7 +114,7 @@ const PropertyInfo: React.FC<PropertyInfoProps> = ({ propertyInfoData }) => {
                     />
                 ))
             }
-        </div>
+        </form>
     )
 };
 
@@ -98,7 +123,8 @@ export const sampleData = [
     {
         title: 'Place',
         info: [
-            { label: 'Entire Place', value: '1,2'},
+            { label: 'Apartment', value: '1'},
+            { label: 'Studio', value: '2'},
             { label: 'Private bedroom', value: '3'},
             { label: 'Shared bedroom', value: '4'}
         ],
@@ -155,35 +181,48 @@ export const sampleData = [
     {
         title: 'Bedroom',
         info: [
-            { label: 'Single bed', value: '1'},
-            { label: 'Double bed', value: '2'},
-            { label: 'Twin bed', value: '2'},
-            { label: '3+ beds', value: '2'},
-            { label: 'Wardrobe', value: '2'},
-            { label: 'Window', value: '2'},
-            { label: 'Balcony', value: '2'},
-            { label: 'Desk', value: '2'},
-            { label: 'Lock', value: '2'},
-            { label: 'Unfurnished', value: '2'},
+            { label: 'Wardrobe', value: '1'},
+            { label: 'Desk/Table', value: '2'},
+            { label: 'Chairs', value: '3'},
+            { label: 'Sofa bed', value: '4'},
+            { label: 'Window', value: '5'},
+            { label: 'Balcony', value: '6'},
+            { label: 'Double bed', value: '7'},
+            { label: 'Single bed', value: '8'},
+            { label: 'Bunk bed', value: '9'},
         ],
-        name: 'bedroom',
+        name: 'brAmenities',
         isDouble: true
     },
     {
         title: 'House Admenities',
         info: [
-            { label: 'Wi-fi', value: '1'},
-            { label: 'Central heating', value: '2'},
-            { label: 'Dishwasher', value: '2'},
-            { label: 'Washing machine', value: '2'},
-            { label: 'Microwave', value: '2'},
-            { label: 'Oven', value: '2'},
-            { label: 'Tv', value: '2'},
-            { label: 'Air conditioning', value: '2'},
-            { label: 'Outdoor area', value: '2'},
-            { label: 'Elevator', value: '2'},
-            { label: 'Accessibility needs', value: '2'},
-            { label: 'Unfurnished', value: '2'},
+            { label: 'Wi-Fi', value: '1' },
+            { label: 'Cable TV', value: '2' },
+            { label: 'Central heating', value: '3' },
+            { label: 'Elevator', value: '4' },
+            { label: 'Window', value: '5' },
+            { label: 'Fridge', value: '6' },
+            { label: 'Freezer', value: '7' },
+            { label: 'Stove', value: '8' },
+            { label: 'Oven', value: '9' },
+            { label: 'Microwave', value: '10' },
+            { label: 'Washing machine', value: '11' },
+            { label: 'Dishes and cutlery', value: '12' },
+            { label: 'Pots and pans', value: '13' },
+            { label: 'Toilet', value: '14' },
+            { label: 'Sink', value: '15' },
+            { label: 'Shower', value: '16' },
+            { label: 'Bathtub', value: '17' },
+            { label: 'Sofa', value: '18' },
+            { label: 'Coffee table', value: '19' },
+            { label: 'TV', value: '20' },
+            { label: 'Sofa bed', value: '21' },
+            { label: 'Chairs', value: '22' },
+            { label: 'Table', value: '23' },
+            { label: 'Bed linen and towels', value: '24' },
+            { label: 'Accessibility', value: '25' },
+            { label: 'Air conditioning', value: '26' }
         ],
         name: 'houseAdmenities',
         isDouble: true

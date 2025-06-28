@@ -3,12 +3,12 @@ import styles from './page.module.css';
 import SectionWrapper from '@/components/wrappers/section/section';
 import Link from 'next/link';
 import BookingForm from '@/components/ui/bookingform/bookingform';
-import Yourbedroom from '@/components/wrappers/accommodations/overview/bedroom/yourbedroom';
-import About from '@/components/wrappers/accommodations/overview/about/about';
+import Yourbedroom, { SkeletonYourBedRoom } from '@/components/wrappers/accommodations/bedroom/yourbedroom';
+import About from '@/components/wrappers/accommodations/about/about';
 import Availability from '@/components/wrappers/accommodations/availability/availability';
 import { Suspense } from 'react';
 import Services from '@/components/wrappers/accommodations/services/services';
-import Spaces from '@/components/wrappers/accommodations/overview/spaces/spaces';
+import Spaces from '@/components/wrappers/accommodations/spaces/spaces';
 import ListingInfo, { ListingInfoSkeleton } from '../../../components/wrappers/accommodations/listingInfo/ListingInfo';
 import ImageContainer, { SkeletonImageContainer } from '../../../components/wrappers/accommodations/listingImage/ImageContainer';
 import Landlord from '@/components/wrappers/accommodations/landlord/landlord';
@@ -151,7 +151,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                         </nav>
                     </section>
 
-                    <Suspense fallback={<>Loading...</>}>
+                    <Suspense fallback={<SkeletonYourBedRoom/>}>
                         <Yourbedroom 
                             id={listingId}
                             beds={beds}

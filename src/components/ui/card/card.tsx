@@ -9,11 +9,12 @@ type Props = {
     price: string | number;
     isVerified: boolean;
     beds: string | number;
+    peopleAllowed: number;
     currency: string
 
 }
 
-const Card: React.FC<Props> = ({  longitude, latitude, price, city, isVerified, beds, currency}) => {
+const Card: React.FC<Props> = ({  longitude, latitude, price, city, isVerified, beds, currency, peopleAllowed}) => {
 
     return (
         <section className={styles.container}>
@@ -24,7 +25,7 @@ const Card: React.FC<Props> = ({  longitude, latitude, price, city, isVerified, 
             </figure>
             <Link href={`/accommodations?long=${longitude}&lat=${latitude}&cityName=${city}&radius=10`}>
                 <div className={styles.listSection}>
-                    <p className={styles.listInfo}>Up to 1 person - {beds} bedrooms</p>
+                    <p className={styles.listInfo}>Up to {peopleAllowed == 1 ? `${peopleAllowed} person` : `${peopleAllowed} people`} - {beds} bedrooms</p>
                     <p>
                         {
                             isVerified && <span className={styles.trustll}>Place Verified</span>
