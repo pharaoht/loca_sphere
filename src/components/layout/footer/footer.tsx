@@ -9,7 +9,7 @@ const Footer = () => {
 
     const pathName = usePathname();
 
-    const cssHideClass = pathName === '/accommodations' ? styles.hide : null;
+    const cssHideClass = pathName === '/accommodations' || /landlord/.test(pathName) ? styles.hide : null;
 
     return (
         <footer className={`${styles.container} ${cssHideClass}`}>

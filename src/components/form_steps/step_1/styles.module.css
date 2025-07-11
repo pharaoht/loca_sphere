@@ -1,0 +1,96 @@
+
+.sectionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.headerTitle{
+    font-size: 2.3rem;
+    color: var(--font-black)
+}
+
+.subHeader{
+    color: #788392;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.formGroup input {
+  padding: 10px;
+  font-size: 1rem;
+  height: 3rem;
+  border: 2px solid #d1d5da;
+  border-radius: 4px;
+}
+
+.formGroup .select {
+  padding: 10px;
+  font-size: 1rem;
+  height: 3rem;
+  border: 2px solid #d1d5da;
+  border-radius: 4px;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+
+.formGroup textarea{
+  padding: 10px;
+  font-size: 1rem;
+  height: 7rem;
+  border: 2px solid #d1d5da;
+  border-radius: 4px;
+}
+
+/* Row with two inputs side-by-side */
+.formGroupRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+
+.inputWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.inputWrapper input {
+  width: 100%;
+  padding-right: 2.5rem; /* space for unit */
+  box-sizing: border-box;
+}
+
+.inputUnit {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--font-black);
+  font-size: 0.95rem;
+  pointer-events: none;
+}

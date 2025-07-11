@@ -1,42 +1,34 @@
-'use client';
-import { notFound, useParams, useRouter } from 'next/navigation';
-import StepOneComponent from '@/components/form_steps/step-1/component';
-import StepComponentLayout from '../layout';
+import { type Metadata } from 'next';
+import StepComponentLayout from '../layout_step';
+import listingsApi from '@/api/listings/listings.api';
+import { notFound } from 'next/navigation';
 
-export const stepKeys = ['step-1'] as const;
-
-export type StepKey = typeof stepKeys[number];
-
-interface StepComponentProps {
-    backHandler: () => void;
-}
-
-export const stepComponents: Record<StepKey, React.FC<StepComponentProps>> = {
-  'step-1': StepOneComponent,
-
-};
 
 interface PageProps {
+    params: {
+        step: string; // will be 'step-1'
+    };
+    searchParams: { [key: string]: string | undefined };
+};
 
-}
 
-const WizardFormProvider: React.FC<PageProps> = ({}) => {
+const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams }) => {
+    
+    const param = await params;
+    const searchParam = await searchParams;
 
-    const router = useRouter();
-    const params = useParams();
-    const stepParam = params.step;
+    const stepParam = param.step;
+    const formId = searchParam.formId;
+    
+    const formData = formId != undefined ? await listingsApi.httpGetDetailsForListing('all', String(formId)) : [];
 
-    const step = Array.isArray(stepParam) ? stepParam[0] : stepParam;
-
-    if(!step || !(step in stepComponents)){
-        return notFound();
-    }
-
-    const StepComponent = stepComponents[step as StepKey];
-
+    if(formData?.success === false) return notFound()
+    console.log(formData)
     return (
-        <StepComponentLayout>
-            <StepComponent backHandler={() => null}/>
-        </StepComponentLayout>
+
+        <StepComponentLayout preLoadFormData={formData} formId={formId} />
+
     )
-}
+};
+
+export default WizardFormProvider;
