@@ -1,8 +1,8 @@
-import { Step6State } from '@/app/landlord/types';
+import { Step1State } from '@/app/landlord/types';
 import { StepComponentProps } from '../step_1/component';
 import styles from '../step_1/styles.module.css';
 
-const StepElevenComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending, setFormState, stepState, formId }) => {
+const StepElevenComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending, setFormState, stepState, formId }) => {
 
 
     return (

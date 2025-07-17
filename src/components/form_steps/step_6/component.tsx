@@ -1,8 +1,8 @@
-import { Step6State } from '@/app/landlord/types';
+import { Step1State } from '@/app/landlord/types';
 import { StepComponentProps } from '../step_1/component';
 import styles from '../step_1/styles.module.css';
 
-const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending, dropDownData, setFormState, stepState, formId }) => {
+const StepSixComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending, dropDownData, setFormState, stepState, formId }) => {
 
     const { amenityOptions, amenityTypeOptions } = dropDownData
 
