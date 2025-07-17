@@ -1,37 +1,21 @@
-import listingsApi from '@/api/listings/listings.api';
 import styles from './styles.module.css';
-import { useEffect, useState } from 'react';
-import { Step1State, StepFormData } from '@/app/landlord/types';
+import { DropDownOptions, Step1State, StepFormData } from '@/app/landlord/types';
 import InputGroup from '@/components/ui/input/input/input';
 import SelectGroup from '@/components/ui/input/select/select';
 
 export interface StepComponentProps<T> {
 	isPending: boolean;
+    formId: string;
 	stepState: T;
-	errorFormState?: any
+	errorFormState?: any;
+    dropDownData: DropDownOptions,
 	setFormState: (update: Partial<StepFormData>) => void;
 }
 
-const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending, stepState, setFormState, errorFormState }) => {
-
-    const [ currency, setCurrency ] = useState([]);
-    const [ listingTypes, setListingTypes ] = useState([]);
-
-    useEffect(() => {
-
-        const fetchDataAsync = async () => {
-
-            await listingsApi.httpGetListingOptions('currency', setCurrency);
-            await listingsApi.httpGetListingOptions('listingType', setListingTypes);
-    
-        }
-
-        fetchDataAsync()
-        
-    }, [ ]);
+const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending, stepState, setFormState, errorFormState, dropDownData }) => {
 
     console.count('stepComponent1 render times')
-
+   
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Property Details</h1>
@@ -58,7 +42,7 @@ const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending,
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         inputValue={stepState.currencyId}
                         isRequired={true}
-                        dropDownOptions={currency}
+                        dropDownOptions={dropDownData.currencyOptions}
                         defaultOptionLabel='Select a currency'
                         inputType='select'
                     />
@@ -81,7 +65,7 @@ const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending,
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         inputValue={stepState.listingTypeId}
                         isRequired={true}
-                        dropDownOptions={listingTypes}
+                        dropDownOptions={dropDownData.listingTypeOptions}
                         defaultOptionLabel="Select a type"
                         inputType="select"
                     />

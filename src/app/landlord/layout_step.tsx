@@ -1,36 +1,34 @@
 'use client'
 import styles from './layout.module.css';
-import { DefaultStateType, parseFormData, sideLinks, stepDefaultState, StepFormData, StepKey, stepKeys } from './types';
-import React, { FormEvent, useEffect, useState, useTransition } from 'react';
+import { DefaultStateType, DropDownOptions, parseFormData, sideLinks, stepDefaultState, StepFormData, StepKey, stepKeys } from './types';
+import React, { FormEvent, Suspense, useEffect, useState, useTransition } from 'react';
 import FormSidebar from '@/components/form_steps/sidebar/formSidebar';
 import StepOneComponent, { StepComponentProps } from '@/components/form_steps/step_1/component';
-import StepThreeComponent from '@/components/form_steps/step_3/component';
-import StepTwoComponent from '@/components/form_steps/step_2/component';
 import listingsApi from '@/api/listings/listings.api';
 import useParams from '@/hooks/useParams';
-import StepFourComponent from '@/components/form_steps/step_4/component';
 
 interface Props {
-    preLoadFormData: any[]
-    formId: string | undefined
-}
-
-export const stepComponents: Record<StepKey, React.FC<StepComponentProps<any>>> = {
-    'step-1': StepOneComponent,
-    'step-2': StepTwoComponent,
-    'step-3': StepThreeComponent,
-    'step-4': StepFourComponent,
-    'step-5': StepTwoComponent,
-    'step-6': StepThreeComponent,
-    'step-7': StepOneComponent,
-    'step-8': StepTwoComponent,
-    'step-9': StepThreeComponent,
-    'step-10': StepThreeComponent,
-    'step-11': StepThreeComponent,
-    'step-12': StepThreeComponent,
+    preLoadFormData: any[];
+    formId: string | undefined;
+    dropDownData: DropDownOptions
 };
 
-const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, formId = undefined}) => {
+const stepComponents: Record<StepKey, React.FC<StepComponentProps<any>> 
+    | React.LazyExoticComponent<React.FC<StepComponentProps<any>>>> = {
+    'step-1': StepOneComponent, //loaded eagerly
+    'step-2': React.lazy(() => import('@/components/form_steps/step_2/component')),
+    'step-3': React.lazy(() => import('@/components/form_steps/step_3/component')),
+    'step-4': React.lazy(() => import('@/components/form_steps/step_4/component')),
+    'step-5': React.lazy(() => import('@/components/form_steps/step_5/component')),
+    'step-6': React.lazy(() => import('@/components/form_steps/step_6/component')),
+    'step-7': React.lazy(() => import('@/components/form_steps/step_7/component')),
+    'step-8': React.lazy(() => import('@/components/form_steps/step_8/component')),
+    'step-9': React.lazy(() => import('@/components/form_steps/step_9/component')),
+    'step-10': React.lazy(() => import('@/components/form_steps/step_10/component')),
+    'step-11': React.lazy(() => import('@/components/form_steps/step_11/component')),
+};
+
+const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, formId = undefined, dropDownData }) => {
 
     const { setParam } = useParams();
     
@@ -50,14 +48,14 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
             if(!formId) return;
             
-            return setStepIndex(jumpIndex)
+            return setStepIndex(jumpIndex);
         };
 
         if(stepIndex == 0) return;
 
         setStepIndex(prevState => prevState - 1);
     
-        return
+        return;
     };
 
     const nextSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
@@ -103,17 +101,21 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
                 <article>
                     <form className={styles.form} onSubmit={nextSubmitHandler}>
                         <div className={styles.scrollableContent}>
-                            <StepComponent 
-                                key={stepKeys[stepIndex]} 
-                                isPending={isPending} 
-                                stepState={formState[stepKeys[stepIndex]]} 
-                                setFormState={onChangeHandler}
-                                errorFormState={errorFormState}
-                            />
+                            <Suspense fallback={<div>Loading step...</div>}>
+                                <StepComponent 
+                                    key={stepKeys[stepIndex]} 
+                                    isPending={isPending} 
+                                    stepState={formState[stepKeys[stepIndex]]} 
+                                    setFormState={onChangeHandler}
+                                    errorFormState={errorFormState}
+                                    dropDownData={dropDownData}
+                                    formId={formId ?? ''}
+                                />
+                            </Suspense>
                         </div>
                         <nav className={styles.footerNav} aria-label="Step navigation">
-                            <button onClick={() => backHandler()} disabled={false} type='button'>back</button>
-                            <button disabled={false} type='submit'>Next</button>
+                            <button onClick={() => backHandler()} disabled={isPending} type='button'>back</button>
+                            <button disabled={isPending} type='submit'>Next</button>
                         </nav>
                     </form>
                 </article>
@@ -122,4 +124,4 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
     )
 };
 
-export default StepComponentLayout
+export default StepComponentLayout;

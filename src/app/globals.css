@@ -79,12 +79,12 @@ body {
   display: none;
 }
 
-.dark body {
+/* .dark body {
 	background-color: #121212;
 	color: white !important;
 }
 
-/* .dark input, select, textarea, #formSidebar {
+.dark input, select, textarea, #formSidebar {
   background-color: #121212 !important;
   color: white !important;
 } */

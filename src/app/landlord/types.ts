@@ -1,6 +1,6 @@
 export const stepKeys = [
     'step-1', 'step-2', 'step-3', 'step-4', 'step-5',
-    'step-6', 'step-7', 'step-8', 'step-9', 'step-10', 'step-11', 'step-12'
+    'step-6', 'step-7', 'step-8', 'step-9', 'step-10', 'step-11'
 ] as const;
 
 export type StepKey = typeof stepKeys[number];
@@ -18,16 +18,15 @@ export type StepSidebarMap = Map<StepKey, StepSidebarInfo>;
 export const sideLinks: StepSidebarMap = new Map([
     ['step-1', { title: 'Property Details', index: 0}],
     ['step-2', { title: 'Address', index: 1}],
-    ['step-3', { title: 'Accommodation and Stay Limits', index: 2}],
+    ['step-3', { title: 'Fixures and Stay Limits', index: 2}],
     ['step-4', { title: 'Host Information', index: 3}],
-    ['step-5', { title: 'House rules', index: 4}],
-    ['step-6', { title: 'Resident landlord', index: 5}],
-    ['step-7', { title: 'Bedroom', index: 6}],
-    ['step-8', { title: 'Bedroom amenities', index: 7}],
+    ['step-5', { title: 'Bedroom Amenities', index: 4}],
+    ['step-6', { title: 'Listing Amenities', index: 5}],
+    ['step-7', { title: 'Utilities', index: 6}],
+    ['step-8', { title: 'House Rules', index: 7}],
     ['step-9', { title: 'Restrictions', index: 8}],
-    ['step-10', { title: 'Rent & Bills', index: 9}],
-    ['step-11', { title: 'Availability', index: 10}],
-    ['step-12', { title: 'Title & Description', index: 11}],
+    ['step-10', { title: 'Availability', index: 9}],
+    ['step-11', { title: 'Photos', index: 10}],
 ])
 
 //end sidebar map
@@ -77,14 +76,25 @@ export const stepDefaultState: DefaultStateType = {
         livesWithFamily: '',
         userId: '',
     },
-    'step-5': {},
-    'step-6': {},
-    'step-7': {},
+    'step-5': { 
+        amenities: [],
+    },
+    'step-6': {
+
+    },
+    'step-7': {
+        cleaningIncluded: 0,
+        cleaningFee: 0,
+        internetIncluded: 0,
+        gasIncluded: 0,
+        electricIncluded: 0,
+        waterIncluded: 0,
+        listingId: ''
+    },
     'step-8': {},
     'step-9': {},
     'step-10': {},
     'step-11': {},
-    'step-12': {},
 
 } as const;
 
@@ -93,14 +103,13 @@ export type DefaultStateType = {
     'step-2': Step2State
     'step-3': Step3State
     'step-4': Step4State
-    'step-5': {}
+    'step-5': Step5State
     'step-6': {}
-    'step-7': {}
+    'step-7': Step7State
     'step-8': {}
     'step-9': {}
     'step-10': {}
     'step-11': {}
-    'step-12': {}
     
 
 }
@@ -154,6 +163,20 @@ export type Step4State = {
     genderAllowedId: number | string;
 }
 
+export type Step5State = {
+    amenities: Array<{ id: number, toDelete: boolean, listingId: string, bedroomAmenityId: number}>;
+}
+
+export type Step7State = {
+    waterIncluded: number ;
+    electricIncluded: number;
+    gasIncluded: number;
+    internetIncluded: number;
+    cleaningIncluded: number;
+    cleaningFee: number;
+    listingId: string;
+}
+
 export function parseFormData(data: any):  DefaultStateType{
 
     return {
@@ -195,19 +218,40 @@ export function parseFormData(data: any):  DefaultStateType{
             livesInProperty: data?.hostingDetails?.livesInProperty,
             hasPets: data?.hostingDetails?.hasPets,
             hostAgeRange: data?.hostingDetails?.hostAgeRange,
-            hostGender: data?.hostingDetails?.hostGender,
+            hostGender: data?.hostingDetails?.hostGenderId,
             genderAllowedId: data?.hostingDetails?.genderAllowedId,
             livesWithFamily: data?.hostingDetails?.livesWithFamily,
             userId: data?.userId,
         },
-        'step-5': {},
-        'step-6': {},
-        'step-7': {},
+        'step-5': {
+            amenities: data?.bedroomAmenityMap,
+        },
+        'step-6': {
+        },
+        'step-7': {
+            cleaningIncluded: data?.utilityMap?.cleaningIncluded ? 1 : 0,
+            cleaningFee: data?.utilityMap?.cleaningFee,
+            internetIncluded: data?.utilityMap?.internetIncluded ? 1 : 0,
+            gasIncluded: data?.utilityMap?.gasIncluded ? 1 : 0,
+            electricIncluded: data?.utilityMap?.electricIncluded ? 1 : 0,
+            waterIncluded: data?.utilityMap?.waterIncluded ? 1 : 0,
+            listingId: data?.id
+        },
         'step-8': {},
         'step-9': {},
         'step-10': {},
         'step-11': {},
-        'step-12': {},
     }
      
+}
+
+
+export type DropDownOptions = {
+    currencyOptions: Array<{ id: number, name: string }>;
+    listingTypeOptions: [];
+    genderOptions: [];
+    bedroomAmenityOptions: Array<{ id: number, name: string, icon: string }>;
+    amenityTypeOptions: [];
+    amenityOptions: [];
+
 }
