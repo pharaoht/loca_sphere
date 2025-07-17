@@ -53,7 +53,7 @@ class BaseApi {
         return `${this.prodDomain}/api/${this.resource}`;
     };
 
-    public async ssHttpRequest(reqObj: { url: string, method: string }, cb?: (...args: any) => void ){
+    public async ssHttpRequest(reqObj: { url: string, method: string, body?: {} }, cb?: (...args: any) => void ){
 
         try {
 
@@ -62,23 +62,40 @@ class BaseApi {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                method: reqObj.method || 'GET'
+                method: reqObj.method || 'GET',
+                body: reqObj.body && JSON.stringify(reqObj.body)
             });
 
-            if(response.status !== 200){
-                throw new Error('Request failed');
-            };
+            const contentType = response.headers.get('Content-Type');
+            const isJson = contentType && contentType.includes('application/json');
+            const data = isJson ? await response.json() : await response.text();
 
-            const data = await response.json();
+            if (!response.ok) {
+  
+                throw {
+                    message: data?.message || 'Unknown error',
+                    name: data?.error.name || 'ServerError',
+                    statusCode: data?.error.statusCode || response.status,
+                    data: data?.error.data || {},
+                    type: data?.type || 'Unknown'
+                };
+            }
 
             if(cb) return cb(data);
 
             return data;
 
         }
-        catch(error){
+        catch(error: any){
+   
+            console.error('[ssHttpRequest Error]', error?.statusCode);
 
-            return undefined
+            return {
+                success: false,
+                statusCode: error?.statusCode ?? 400,
+                message: error?.name ?? error.message ?? 'Unknown error',
+                invalidInputs: error?.data ?? {}
+            };
         }
     }
 
@@ -88,14 +105,14 @@ class BaseApi {
 
             this._isLoading = true;
             this.error = '';
-            
+
             const response = await this.httpClient({
                 ...requestConfig,
                 signal: this.abortController.signal,
                 headers : {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                }
+                },
             });
            
             if(response.status !== 200) throw new Error('Request failed');

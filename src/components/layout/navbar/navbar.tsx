@@ -36,7 +36,7 @@ const Navbar = () => {
             
             <ul className={styles.details}>
                 <li><Link href='/'>Contact us</Link></li>
-                <li><Link href='/'>List your property</Link></li>
+                <li><Link href='/landlord'>List your property</Link></li>
             </ul>
         
 

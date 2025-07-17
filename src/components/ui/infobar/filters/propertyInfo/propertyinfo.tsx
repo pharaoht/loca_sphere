@@ -27,6 +27,8 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
 
     const cssClassName = isDouble ? styles.split : styles.fieldSet;
 
+    const param = getParam(name)?.split(',') || '';
+
     const onClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         
         const cbInputName = event.currentTarget.name;
@@ -61,8 +63,6 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
             {
                 info.map((itm, idx) => {
 
-                    const param = getParam(name)?.split(',') || '';
-
                     const isDefault = param.includes(itm.value);
 
                     if(itm.type){
@@ -76,7 +76,12 @@ const CheckboxLegend: React.FC<PropertyType> = ({ title, info, name, isDouble = 
                     return (
                         
                         <label key={idx} className={styles.fieldSetLabel} >
-                            <input type='checkbox' defaultChecked={isDefault} name={name} value={itm.value} onChange={(e) => onClickHandler(e)}/>
+                            <input type='checkbox' 
+                                defaultChecked={isDefault} 
+                                name={name}
+                                value={itm.value} 
+                                onChange={(e) => onClickHandler(e)}
+                            />
                             {itm.label}
                         </label>
                     )
@@ -105,7 +110,7 @@ const PropertyInfo: React.FC<PropertyInfoProps> = ({ propertyInfoData }) => {
             {
                 propertyInfoData.map((itm, idx) => (
                     <CheckboxLegend 
-                        key={idx} 
+                        key={itm.name} 
                         title={itm.title} 
                         isDouble={itm.isDouble} 
                         info={itm.info} 

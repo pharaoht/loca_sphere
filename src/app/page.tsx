@@ -8,7 +8,7 @@ const LocationRender: React.FC<{ lat: string, long: string, radius: number, loca
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const listings = await addressApi.getAddressesByCoordinates({ lat , long, radius });
+    const listings = await addressApi.getAddressesByCoordinates({ lat , long, radius, limit: 10 });
 
     return (
         <ListingByLocations location={location} apiData={listings}  />

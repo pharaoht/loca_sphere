@@ -41,6 +41,9 @@ const People: React.FC<PeopleProps> = () => {
     useEffect(() => {
 
         if (hasMounted.current) {
+
+            if(peopleCount == peopleParam) return;
+
             setParam([{key: 'peopleAllowed', value: String(peopleCount) }])
         }
         else {

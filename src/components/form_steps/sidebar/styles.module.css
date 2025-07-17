@@ -1,0 +1,27 @@
+.navL {
+    height: 100%;
+}
+
+.olContainer{
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    padding-left: min(var(--desktop-margin), var(--mobile-margin));;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    height: 100%;
+}
+
+.default{
+    color: var(--font-grey)
+}
+
+.complete {
+    color: var(--third-green)
+
+}
+
+.isActive{
+    background-color: #fff;
+}

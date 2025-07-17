@@ -37,6 +37,34 @@ class AddressApi extends BaseApi {
 
         return result;
     };
+
+    async httpFetGeoCodingAddress(queryString: string, cb?: (...args: any) => void, type: boolean = false): Promise<[] | null> {
+
+        const url = this.findHostName();
+
+        const qs = type ? `${url}/geocoding?q=${queryString}&type=retrieve` : `${url}/geocoding?q=${queryString}`;
+
+        const reqObj = {
+            url: qs,
+            method: 'GET'
+        };
+
+        const result = await this.httpRequest({
+            requestConfig: reqObj,
+            cb: (data) => { 
+
+                if(cb == undefined) return data;
+
+                if(type){
+                    return cb?.(data.features[0].properties)
+                }
+
+                return cb?.(data.suggestions)
+            }
+        });
+
+        return result
+    }
 };
 
 const addressApi = new AddressApi();
