@@ -5,10 +5,8 @@ import { notFound } from 'next/navigation';
 
 
 interface PageProps {
-    params: {
-        step: string; // will be 'step-1'
-    };
-    searchParams: { [key: string]: string | undefined };
+    params: Promise<{ step: string}>
+    searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
 
