@@ -22,20 +22,7 @@ const ageRange = [
     { id: '41+ years', name: '41+ years' },
 ]
 
-const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, stepState, errorFormState }) => {
-
-    const [ genderOptions, setGenderOptions ] = useState<Array<{ id: number, name: string}>>([]);
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-
-            await listingsApi.httpGetListingOptions('gender', setGenderOptions)
-        }
-
-        fetchData();
-        
-    }, []);
+const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, stepState, errorFormState, dropDownData }) => {
 
     return (
         <section className={styles.sectionContainer}>
@@ -48,7 +35,7 @@ const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending
                         isDisabled={isPending}
                         idnName='livesInProperty'
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
-                        inputValue={stepState.livesInProperty}
+                        inputValue={stepState.livesInProperty ? 1 : 0}
                         isRequired={true}
                         dropDownOptions={livesInPropertyOptions}
                         defaultOptionLabel='Select an option'
@@ -61,7 +48,7 @@ const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending
                                 isDisabled={isPending}
                                 idnName='livesWithFamily'
                                 onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
-                                inputValue={stepState.livesWithFamily}
+                                inputValue={stepState.livesWithFamily ? 1 : 0}
                                 isRequired={true}
                                 dropDownOptions={livesInPropertyOptions}
                                 defaultOptionLabel='Select an option'
@@ -79,7 +66,7 @@ const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending
                                 isDisabled={isPending}
                                 idnName='hasPets'
                                 onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
-                                inputValue={stepState.hasPets}
+                                inputValue={stepState.hasPets ? 1 : 0}
                                 isRequired={true}
                                 dropDownOptions={livesInPropertyOptions}
                                 defaultOptionLabel='Select an option'
@@ -121,7 +108,7 @@ const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         inputValue={stepState.genderAllowedId}
                         isRequired={true}
-                        dropDownOptions={genderOptions}
+                        dropDownOptions={dropDownData.genderOptions}
                         defaultOptionLabel='Select an option'
                         inputType='select'
                     />

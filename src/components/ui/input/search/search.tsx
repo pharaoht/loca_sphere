@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../input/input.module.css';
 
 interface SearchInputProps {
@@ -17,6 +17,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, inputValue, idnName, i
 
     const [ isActive, setIsActive ] = useState<boolean>(false);
 
+    const wrapperRef = useRef<HTMLDivElement>(null); 
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         setIsActive(e.target.value !== '');
@@ -27,10 +29,27 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, inputValue, idnName, i
 
         setIsActive(true);
     };
+
+    const handleClickOutside = (event: MouseEvent) => {
+        
+        if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+            setIsActive(false);
+        }
+    };
+
+    useEffect(() => {
+        
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+
+    }, []);
     
-     
     return (
-        <div className={styles.formGroup}>
+        <div ref={wrapperRef} className={styles.formGroup}>
             <label htmlFor={idnName}>{label}</label>
             <div className={styles.inputWrapper}>
                 <input
@@ -51,10 +70,15 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, inputValue, idnName, i
                     <ul className={styles.dropdown}>
                         {
                             suggestions.map((itm: any, idx) => (
-                                <li key={itm.mapbox_id} onClick={() => {
-                                    setIsActive(false);
-                                    onClickHandler?.(itm.mapbox_id)
-                                }}>{itm.full_address}</li>
+                                <li 
+                                    key={itm.mapbox_id} 
+                                    onClick={() => {
+                                        setIsActive(false);
+                                        onClickHandler?.(itm.mapbox_id)
+                                    }}
+                                >
+                                    {itm.full_address}
+                                </li>
                             ))
                         }
                         

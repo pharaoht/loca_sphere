@@ -94,3 +94,14 @@
   font-size: 0.95rem;
   pointer-events: none;
 }
+
+.cbLabel{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox{
+  height: 1.2rem;
+  width: 1.2rem;
+}

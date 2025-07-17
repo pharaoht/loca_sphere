@@ -62,6 +62,7 @@ const StepTwoComponent: React.FC<StepComponentProps<Step2State>> = ({ isPending,
 
     }, [ stepState.streetAddress ]);
 
+    console.count('step 2 component renders:')
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Address</h1>

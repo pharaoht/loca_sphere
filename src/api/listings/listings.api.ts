@@ -62,7 +62,7 @@ class ListingsApi extends BaseApi {
             method: 'GET'
         };
 
-        const optionsDal = DalFactory.create(option)
+        const optionsDal = DalFactory.create(option);
     
         if(isSS){
 

@@ -8,7 +8,7 @@ const StepThreeComponent: React.FC<StepComponentProps<Step3State>> = ({ isPendin
     console.count('stepComponent3 render times')
     return (
         <section className={styles.sectionContainer}>
-            <h1 className={styles.headerTitle}>Accommodations and Stay Limits</h1>
+            <h1 className={styles.headerTitle}>Fixures and Stay Limits</h1>
             <h3 className={styles.subHeader}>Enter your property information here.</h3>
             <div className={styles.formGrid}>
                 <div className={styles.formGroupRow}>
@@ -76,7 +76,6 @@ const StepThreeComponent: React.FC<StepComponentProps<Step3State>> = ({ isPendin
                         inputValue={stepState?.maxStayDays}
                         placeHolder='365 days maximum'
                         minimum={0}
-                        step={30}
                         maximum={365}
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         isDisabled={isPending}
