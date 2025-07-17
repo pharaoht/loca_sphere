@@ -48,7 +48,7 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
             if(!formId) return;
             
-            return setStepIndex(jumpIndex)
+            return setStepIndex(jumpIndex);
         };
 
         if(stepIndex == 0) return;
