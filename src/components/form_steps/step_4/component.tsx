@@ -24,6 +24,7 @@ const ageRange = [
 
 const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, stepState, errorFormState, dropDownData }) => {
 
+    console.count('render')
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Host Information</h1>
