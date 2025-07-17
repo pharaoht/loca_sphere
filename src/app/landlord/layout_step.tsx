@@ -55,7 +55,7 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
         setStepIndex(prevState => prevState - 1);
     
-        return
+        return;
     };
 
     const nextSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
