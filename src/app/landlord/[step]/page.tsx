@@ -20,7 +20,7 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
 
     const stepParam = param.step;
 
-    const formId = searchParam.formId;
+    const formId = searchParam.formId
     
     const formData = await listingsApi.httpGetDetailsForListing('all', String(formId)) ;
 
