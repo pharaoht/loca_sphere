@@ -22,9 +22,11 @@ const ageRange = [
     { id: '41+ years', name: '41+ years' },
 ]
 
-const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, stepState, errorFormState, dropDownData }) => {
+const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, formId, stepState, errorFormState, dropDownData }) => {
 
-    console.count('render')
+    console.count('stepComponent4 render times')
+    useEffect(() => { !stepState.listingId && setFormState({ listingId: formId }) }, []);
+    
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Host Information</h1>

@@ -35,14 +35,14 @@ class ListingsApi extends BaseApi {
         }
     };
 
-    public async httpPostCreateListing(step: string, formData: {}){
+    public async httpPostCreateListing(step: string, formData = {}, staticFiles = undefined){
         
         const url = this.findHostName();
     
         const reqObj = {
             url: `${url}/${step}`,
             method: 'POST',
-            body: formData
+            body: !staticFiles ? formData : staticFiles
         };
 
         const result = await this.ssHttpRequest(reqObj);
@@ -67,7 +67,7 @@ class ListingsApi extends BaseApi {
         if(isSS){
 
             const result = await this.ssHttpRequest(reqObj);
-
+            console.log(result)
             const dal = optionsDal.fromDto(result);
 
             return dal;

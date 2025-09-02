@@ -2,10 +2,15 @@ import styles from '../step_1/styles.module.css';
 import { Step3State } from "@/app/landlord/types";
 import { StepComponentProps } from "../step_1/component";
 import InputGroup from '@/components/ui/input/input/input';
+import { useEffect } from 'react';
 
 
-const StepThreeComponent: React.FC<StepComponentProps<Step3State>> = ({ isPending, setFormState, stepState, errorFormState }) => {
-    console.count('stepComponent3 render times')
+const StepThreeComponent: React.FC<StepComponentProps<Step3State>> = ({ isPending, setFormState, formId, stepState, errorFormState }) => {
+    
+    useEffect(() => { !stepState.id && setFormState({ id: formId })}, []);
+
+    console.count('stepComponent3 render times');
+
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Fixures and Stay Limits</h1>

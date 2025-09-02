@@ -80,9 +80,10 @@ export const stepDefaultState: DefaultStateType = {
         amenities: [],
     },
     'step-6': {
-
+        listingAmenities: []
     },
     'step-7': {
+        id: '',
         cleaningIncluded: 0,
         cleaningFee: 0,
         internetIncluded: 0,
@@ -91,10 +92,13 @@ export const stepDefaultState: DefaultStateType = {
         waterIncluded: 0,
         listingId: ''
     },
-    'step-8': {},
+    'step-8': {
+        houseRules: [],
+
+    },
     'step-9': {},
     'step-10': {},
-    'step-11': {},
+    'step-11': { images: []},
 
 } as const;
 
@@ -104,12 +108,12 @@ export type DefaultStateType = {
     'step-3': Step3State
     'step-4': Step4State
     'step-5': Step5State
-    'step-6': {}
+    'step-6': Step6State
     'step-7': Step7State
-    'step-8': {}
+    'step-8': Step8State
     'step-9': {}
     'step-10': {}
-    'step-11': {}
+    'step-11': Step11State
     
 
 }
@@ -167,7 +171,20 @@ export type Step5State = {
     amenities: Array<{ id: number, toDelete: boolean, listingId: string, bedroomAmenityId: number}>;
 }
 
+export type Step6State = {
+    listingAmenities: Array<
+    { 
+        id: number | null, 
+        toDelete: boolean, 
+        listingId: string, 
+        amenityTypeId: number, 
+        roomNumber : number | null,
+        amenity: Array<{ amenityId: number, }>
+    }>
+}
+
 export type Step7State = {
+    id: string | null;
     waterIncluded: number ;
     electricIncluded: number;
     gasIncluded: number;
@@ -175,6 +192,24 @@ export type Step7State = {
     cleaningIncluded: number;
     cleaningFee: number;
     listingId: string;
+}
+
+export type Step8State = {
+    houseRules: Array<{
+        id: number,
+        listingId: string,
+        ruleId: number,
+        isAllowed: number
+    }>
+
+}
+
+export type Step11State = {
+    images: Array<{
+        fileData: File,
+        isPrimary: boolean,
+        tag: string
+    }>
 }
 
 export function parseFormData(data: any):  DefaultStateType{
@@ -227,8 +262,10 @@ export function parseFormData(data: any):  DefaultStateType{
             amenities: data?.bedroomAmenityMap,
         },
         'step-6': {
+            listingAmenities: []
         },
         'step-7': {
+            id: data?.utilityMap?.id,
             cleaningIncluded: data?.utilityMap?.cleaningIncluded ? 1 : 0,
             cleaningFee: data?.utilityMap?.cleaningFee,
             internetIncluded: data?.utilityMap?.internetIncluded ? 1 : 0,
@@ -237,10 +274,22 @@ export function parseFormData(data: any):  DefaultStateType{
             waterIncluded: data?.utilityMap?.waterIncluded ? 1 : 0,
             listingId: data?.id
         },
-        'step-8': {},
+        'step-8': {
+            houseRules: data?.hostRulesMap.map((itm: any) => {
+                
+                return {
+                    id: itm.id,
+                    ruleId: itm.ruleId,
+                    isAllowed: itm.isAllowed ? 1 : 0,
+                    listingId: itm.listingId,
+                }
+            })
+        },
         'step-9': {},
         'step-10': {},
-        'step-11': {},
+        'step-11': {
+            images: []
+        },
     }
      
 }
@@ -253,5 +302,6 @@ export type DropDownOptions = {
     bedroomAmenityOptions: Array<{ id: number, name: string, icon: string }>;
     amenityTypeOptions: [];
     amenityOptions: [];
+    houseRulesOptions: Array<{ id: number, name: string, icon: string }>;
 
 }

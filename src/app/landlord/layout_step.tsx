@@ -72,6 +72,10 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
             else if(stepIndex == 0 && result.id) setParam([{ key: 'formId', value: result.id }]);
 
+            else if (stepKeys[stepIndex] === 'step-5' && result.data.length > 0) onChangeHandler({ amenities: result.data })
+
+            else if (stepKeys[stepIndex] === 'step-8' && result.success) onChangeHandler({ houseRules: result.data });
+
             else if(result.id) onChangeHandler({ id: result.id });
             
             setStepIndex(prevState => prevState + 1);

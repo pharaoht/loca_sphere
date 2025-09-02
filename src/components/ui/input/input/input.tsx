@@ -9,7 +9,7 @@ export interface InputProps {
     onChangeHandler: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
     placeHolder?: string | undefined;
     isDisabled?: boolean | undefined;
-    inputValue?: string | number | readonly string[] | undefined;
+    inputValue: string | number | readonly string[] | undefined;
     validationMessage?: string | undefined;
     unitText?: string | undefined;
     minimum?: number;

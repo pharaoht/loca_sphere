@@ -14,6 +14,7 @@ export interface StepComponentProps<T> {
 
 const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending, stepState, setFormState, errorFormState, dropDownData }) => {
 
+    const { currencyOptions, listingTypeOptions} = dropDownData;
     console.count('stepComponent1 render times')
    
     return (
@@ -42,7 +43,7 @@ const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending,
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         inputValue={stepState.currencyId}
                         isRequired={true}
-                        dropDownOptions={dropDownData.currencyOptions}
+                        dropDownOptions={currencyOptions}
                         defaultOptionLabel='Select a currency'
                         inputType='select'
                     />
@@ -65,7 +66,7 @@ const StepOneComponent: React.FC<StepComponentProps<Step1State>> = ({ isPending,
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         inputValue={stepState.listingTypeId}
                         isRequired={true}
-                        dropDownOptions={dropDownData.listingTypeOptions}
+                        dropDownOptions={listingTypeOptions}
                         defaultOptionLabel="Select a type"
                         inputType="select"
                     />
