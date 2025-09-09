@@ -98,7 +98,10 @@ export const stepDefaultState: DefaultStateType = {
     },
     'step-9': {},
     'step-10': {},
-    'step-11': { images: []},
+    'step-11': { 
+        existing: [],
+        images: []
+    },
 
 } as const;
 
@@ -205,10 +208,18 @@ export type Step8State = {
 }
 
 export type Step11State = {
+    existing: Array<{
+        id: number,
+        url: string,
+        isPrimary: boolean,
+        amenityTypeId: number,
+        listingId: string
+    }>
     images: Array<{
         fileData: File,
         isPrimary: boolean,
-        tag: string
+        tag: string,
+        listingId: string
     }>
 }
 
@@ -288,6 +299,16 @@ export function parseFormData(data: any):  DefaultStateType{
         'step-9': {},
         'step-10': {},
         'step-11': {
+            existing: data?.images.map((itm: any) => {
+                return {
+                    id: itm.id,
+                    url: itm.url,
+                    isPrimary: Boolean(itm.isPrimary),
+                    amenityTypeId: itm.amenityTypeId,
+                    listingId: itm.listingId
+
+                }
+            }),
             images: []
         },
     }
@@ -303,5 +324,4 @@ export type DropDownOptions = {
     amenityTypeOptions: [];
     amenityOptions: [];
     houseRulesOptions: Array<{ id: number, name: string, icon: string }>;
-
 }

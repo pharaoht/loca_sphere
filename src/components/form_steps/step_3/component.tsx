@@ -69,6 +69,7 @@ const StepThreeComponent: React.FC<StepComponentProps<Step3State>> = ({ isPendin
                         idnName='minimumStayDays'
                         isRequired={true}
                         inputValue={stepState?.minimumStayDays}
+                        minimum={30}
                         placeHolder='60 days minimum'
                         onChangeHandler={(e) => setFormState({ [e.target.name]: +e.target.value })}
                         isDisabled={isPending}

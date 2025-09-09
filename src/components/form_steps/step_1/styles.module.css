@@ -124,7 +124,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px auto;
   background-color: #fafafa;
   cursor: pointer;
   flex-direction: column;

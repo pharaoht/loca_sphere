@@ -79,7 +79,7 @@ body {
   display: none;
 }
 
-/* .dark body {
+.dark body {
 	background-color: #121212;
 	color: white !important;
 }
@@ -87,4 +87,4 @@ body {
 .dark input, select, textarea, #formSidebar {
   background-color: #121212 !important;
   color: white !important;
-} */
+}

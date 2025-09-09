@@ -1,6 +1,7 @@
 import { DalFactory } from '@/dal/dal.factory';
 import BaseApi from '../base.api';
 import axios from 'axios';
+import { Step11State } from '@/app/landlord/types';
 
 class ListingsApi extends BaseApi {   
 
@@ -35,17 +36,17 @@ class ListingsApi extends BaseApi {
         }
     };
 
-    public async httpPostCreateListing(step: string, formData = {}, staticFiles = undefined){
+    public async httpPostCreateListing(step: string, formData = {}, multipartForm: boolean = false){
         
         const url = this.findHostName();
     
         const reqObj = {
             url: `${url}/${step}`,
             method: 'POST',
-            body: !staticFiles ? formData : staticFiles
+            body: formData,
         };
 
-        const result = await this.ssHttpRequest(reqObj);
+        const result = multipartForm ? await this.sshttpMultiPartRequest(reqObj) : await this.ssHttpRequest(reqObj);
 
         return result;
 
@@ -67,7 +68,7 @@ class ListingsApi extends BaseApi {
         if(isSS){
 
             const result = await this.ssHttpRequest(reqObj);
-            console.log(result)
+
             const dal = optionsDal.fromDto(result);
 
             return dal;
@@ -96,6 +97,20 @@ class ListingsApi extends BaseApi {
             method: 'GET'
         }
     };
+
+    public transformToFormData(data: Step11State){
+
+        const formData = new FormData();
+        
+        data.images.forEach((item, index) => {
+            formData.append('files', item.fileData);
+            formData.append(`files[${index}][isPrimary]`, String(+item.isPrimary));
+            formData.append(`files[${index}][tag]`, item.tag);
+            formData.append(`files[${index}][listingId]`, item.listingId);
+        });
+
+        return formData;
+    }
 };
 
 const listingsApi = new ListingsApi();

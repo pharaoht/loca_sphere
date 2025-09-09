@@ -1,6 +1,6 @@
 'use client'
 import styles from './layout.module.css';
-import { DefaultStateType, DropDownOptions, parseFormData, sideLinks, stepDefaultState, StepFormData, StepKey, stepKeys } from './types';
+import { DefaultStateType, DropDownOptions, parseFormData, sideLinks, Step11State, stepDefaultState, StepFormData, StepKey, stepKeys } from './types';
 import React, { FormEvent, Suspense, useEffect, useState, useTransition } from 'react';
 import FormSidebar from '@/components/form_steps/sidebar/formSidebar';
 import StepOneComponent, { StepComponentProps } from '@/components/form_steps/step_1/component';
@@ -64,9 +64,11 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
         setTransition(async () => {
 
-            const formData = formState[stepKeys[stepIndex]];
+            const isFile = stepKeys[stepIndex] === 'step-11' ? true : false;
+            
+            const formData = isFile ? listingsApi.transformToFormData(formState[stepKeys[stepIndex]] as Step11State) : formState[stepKeys[stepIndex]];
 
-            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData);
+            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData, isFile);
 
             if(result?.success == false) return setErrorFormState(result?.invalidInputs);
 
@@ -78,6 +80,8 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
             else if(result.id) onChangeHandler({ id: result.id });
             
+            if(stepKeys[stepIndex] === 'step-11') return 
+        
             setStepIndex(prevState => prevState + 1);
             
         })

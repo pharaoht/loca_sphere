@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../step_1/styles.module.css';
 import { StepComponentProps } from '../step_1/component';
 import { Step4State } from '@/app/landlord/types';
 import SelectGroup from '@/components/ui/input/select/select';
-import listingsApi from '@/api/listings/listings.api';
 
 const livesInPropertyOptions = [
     { id: 0, name: 'No' },

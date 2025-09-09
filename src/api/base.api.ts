@@ -53,6 +53,49 @@ class BaseApi {
         return `${this.prodDomain}/api/${this.resource}`;
     };
 
+    public async sshttpMultiPartRequest(reqObj: { url: string, method: string, body: any }, cb?: (...args: any) => void) {
+
+        try {
+            const response = await fetch(reqObj.url, {
+                headers: {
+                },
+                method: 'POST',
+                body: reqObj.body
+            });
+
+            const contentType = response.headers.get('Content-Type');
+            const isJson = contentType && contentType.includes('application/json');
+            const data = isJson ? await response.json() : await response.text();
+
+            if (!response.ok) {
+
+                throw {
+                    message: data?.message || 'Unknown error',
+                    name: data?.error.name || 'ServerError',
+                    statusCode: data?.error.statusCode || response.status,
+                    data: data?.error.data || {},
+                    type: data?.type || 'Unknown'
+                };
+            }
+
+            if (cb) return cb(data);
+
+            return data;
+        }
+
+        catch (error: any) {
+
+            console.error('[ssHttpRequest Error]', error?.statusCode);
+
+            return {
+                success: false,
+                statusCode: error?.statusCode ?? 400,
+                message: error?.name ?? error.message ?? 'Unknown error',
+                invalidInputs: error?.data ?? {}
+            };
+        }
+    }
+
     public async ssHttpRequest(reqObj: { url: string, method: string, body?: {} }, cb?: (...args: any) => void ){
 
         try {

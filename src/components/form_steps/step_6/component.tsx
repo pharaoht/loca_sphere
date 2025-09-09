@@ -64,11 +64,18 @@ const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending,
         setFormState({ listingAmenities: updatedState })
     }
 
-    const msOnChangeHandler = (index: number) => {
+    const msOnChangeHandler = (groupIndex: number, optionIndex: number) => {
+        
+        const currentState = stepState.listingAmenities[groupIndex].amenity;
 
-        const currentState = stepState.listingAmenities[index];
+        const updatedState = inArray(currentState, optionIndex) ? 
+            currentState.filter(itm => itm.amenityId !== optionIndex) 
+                : [...currentState, { amenityId: optionIndex }];
 
-        const updatedState = ''
+        
+        function inArray(array: Array<any>, search: number){
+            return array.some(itm => +itm.amenityId === +search)
+        }
     }
 
     return (
@@ -101,7 +108,7 @@ const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending,
                                         inputValue={itm.roomNumber}
                                         selectOptions={amenityTypeOptions}
                                         multiSelectOptions={amenityOptions}
-                                        multiSelectOnChange={msOnChangeHandler}
+                                        multiSelectOnChange={(childValue) => msOnChangeHandler(idx, childValue)}
                                     />
                                 </li>
                             ))

@@ -1,14 +1,20 @@
-import { Step11State, Step1State } from '@/app/landlord/types';
+import { Step11State } from '@/app/landlord/types';
 import { StepComponentProps } from '../step_1/component';
 import styles from '../step_1/styles.module.css';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import SelectGroup from '@/components/ui/input/select/select';
+import Image from 'next/image';
 
+//todo:
+//fix is primary bug
+//format existing images
+//
 const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPending, setFormState, stepState, dropDownData, formId }) => {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const tags = dropDownData.amenityTypeOptions;
+    const existingImages = stepState.existing;
 
     const removeFile = (index: number) => {
 
@@ -29,7 +35,8 @@ const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPend
             const update = Array.from(selectedFiles).map((file, idx) => ({
                 fileData: file,
                 isPrimary: idx == 0 ? true : false,
-                tag: ""
+                tag: "",
+                listingId: formId
             }));
 
             setFormState({ images: [...current, ...update] })
@@ -67,7 +74,21 @@ const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPend
             <h3 className={styles.subHeader}>Show your place.</h3>
             <div className={styles.formGrid}>
                 <p>Great photos bring great tenants: Your photos are the first thing potential tenants will see when browsing for properties. By uploading great photos, you can make a great first impression and attract the right tenants for your property.</p>
-
+                <section className={styles.imageContainer}>
+                    {
+                        existingImages.map((itm) => {
+                            return (
+                                <Image 
+                                    key={itm.id}
+                                    src={itm.url}
+                                    height={40}
+                                    width={60}
+                                    alt='images'
+                                />
+                            )
+                        })
+                    }
+                </section>
                 <div className={styles.uploadContainer}>
                     <input
                         type="file"
