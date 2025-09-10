@@ -29,7 +29,7 @@ const getListingDetails = async (listingId: string) => {
     const qs = 'address,amenity,utility,bedroomAmenity,hostRules,currency,listingType,host';
 
     const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
-
+    
     return result;
 }
 
@@ -39,9 +39,9 @@ const ListingsPage = async ({ params }: PageProps ) => {
 
     const listing = await getListingDetails(listingId);
 
-    if(!listing) return notFound();
+    if (listing.success === false) return notFound();
     
-    const { bedrooms, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing;
+    const { bedrooms, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing || {};
 
     return (
         <div className={styles.container}>
@@ -165,14 +165,14 @@ const ListingsPage = async ({ params }: PageProps ) => {
 
                     <Suspense fallback={<>Loading...</>}>
                         <About
-                            hostingDetails={hostingDetails}
+                            hostingDetails={hostingDetails || undefined}
                             description={description}
                         />
                     </Suspense>
                     <hr/>
                     
                     <Suspense fallback={<>Loading...</>}>
-                        <Spaces id={listingId} amenity={amenity}/>
+                        <Spaces id={listingId} amenity={amenity || undefined}/>
                     </Suspense>
                     <hr/>
                    
@@ -189,13 +189,13 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     <Suspense fallback={<>Loading...</>}>
                         <Landlord 
                             id={listingId} 
-                            hostingDetails={hostingDetails}
+                            hostingDetails={hostingDetails || undefined}
                         />
                     </Suspense>
                     
                     <hr/>
                     <Suspense fallback={<>Loading...</>}>
-                        <Services id={listingId} utilityMap={utilityMap} />
+                        <Services id={listingId} utilityMap={utilityMap || undefined} />
                     </Suspense>  
 
                     <hr/>

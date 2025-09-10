@@ -24,7 +24,7 @@ interface Props {
 
 const Spaces: React.FC<Props> = async ({ id, amenity }) => {
 
-    if(!id){
+    if(!id || !amenity){
 
         return (
             <SectionWrapper id='sharedSpaces' headerText='Shared spaces and admentities'>

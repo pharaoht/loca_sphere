@@ -7,7 +7,7 @@ import InputGroup from '@/components/ui/input/input/input';
 const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending, dropDownData, setFormState, stepState, formId }) => {
 
     const { amenityOptions, amenityTypeOptions } = dropDownData;
-
+    console.log(stepState)
     const deleteHandler = () => {
         
     }
@@ -22,11 +22,7 @@ const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending,
             listingId: formId,
             amenityTypeId: '',
             roomNumber: null,
-            amenity: [
-                {
-                    amenityId: undefined,
-                }
-            ]
+            amenity: []
         }]
 
         setFormState({ listingAmenities: updatedState })
@@ -65,19 +61,38 @@ const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending,
     }
 
     const msOnChangeHandler = (groupIndex: number, optionIndex: number) => {
-        
-        const currentState = stepState.listingAmenities[groupIndex].amenity;
+        // a snapshot of state at render time.
+        // /Both currentState and state are just references to parts of the stepState object.
+        //If you mutate them directly(e.g., state.push(...)), you are mutating React state directly, 
+        // which React does not detect as a change → no re - render.
+        const currentState = stepState.listingAmenities;
+        const state = currentState[groupIndex].amenity;
 
-        const updatedState = inArray(currentState, optionIndex) ? 
-            currentState.filter(itm => itm.amenityId !== optionIndex) 
-                : [...currentState, { amenityId: optionIndex }];
-
+        const updatedState = inArray(state, optionIndex) ? 
+            state.filter(itm => itm.amenityId !== optionIndex)
+            : [...state, { amenityId: optionIndex }]
+        ;
         
+        const u = currentState.map((itm, idx) => {
+            if(idx === groupIndex){
+                
+                return {
+                    ...itm,
+                    amenity: updatedState
+                }
+
+            }
+
+            return itm
+        })
+
+        setFormState({ listingAmenities: u })
+
         function inArray(array: Array<any>, search: number){
             return array.some(itm => +itm.amenityId === +search)
         }
     }
-
+console.log(stepState)
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Listing Amenities</h1>
@@ -106,6 +121,7 @@ const StepSixComponent: React.FC<StepComponentProps<Step6State>> = ({ isPending,
                                         selectOnChange={(e) => onChangeHandler(idx, e.currentTarget.value, 'amenityTypeId')}
                                         inputOnChange={(e) => onChangeHandler(idx, e.currentTarget.value, 'roomNumber')}
                                         inputValue={itm.roomNumber}
+                                        selectedOptions={itm.amenity || []}
                                         selectOptions={amenityTypeOptions}
                                         multiSelectOptions={amenityOptions}
                                         multiSelectOnChange={(childValue) => msOnChangeHandler(idx, childValue)}

@@ -13,10 +13,11 @@ interface MultiSelectProps {
     selectInputValue: string | number | readonly string[] | undefined;
     multiSelectOptions: Array<{ id: number | string, name: string }>;
     multiSelectOnChange: (...args: any) => void;
+    selectedOptions: Array<any>
 }
 
-const MultiSelectGroup: React.FC<MultiSelectProps> = ({ inputOnChange, inputValue, selectIdnName, selectLabel, selectOnChange, selectDefaultOptionLabel, selectInputValue, selectOptions, multiSelectOptions, multiSelectOnChange }) => {
-
+const MultiSelectGroup: React.FC<MultiSelectProps> = ({ inputOnChange, selectedOptions, inputValue, selectIdnName, selectLabel, selectOnChange, selectDefaultOptionLabel, selectInputValue, selectOptions, multiSelectOptions, multiSelectOnChange }) => {
+    console.log(selectedOptions)
     return (
         <div className={styles.formGroup}>
 
@@ -42,7 +43,11 @@ const MultiSelectGroup: React.FC<MultiSelectProps> = ({ inputOnChange, inputValu
                     multiSelectOptions.length > 0 && (
                         multiSelectOptions.map((itm, idx) => (
                             <li key={itm.id}>
-                                <input type='checkbox' value={itm.id} onClick={() => multiSelectOnChange(itm.id)} />
+                                <input 
+                                    type='checkbox' 
+                                    value={itm.id} 
+                                    defaultChecked={selectedOptions.some(item => item.amenityId === itm.id )}
+                                    onClick={() => multiSelectOnChange(itm.id)} />
                                 {itm.name}
                             </li>
                         ))  

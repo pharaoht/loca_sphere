@@ -273,7 +273,25 @@ export function parseFormData(data: any):  DefaultStateType{
             amenities: data?.bedroomAmenityMap,
         },
         'step-6': {
-            listingAmenities: []
+            listingAmenities: Object.values(data?.amenity?.amenities.reduce((acc: any, current: any) => {
+
+                const key = current.amenityTypeId;
+                
+                if (!acc[key]) {
+
+                    acc[key] = {
+                        amenityTypeId: current.amenityTypeId,
+                        id: current.id,
+                        listingId: current.listingId,
+                        roomNumber: current.roomNumber,
+                        amenity: [],
+                    }
+                }
+
+                acc[key].amenity.push({ amenityId: current.amenityId, toDelete: false, id: current.listingAmenityMap.id });
+
+                return acc;
+            }, {}))
         },
         'step-7': {
             id: data?.utilityMap?.id,

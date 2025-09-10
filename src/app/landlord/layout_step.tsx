@@ -106,7 +106,7 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
                 <aside className={styles.siderBar}>
                     <FormSidebar navLinks={sideLinks} changeComponentHandler={backHandler}/>
                 </aside>
-                <article>
+                <article className={styles.article}>
                     <form className={styles.form} onSubmit={nextSubmitHandler}>
                         <div className={styles.scrollableContent}>
                             <Suspense fallback={<div>Loading step...</div>}>

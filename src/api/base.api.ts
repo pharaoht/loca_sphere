@@ -116,6 +116,7 @@ class BaseApi {
             if (!response.ok) {
   
                 throw {
+                    success: false,
                     message: data?.message || 'Unknown error',
                     name: data?.error.name || 'ServerError',
                     statusCode: data?.error.statusCode || response.status,
