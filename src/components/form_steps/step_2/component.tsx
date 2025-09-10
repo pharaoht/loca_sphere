@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import addressApi from "@/api/address/address.api";
 import SearchInput from "@/components/ui/input/search/search";
 
-const StepTwoComponent: React.FC<StepComponentProps<Step2State>> = ({ isPending, stepState, setFormState, errorFormState }) => {
+const StepTwoComponent: React.FC<StepComponentProps<Step2State>> = ({ isPending, formId, stepState, setFormState, errorFormState }) => {
 
     const [ address, setAddress ] = useState([]);
 
@@ -21,6 +21,7 @@ const StepTwoComponent: React.FC<StepComponentProps<Step2State>> = ({ isPending,
         function cb(addy: any){
 
             const a = {
+                listingId: formId,
                 streetAddress: addy.context.address.name,
                 houseNumber: addy?.context.address?.address_number,
                 postalCode: addy?.context.postcode.name,
@@ -60,9 +61,10 @@ const StepTwoComponent: React.FC<StepComponentProps<Step2State>> = ({ isPending,
 
         return () => clearTimeout(timer);
 
-    }, [ stepState.streetAddress ]);
+    }, [ stepState.streetAddress ]);    
 
-    console.count('step 2 component renders:')
+    useEffect(() => { !stepState.listingId && setFormState({ listingId: formId })}, []);
+
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Address</h1>

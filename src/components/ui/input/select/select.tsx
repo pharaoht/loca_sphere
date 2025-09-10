@@ -18,7 +18,7 @@ const SelectGroup: React.FC<SelectProps> = (
 
     return (
         <div className={styles.formGroup}>
-            <label htmlFor={idnName}>{label} *</label>
+            <label htmlFor={idnName}>{label} {isRequired && '*'}</label>
             <select 
                 name={idnName}
                 id={idnName} 

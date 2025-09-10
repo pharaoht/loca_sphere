@@ -22,7 +22,7 @@ type Utility = {
 
 const Services: React.FC<Props> = async ({ id, utilityMap }) => {
 
-    if(!id){
+    if (!id || !utilityMap){
 
         return (
             <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>

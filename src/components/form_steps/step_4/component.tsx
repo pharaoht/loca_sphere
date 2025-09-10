@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from '../step_1/styles.module.css';
 import { StepComponentProps } from '../step_1/component';
 import { Step4State } from '@/app/landlord/types';
 import SelectGroup from '@/components/ui/input/select/select';
-import listingsApi from '@/api/listings/listings.api';
 
 const livesInPropertyOptions = [
     { id: 0, name: 'No' },
@@ -22,9 +21,11 @@ const ageRange = [
     { id: '41+ years', name: '41+ years' },
 ]
 
-const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, stepState, errorFormState, dropDownData }) => {
+const StepFourComponent: React.FC<StepComponentProps<Step4State>> = ({ isPending, setFormState, formId, stepState, errorFormState, dropDownData }) => {
 
-    console.count('render')
+    console.count('stepComponent4 render times')
+    useEffect(() => { !stepState.listingId && setFormState({ listingId: formId }) }, []);
+    
     return (
         <section className={styles.sectionContainer}>
             <h1 className={styles.headerTitle}>Host Information</h1>

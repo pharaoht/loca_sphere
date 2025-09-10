@@ -17,7 +17,7 @@ const StepSevenComponent: React.FC<StepComponentProps<Step7State>> = ({ isPendin
 
         if(!stepState.listingId){
 
-            setFormState({ listingId: formId});
+            setFormState({ listingId: formId });
         }
     }, []);
 

@@ -1,6 +1,6 @@
 'use client'
 import styles from './layout.module.css';
-import { DefaultStateType, DropDownOptions, parseFormData, sideLinks, stepDefaultState, StepFormData, StepKey, stepKeys } from './types';
+import { DefaultStateType, DropDownOptions, parseFormData, sideLinks, Step11State, stepDefaultState, StepFormData, StepKey, stepKeys } from './types';
 import React, { FormEvent, Suspense, useEffect, useState, useTransition } from 'react';
 import FormSidebar from '@/components/form_steps/sidebar/formSidebar';
 import StepOneComponent, { StepComponentProps } from '@/components/form_steps/step_1/component';
@@ -64,16 +64,24 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
         setTransition(async () => {
 
-            const formData = formState[stepKeys[stepIndex]];
+            const isFile = stepKeys[stepIndex] === 'step-11' ? true : false;
+            
+            const formData = isFile ? listingsApi.transformToFormData(formState[stepKeys[stepIndex]] as Step11State) : formState[stepKeys[stepIndex]];
 
-            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData);
+            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData, isFile);
 
             if(result?.success == false) return setErrorFormState(result?.invalidInputs);
 
             else if(stepIndex == 0 && result.id) setParam([{ key: 'formId', value: result.id }]);
 
+            else if (stepKeys[stepIndex] === 'step-5' && result.data.length > 0) onChangeHandler({ amenities: result.data })
+
+            else if (stepKeys[stepIndex] === 'step-8' && result.success) onChangeHandler({ houseRules: result.data });
+
             else if(result.id) onChangeHandler({ id: result.id });
             
+            if(stepKeys[stepIndex] === 'step-11') return 
+        
             setStepIndex(prevState => prevState + 1);
             
         })
@@ -98,7 +106,7 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
                 <aside className={styles.siderBar}>
                     <FormSidebar navLinks={sideLinks} changeComponentHandler={backHandler}/>
                 </aside>
-                <article>
+                <article className={styles.article}>
                     <form className={styles.form} onSubmit={nextSubmitHandler}>
                         <div className={styles.scrollableContent}>
                             <Suspense fallback={<div>Loading step...</div>}>

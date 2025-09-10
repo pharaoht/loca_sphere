@@ -23,7 +23,7 @@ interface Props {
 
 const Landlord: React.FC<Props> = async ({ id, hostingDetails }) => {
 
-    if(!id){
+    if (!id || !hostingDetails){
 
         return (
             <SectionWrapper id="landlord" headerText="LandLord">

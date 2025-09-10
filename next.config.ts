@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
     }
     return config
   },
+
+
+  images: {
+    remotePatterns: [
+      new URL('http://res.cloudinary.com/**')
+    ],
+  },
 }
 
 export default nextConfig
