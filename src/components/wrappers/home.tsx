@@ -1,4 +1,4 @@
-import Card, { CardLoadingSkeleton } from "../ui/card/card";
+import { CardLoadingSkeleton } from "../ui/card/card";
 import ListingCard from "../ui/listingcard/listingCard";
 import { Address } from "../ui/map/map";
 import Slider from "../ui/slider/slides"
@@ -26,16 +26,6 @@ const ListingByLocations: React.FC<Props> = ({ apiData, location }) => {
                         <ListingCard
                             variant="card"
                             data={listing}
-                            // longitude={listing.longitude}
-                            // latitude={listing.latitude}
-                            // price={listing.listing.monthlyRent}
-                            // isVerified={listing.listing.isChecked}
-                            // beds={listing.listing.bedrooms}
-                            // city={listing.city}
-                            // currency={listing.listing.currency.symbol}
-                            // peopleAllowed={listing.listing.peopleAllowed}
-                            // images={listing.listing.images}
-
                         />
                     </li>
                 ))
