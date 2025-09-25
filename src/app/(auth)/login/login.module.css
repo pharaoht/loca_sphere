@@ -1,0 +1,35 @@
+.pageContainer{
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer {
+    border: 1px solid gray;
+    display: flex;
+    height: 25rem;
+    width: 35rem;
+    border-radius: 1rem;
+}
+
+.imageContainer{
+
+    position: relative;
+    height: 100%;
+    width: 15rem;
+}
+
+.imageContainer img{
+    object-fit: cover;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.loginOptions {
+    padding: .5rem;
+}
+
+.headerText {
+    font-size: 1.5rem;
+}

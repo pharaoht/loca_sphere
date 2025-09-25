@@ -1,7 +1,7 @@
 .container {
     scroll-snap-align: start;
     flex-shrink: 0;
-    width: 250px;
+    width: 300px;
     aspect-ratio: 3 / 2;
     position: relative;
 }
@@ -26,11 +26,20 @@
     flex-direction: column;
     gap: 5px;
 }
+
 .listInfo{
     color: var(--gray-color-2);
     font-weight: 600;
-    font-size: 14px;
+    font-size: .8rem
 }
+
+.infoThin{
+    color: var(--gray-color-2);
+    font-weight: 400;
+    font-size: .6rem
+}
+
+
 
 .trustll {
     padding: 5px;

@@ -54,6 +54,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFro
                 if(React.isValidElement(child) && (child.type === 'input' || child.type === 'button')) {
 
                     return React.cloneElement(child  as ReactElement<React.InputHTMLAttributes<HTMLInputElement>>, {
+                        key: child.key,
                         onChange: handleInputChange,
                         onFocus: handleInputFocus,
                     })

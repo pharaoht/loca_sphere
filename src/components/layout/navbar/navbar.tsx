@@ -58,7 +58,7 @@ const Navbar = () => {
                     </Link>
                 </li>
                 <li className={styles.refBtn}>
-                    <Link href='/' className={styles.button}>
+                    <Link href='/login' className={styles.button}>
                         Login
                     </Link>
                 </li>

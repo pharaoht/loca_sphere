@@ -13,6 +13,12 @@ export type Currency = {
 	symbol: string;
 };
 
+export type ListingImages = {
+    id: number,
+    isPrimary: boolean,
+    url: string
+}
+
 export type List = {
 	id: string;
 	userId: string;
@@ -33,6 +39,7 @@ export type List = {
 	createdAt: string;
 	updatedAt: string; 
 	currency: Currency;
+    images: Array<ListingImages>
 };
 
 export type Address = {

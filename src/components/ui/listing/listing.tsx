@@ -13,7 +13,7 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
     
     const [ isHovered, setIsHovered ] = useState<boolean>(false);
 
-    const { id, title, monthlyRent, currency, peopleAllowed, bedrooms } = listingInfo;
+    const { id, title, monthlyRent, currency, peopleAllowed, bedrooms, images } = listingInfo;
 
     const { symbol } = currency;
 
@@ -32,12 +32,11 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
         >
             
             <figure className={styles.image}>
+                {
+                    
+                }
                 <Image src='/photo.jpg' alt='image of listing' fill/>
-                {/* <div className={styles.heart}>
-                    <button>
-                        <Image src='/heart.png' alt='heart icon' height={20} width={20} />
-                    </button>
-                </div> */}
+
                 {isHovered && (
                     <div className={styles.floatingArrows}>
                         <button className={styles.leftArrow}>{'<'}</button>
@@ -59,3 +58,10 @@ const Listing: React.FC<Props> = ({ listingInfo }) => {
 };
 
 export default Listing;
+
+
+{/* <div className={styles.heart}>
+                    <button>
+                        <Image src='/heart.png' alt='heart icon' height={20} width={20} />
+                    </button>
+                </div> */}
