@@ -36,12 +36,12 @@ class ListingsApi extends BaseApi {
         }
     };
 
-    public async httpPostCreateListing(step: string, formData = {}, multipartForm: boolean = false){
+    public async httpPostCreateListing(step: string, formData = {}, multipartForm: boolean = false, listId: string | null = ''){
         
         const url = this.findHostName();
     
         const reqObj = {
-            url: `${url}/${step}`,
+            url: `${url}/${step}?listId=${listId}`,
             method: 'POST',
             body: formData,
         };

@@ -30,7 +30,9 @@ const stepComponents: Record<StepKey, React.FC<StepComponentProps<any>>
 
 const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, formId = undefined, dropDownData }) => {
 
-    const { setParam } = useParams();
+    const { setParam, getParam } = useParams();
+
+    const listingId = getParam('formId');
     
     const [ stepIndex, setStepIndex ] = useState<number>(0);
 
@@ -65,10 +67,10 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
         setTransition(async () => {
 
             const isFile = stepKeys[stepIndex] === 'step-11' ? true : false;
-            
-            const formData = isFile ? listingsApi.transformToFormData(formState[stepKeys[stepIndex]] as Step11State) : formState[stepKeys[stepIndex]];
 
-            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData, isFile);
+            const formData = isFile ? listingsApi.transformToFormData(formState[stepKeys[stepIndex]] as Step11State) : formState[stepKeys[stepIndex]];
+ 
+            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData, isFile, listingId);
 
             if(result?.success == false) return setErrorFormState(result?.invalidInputs);
 
@@ -98,7 +100,12 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
         }))
     }
 
-    useEffect(() => setErrorFormState({}), [ stepIndex ]);
+    useEffect(() => { 
+        
+        setErrorFormState({});
+        onChangeHandler({ xxFormxx: listingId });
+
+    }, [ stepIndex ]);
 
     return (
         <main className={styles.parentStyles}>

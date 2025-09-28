@@ -1,8 +1,9 @@
+'use client'
 import Image from 'next/image';
-import { Address, List, ListingImages } from '../map/map';
+import { Address, ListingImages } from '../map/map';
 import styles from './listingcard.module.css';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 
 interface ListingCardProps {
@@ -22,6 +23,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
 
     const todayDate = moment().format('DD MMM YYYY');
 
+    const [activeIndex, setActiveIndex] = useState<number>(Array.isArray(images) && images.length > 0 ? images.findIndex(itm => itm.isPrimary) : 0);
+
     function imageCarousel(imageData: ListingImages[]): React.ReactElement {
 
         return (
@@ -32,17 +35,20 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
                             return (
                                 <React.Fragment key={itm.id}>
                                     <Image  src={itm.url} alt='image of listing' fill/>
-                                    <figcaption></figcaption>
+                                   
                                 </React.Fragment>
                             )
                         }
                     }) : (
                         <>
                             <Image src='/photo.jpg' alt='image of listing' fill />
-                            <figcaption></figcaption>
+                         
                         </>
                     )
                 }
+                <button className={`${styles.navBtn} ${styles.prevBtn}`}>&lt;</button>
+                <button className={`${styles.navBtn} ${styles.nextBtn}`}>&gt;</button>
+                <figcaption></figcaption>
             </figure>
         )
     }

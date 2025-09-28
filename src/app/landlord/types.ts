@@ -42,6 +42,7 @@ export const stepDefaultState: DefaultStateType = {
         roomAreaSqM: '',
         placeAreaSqM: '',
         listingTypeId: 0,
+        xxFormxx: '',
     },
     'step-2': {
         id: '',
@@ -54,7 +55,8 @@ export const stepDefaultState: DefaultStateType = {
         countryCode: '',
         latitude: undefined,
         longitude: undefined,
-        extraInfo: ''
+        extraInfo: '',
+        xxFormxx: '',
     },
     'step-3': {
         id: '',
@@ -63,7 +65,8 @@ export const stepDefaultState: DefaultStateType = {
         minimumStayDays: '',
         bedrooms: '',
         beds: '',
-        bathrooms: ''
+        bathrooms: '',
+        xxFormxx: '',
     },
     'step-4': {
         id:'',
@@ -75,11 +78,14 @@ export const stepDefaultState: DefaultStateType = {
         genderAllowedId: '',
         livesWithFamily: '',
         userId: '',
+        xxFormxx: '',
     },
     'step-5': { 
+        xxFormxx: '',
         amenities: [],
     },
     'step-6': {
+        xxFormxx: '',
         listingAmenities: []
     },
     'step-7': {
@@ -90,15 +96,17 @@ export const stepDefaultState: DefaultStateType = {
         gasIncluded: 0,
         electricIncluded: 0,
         waterIncluded: 0,
-        listingId: ''
+        xxFormxx: '',
     },
     'step-8': {
+        xxFormxx: '',
         houseRules: [],
 
     },
     'step-9': {},
     'step-10': {},
     'step-11': { 
+        xxFormxx: '',
         existing: [],
         images: []
     },
@@ -132,6 +140,7 @@ export type Step1State = {
     roomAreaSqM: string,
     placeAreaSqM: string,
     listingTypeId: number,
+    xxFormxx: string;
 }
 
 export type Step2State = {
@@ -146,6 +155,7 @@ export type Step2State = {
    latitude: number | undefined;
    longitude: number | undefined;
    extraInfo: string
+    xxFormxx: string;
 }
 
 export type Step3State = {
@@ -156,6 +166,7 @@ export type Step3State = {
     bathrooms: string | number;
     minimumStayDays: string | number;
     maxStayDays: string | number;
+    xxFormxx: string;
 }
 
 export type Step4State = {
@@ -168,13 +179,16 @@ export type Step4State = {
     hasPets: number | string;
     userId: string;
     genderAllowedId: number | string;
+    xxFormxx: string;
 }
 
 export type Step5State = {
+    xxFormxx: string;
     amenities: Array<{ id: number, toDelete: boolean, listingId: string, bedroomAmenityId: number}>;
 }
 
 export type Step6State = {
+    xxFormxx: string;
     listingAmenities: Array<
     { 
         id: number | null, 
@@ -194,10 +208,11 @@ export type Step7State = {
     internetIncluded: number;
     cleaningIncluded: number;
     cleaningFee: number;
-    listingId: string;
+    xxFormxx: string;
 }
 
 export type Step8State = {
+    xxFormxx: string;
     houseRules: Array<{
         id: number,
         listingId: string,
@@ -208,6 +223,7 @@ export type Step8State = {
 }
 
 export type Step11State = {
+    xxFormxx: string;
     existing: Array<{
         id: number,
         url: string,
@@ -235,6 +251,7 @@ export function parseFormData(data: any):  DefaultStateType{
             roomAreaSqM: data?.roomAreaSqM,
             placeAreaSqM: data?.placeAreaSqM,
             listingTypeId: data?.listingTypeId,
+            xxFormxx: data?.id
         },
         'step-2': {
             id: data?.address?.id,
@@ -247,7 +264,9 @@ export function parseFormData(data: any):  DefaultStateType{
             countryCode: data?.address?.countryCode,
             latitude: +data?.address?.latitude,
             longitude: +data?.address?.longitude,
-            extraInfo: data?.address?.extraInfo
+            extraInfo: data?.address?.extraInfo,
+            xxFormxx: data?.id,
+            
         },
         'step-3': {
             id: data?.id,
@@ -256,7 +275,8 @@ export function parseFormData(data: any):  DefaultStateType{
             minimumStayDays: data?.minimumStayDays,
             bedrooms: data?.bedrooms,
             beds: data?.beds,
-            bathrooms: data?.bathrooms
+            bathrooms: data?.bathrooms,
+            xxFormxx: data?.id
         },
         'step-4': {
             id: data?.hostingDetails?.id,
@@ -268,11 +288,14 @@ export function parseFormData(data: any):  DefaultStateType{
             genderAllowedId: data?.hostingDetails?.genderAllowedId,
             livesWithFamily: data?.hostingDetails?.livesWithFamily,
             userId: data?.userId,
+            xxFormxx: data?.id
         },
         'step-5': {
+            xxFormxx: data?.id,
             amenities: data?.bedroomAmenityMap,
         },
         'step-6': {
+            xxFormxx: data?.id,
             listingAmenities: Object.values(data?.amenity?.amenities.reduce((acc: any, current: any) => {
 
                 const key = current.amenityTypeId;
@@ -301,9 +324,10 @@ export function parseFormData(data: any):  DefaultStateType{
             gasIncluded: data?.utilityMap?.gasIncluded ? 1 : 0,
             electricIncluded: data?.utilityMap?.electricIncluded ? 1 : 0,
             waterIncluded: data?.utilityMap?.waterIncluded ? 1 : 0,
-            listingId: data?.id
+            xxFormxx: data?.id
         },
         'step-8': {
+            xxFormxx: data?.id,
             houseRules: data?.hostRulesMap.map((itm: any) => {
                 
                 return {
@@ -317,6 +341,7 @@ export function parseFormData(data: any):  DefaultStateType{
         'step-9': {},
         'step-10': {},
         'step-11': {
+            xxFormxx: data?.id,
             existing: data?.images.map((itm: any) => {
                 return {
                     id: itm.id,

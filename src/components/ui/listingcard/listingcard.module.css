@@ -71,6 +71,41 @@
     align-self: flex-start;
 }
 
-.date{
+/* button */
+.navBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
 
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+/* Show buttons only when hovering the image container */
+.imageContainer:hover .navBtn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Positioning */
+.prevBtn {
+    left: 10px;
+}
+
+.nextBtn {
+    right: 10px;
 }
