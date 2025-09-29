@@ -3,7 +3,6 @@ import styles from "./page.module.css";
 import addressApi from "@/api/address/address.api";
 import ListingByLocations, { ListingLocationSkeleton } from "@/components/wrappers/home";
 import React, { Suspense } from "react";
-import { cookies } from "next/headers";
 
 const LocationRender: React.FC<{ lat: string, long: string, radius: number, location: string }> = async ({ lat, long, radius, location }) => {
 
@@ -16,20 +15,8 @@ const LocationRender: React.FC<{ lat: string, long: string, radius: number, loca
     )
 }
 
-const getCookies = async () => {
-
-    const cookieStore = await cookies();
-
-    const refreshToken = cookieStore.get('refresh_token');
-
-    return refreshToken?.value;
-}
-
 export default async function Home() {
 
-    const tk = await getCookies();
-
-    console.log(tk)
     return (
         <main className={styles.main}>
             <header>

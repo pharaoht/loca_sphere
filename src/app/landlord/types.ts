@@ -96,6 +96,7 @@ export const stepDefaultState: DefaultStateType = {
         gasIncluded: 0,
         electricIncluded: 0,
         waterIncluded: 0,
+        listingId: '',
         xxFormxx: '',
     },
     'step-8': {
@@ -208,6 +209,7 @@ export type Step7State = {
     internetIncluded: number;
     cleaningIncluded: number;
     cleaningFee: number;
+    listingId: string;
     xxFormxx: string;
 }
 
@@ -324,6 +326,7 @@ export function parseFormData(data: any):  DefaultStateType{
             gasIncluded: data?.utilityMap?.gasIncluded ? 1 : 0,
             electricIncluded: data?.utilityMap?.electricIncluded ? 1 : 0,
             waterIncluded: data?.utilityMap?.waterIncluded ? 1 : 0,
+            listingId: data?.id,
             xxFormxx: data?.id
         },
         'step-8': {
