@@ -26,10 +26,10 @@ interface PageProps {
 
 const getListingDetails = async (listingId: string) => {
 
-    const qs = 'address,amenity,utility,bedroomAmenity,hostRules,currency,listingType,host';
+    const qs = 'address,amenity,utility,bedroomAmenity,hostRules,currency,listingType,host,images';
 
     const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
-    
+
     return result;
 }
 
@@ -41,7 +41,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
 
     if (listing.success === false) return notFound();
     
-    const { bedrooms, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing || {};
+    const { bedrooms, images, monthlyRent, description, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing || {};
 
     return (
         <div className={styles.container}>
@@ -87,7 +87,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     </div>
                 </header>
                 <Suspense fallback={<SkeletonImageContainer />}>
-                    <ImageContainer />
+                    <ImageContainer images={images} />
                 </Suspense>
             </div>
             <div className={styles.split}>

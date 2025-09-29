@@ -50,10 +50,10 @@ const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFro
     return (
         <div ref={wrapperRef} className={styles.dropdown_wrapper}>
             { React.Children.map(children, (child) => {
-
                 if(React.isValidElement(child) && (child.type === 'input' || child.type === 'button')) {
-
+                    
                     return React.cloneElement(child  as ReactElement<React.InputHTMLAttributes<HTMLInputElement>>, {
+                        key: child.key,
                         onChange: handleInputChange,
                         onFocus: handleInputFocus,
                     })

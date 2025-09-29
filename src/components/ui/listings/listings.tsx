@@ -1,6 +1,7 @@
 import Listing from '../listing/listing';
 import styles from './listings.module.css';
 import { Address } from '../map/map';
+import ListingCard from '../listingcard/listingCard';
 
 interface Props {
     listings: Array<Address>
@@ -20,9 +21,7 @@ const Listings: React.FC<Props> = async ({ listings }) => {
             {
                 listings.map((itm, idx) => (
                     <li key={itm.id}>
-                        <Listing
-                            listingInfo={itm.listing}
-                        />
+                       <ListingCard variant='listing' data={itm}/>
                     </li>
                 ))
             }

@@ -13,6 +13,12 @@ export type Currency = {
 	symbol: string;
 };
 
+export type ListingImages = {
+    id: number,
+    isPrimary: boolean,
+    url: string
+}
+
 export type List = {
 	id: string;
 	userId: string;
@@ -33,6 +39,7 @@ export type List = {
 	createdAt: string;
 	updatedAt: string; 
 	currency: Currency;
+    images: Array<ListingImages>
 };
 
 export type Address = {
@@ -75,20 +82,22 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) =>
           center: coordinates,
           zoom: 11.5,
         });
-
-        mapRef.current.on('moveend', () => {
+        
+        mapRef.current.on('dragend', updateParam);
+        mapRef.current.on('zoomend', updateParam);
+        
+        function updateParam(){
 
             const { lng, lat } = mapRef.current!.getCenter();
-       
+
             const ln = lng.toFixed(6);
             const la = lat.toFixed(6);
-            
+
             setParam([
-                { key: 'long', value: String(ln)},
-                { key: 'lat', value: String(la)}
+                { key: 'long', value: String(ln) },
+                { key: 'lat', value: String(la) }
             ]);
-        });
-    
+        }
 
         return () => {
             

@@ -15,7 +15,7 @@ const LocationRender: React.FC<{ lat: string, long: string, radius: number, loca
     )
 }
 
-export default function Home() {
+export default async function Home() {
 
     return (
         <main className={styles.main}>

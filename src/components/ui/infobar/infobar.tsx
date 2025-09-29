@@ -30,7 +30,7 @@ const Infobar = () => {
                 </Dropdown>
             </section>
             <section className={`${styles.base}`}>
-                <Dropdown dropDownContent={<PropertyInfo propertyInfoData={sampleData} />} startFromRightSide={true}>
+                <Dropdown dropDownContent={<PropertyInfo key={1} propertyInfoData={sampleData} />} startFromRightSide={true}>
                     <InfoButton text='Filters' iconOne='/filter-icon.png'/>
                 </Dropdown>
             </section>

@@ -32,6 +32,7 @@ const StepTwoComponent: React.FC<StepComponentProps<Step2State>> = ({ isPending,
                 countryCode: addy?.context.country?.country_code,
                 latitude: Math.round(addy.coordinates.latitude * 1e8) / 1e8,
                 longitude: Math.round(addy.coordinates.longitude * 1e8) / 1e8,
+                extraInfo: ''
             };
 
             setFormState(a)
