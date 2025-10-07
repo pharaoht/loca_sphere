@@ -6,6 +6,7 @@ import FormSidebar from '@/components/form_steps/sidebar/formSidebar';
 import StepOneComponent, { StepComponentProps } from '@/components/form_steps/step_1/component';
 import listingsApi from '@/api/listings/listings.api';
 import useParams from '@/hooks/useParams';
+import { useAuthContext } from '@/context/auth.context';
 
 interface Props {
     preLoadFormData: any[];
@@ -31,6 +32,8 @@ const stepComponents: Record<StepKey, React.FC<StepComponentProps<any>>
 const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, formId = undefined, dropDownData }) => {
 
     const { setParam, getParam } = useParams();
+
+    const { token } = useAuthContext();
 
     const listingId = getParam('formId');
     
@@ -70,7 +73,7 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
 
             const formData = isFile ? listingsApi.transformToFormData(formState[stepKeys[stepIndex]] as Step11State) : formState[stepKeys[stepIndex]];
  
-            const result = await listingsApi.httpPostCreateListing(stepKeys[stepIndex], formData, isFile, listingId);
+            const result = await listingsApi.httpPostCreateListing(token || '', stepKeys[stepIndex], formData, isFile, listingId);
 
             if(result?.success == false) return setErrorFormState(result?.invalidInputs);
 

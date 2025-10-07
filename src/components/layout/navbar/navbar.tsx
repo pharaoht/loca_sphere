@@ -4,11 +4,17 @@ import styles from './navbar.module.css';
 import Image from 'next/image';
 import Dropdown from '@/components/ui/dropdown/dropdown';
 import { usePathname } from 'next/navigation';
+import { useAuthContext } from '@/context/auth.context';
 
 
-const MenuBtnLinks: React.FC<{}> = () => (
+
+const MenuBtnLinks: React.FC<{id: string}> = ({ id, }) => (
     <ul className={styles.menuDropDown}>
-        <li>Dashboard</li>
+        <li>
+            <Link href={`/dashboard`}>
+                Dashboard
+            </Link>
+        </li>
         <hr></hr>
         <li>Settings</li>
         <li>How it works</li>
@@ -22,7 +28,10 @@ const Navbar = () => {
 
     const pathName = usePathname();
 
+    const { userInfo } = useAuthContext();
+
     const cssHideClass = pathName === '/accommodations' ? styles.noStick : styles.stick;
+
 
     return (
         <nav className={`${styles.container} ${cssHideClass}`}>
@@ -52,19 +61,27 @@ const Navbar = () => {
                     </button>
                 </li> 
 
-                <li className={styles.refBtn}>
-                    <Link href='/'className={styles.button}>
-                        Sign up
-                    </Link>
-                </li>
-                <li className={styles.refBtn}>
-                    <Link href='/login' className={styles.button}>
-                        Login
-                    </Link>
-                </li>
+                {
+                    userInfo && userInfo.hasOwnProperty('id') ? 
+                        <li>Welcome, {userInfo?.displayName}</li> 
+                    :
+                    <>
+                        <li className={styles.refBtn}>
+                            <Link href='/'className={styles.button}>
+                                Sign up
+                            </Link>
+                        </li>
+                        <li className={styles.refBtn}>
+                            <Link href='/login' className={styles.button}>
+                                Login
+                            </Link>
+                        </li>
+                    </>
+                }
+
 
                 <li>
-                    <Dropdown startFromRightSide={true} dropDownContent={<MenuBtnLinks/>}>
+                    <Dropdown startFromRightSide={true} dropDownContent={<MenuBtnLinks id={userInfo?.id || ''}/>}>
                         <button
                             className={styles.button} 
                         >

@@ -1,5 +1,5 @@
 import { DalFactory } from '@/dal/dal.factory';
-import BaseApi from '../base.api';
+import BaseApi, { HttpRequestConfig } from '../base.api';
 import axios from 'axios';
 import { Step11State } from '@/app/landlord/types';
 
@@ -36,14 +36,17 @@ class ListingsApi extends BaseApi {
         }
     };
 
-    public async httpPostCreateListing(step: string, formData = {}, multipartForm: boolean = false, listId: string | null = ''){
+    public async httpPostCreateListing(token: string, step: string, formData = {}, multipartForm: boolean = false, listId: string | null = ''){
         
+        if(!token) return;
+    
         const url = this.findHostName();
     
-        const reqObj = {
+        const reqObj: HttpRequestConfig = {
             url: `${url}/${step}?listId=${listId}`,
             method: 'POST',
             body: formData,
+            accessToken: token
         };
 
         const result = multipartForm ? await this.sshttpMultiPartRequest(reqObj) : await this.ssHttpRequest(reqObj);

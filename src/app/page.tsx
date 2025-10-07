@@ -4,6 +4,7 @@ import addressApi from "@/api/address/address.api";
 import ListingByLocations, { ListingLocationSkeleton } from "@/components/wrappers/home";
 import React, { Suspense } from "react";
 
+//Server-Side Data Fetching
 const LocationRender: React.FC<{ lat: string, long: string, radius: number, location: string }> = async ({ lat, long, radius, location }) => {
 
     await new Promise((resolve) => setTimeout(resolve, 2000));

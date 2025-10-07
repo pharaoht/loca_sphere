@@ -1,11 +1,16 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-interface HttpRequestConfig extends AxiosRequestConfig {
+export interface HttpRequestConfig extends AxiosRequestConfig {
     signal?: AbortSignal
+    url: string,
     body?: any
+    method?: string
+    accessToken?: string
+    refreshToken?: string
+    withCredentials?: boolean
 }
 
-type httpConfigType = {
+export type httpConfigType = {
     requestConfig: HttpRequestConfig
     cb?: (...args: any) => void | null
 }
@@ -53,7 +58,25 @@ class BaseApi {
         return `${this.prodDomain}/api/${this.resource}`;
     };
 
-    public async sshttpMultiPartRequest(reqObj: { url: string, method: string, body: any }, cb?: (...args: any) => void) {
+    private generateHeaders(requestObject: HttpRequestConfig): Record<string, string> {
+
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        };
+
+        if (requestObject.accessToken) {
+            headers.Authorization = `Bearer ${requestObject.accessToken}`
+        }
+
+        if (requestObject.refreshToken) {
+            headers.Cookie = `refresh_token=${requestObject.refreshToken}`
+        }
+
+        return headers;
+    }
+
+    public async sshttpMultiPartRequest(reqObj: HttpRequestConfig, cb?: (...args: any) => void) {
 
         try {
             const response = await fetch(reqObj.url, {
@@ -96,15 +119,15 @@ class BaseApi {
         }
     }
 
-    public async ssHttpRequest(reqObj: { url: string, method: string, body?: {} }, cb?: (...args: any) => void ){
+    public async ssHttpRequest(reqObj: HttpRequestConfig, cb?: (...args: any) => void ){
 
         try {
 
+            const headers = this.generateHeaders(reqObj);
+            
             const response = await fetch(reqObj.url, {
-                headers : {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers,
+                credentials: reqObj.withCredentials ? 'include' : 'omit',
                 method: reqObj.method || 'GET',
                 body: reqObj.body && JSON.stringify(reqObj.body)
             });
@@ -118,9 +141,9 @@ class BaseApi {
                 throw {
                     success: false,
                     message: data?.message || 'Unknown error',
-                    name: data?.error.name || 'ServerError',
-                    statusCode: data?.error.statusCode || response.status,
-                    data: data?.error.data || {},
+                    name: data?.error?.name || 'ServerError',
+                    statusCode: data?.error?.statusCode || response.status,
+                    data: data?.error?.data || {},
                     type: data?.type || 'Unknown'
                 };
             }
@@ -131,7 +154,9 @@ class BaseApi {
 
         }
         catch(error: any){
-   
+
+            console.error(error);
+    
             console.error('[ssHttpRequest Error]', error?.statusCode);
 
             return {
@@ -150,13 +175,12 @@ class BaseApi {
             this._isLoading = true;
             this.error = '';
 
+            const headers = this.generateHeaders(requestConfig);
+
             const response = await this.httpClient({
                 ...requestConfig,
                 signal: this.abortController.signal,
-                headers : {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers
             });
            
             if(response.status !== 200) throw new Error('Request failed');
