@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './login.module.css';
 import { useActionState } from "react";
 
-const url = 'http://localhost:8000/api/auth/google';
+const url = process.env.NEXT_PUBLIC_ENV === 'dev' ? 'http://localhost:8000/api/auth/google' : `${process.env.NEXT_PUBLIC_PROD_DOMAIN}/api/auth/google`
 
 const Page = () => {
 
