@@ -1,4 +1,3 @@
-import Listing from '../listing/listing';
 import styles from './listings.module.css';
 import { Address } from '../map/map';
 import ListingCard from '../listingcard/listingCard';
