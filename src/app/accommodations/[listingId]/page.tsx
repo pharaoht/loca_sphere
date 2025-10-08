@@ -15,6 +15,9 @@ import Landlord from '@/components/wrappers/accommodations/landlord/landlord';
 import listingsApi from '@/api/listings/listings.api';
 import { notFound } from 'next/navigation';
 import Conditions from '@/components/wrappers/accommodations/conditions/conditions';
+import ModalButton from '@/components/ui/input/modalbutton/modalbutton';
+import { mapBoxApiKey } from '@/server_actions/mapbox';
+import MapDisplay from '@/components/ui/map/modalmap/modalmap';
 
 interface ListParams {
     listingId: string
@@ -32,6 +35,8 @@ const getListingDetails = async (listingId: string) => {
 
     return result;
 }
+
+const apikey = await mapBoxApiKey();
 
 const ListingsPage = async ({ params }: PageProps ) => {
 
@@ -94,13 +99,15 @@ const ListingsPage = async ({ params }: PageProps ) => {
                 <div className={styles.leftSplit}>
                     <ul className={styles.btnContainer}>
                         <li>
-                            <button className={styles.mapBtn}>
-                                <span className={styles.mapBtnIcon}>
-                                    <Image src='/map.png' alt='Map button icon' height={25} width={25} />
-                                </span>
-                                Map
-                            </button>
+                            <ModalButton
+                                imageAlt='Map button icon'
+                                imageSrc={'/map.png'}
+                                buttonText='Map'
+                            >
+                                <MapDisplay longitude={address.longitude} latitude={address.latitude} token={apikey || ''}/>
+                            </ModalButton>
                         </li>
+
                         <li>
                             <button className={styles.mapBtn}>
                                 <span className={styles.mapBtnIcon}>
@@ -259,24 +266,3 @@ const ListingsPage = async ({ params }: PageProps ) => {
 };
 
 export default ListingsPage;
-
-
-                    // <div className={styles.leftSide}>
-                    //     <h2>Double bedroom, large terrace and private bathroom</h2>
-                    //     <ul className={styles.infoRoom}>
-                    //         <li>Double bedroom </li>
-                    //         <li>•</li>
-                    //         <li>4-bedrooms apartment</li>
-                    //         <li>•</li>
-                    //         <li>2 bathrooms</li>
-                    //         <li>•</li>
-                    //         <li>1 person</li>
-                    //         <li>•</li>
-                    //         <li>180 m²</li>
-                    //     </ul>
-                    //     <div className={styles.location}>
-                    //         <Image src='/location.png' alt='location icon' height={30} width={30} />
-                    //         <span>Carrer de Maó, Sant Gervasi - La Bonanova (Sarrià - Sant Gervasi), Barcelona</span>
-
-                    //     </div>
-                    // </div>

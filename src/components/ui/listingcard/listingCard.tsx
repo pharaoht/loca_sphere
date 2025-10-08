@@ -26,12 +26,34 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
     const [activeIndex, setActiveIndex] = useState<number>(Array.isArray(images) && images.length > 0 ? images.findIndex(itm => itm.isPrimary) : 0);
 
     function imageCarousel(imageData: ListingImages[]): React.ReactElement {
+        
+        function swipe(condition: boolean){
+
+            let min = 0;
+            let max = images.length;
+
+            setActiveIndex(prevState => {
+                if(condition){
+        
+                    if(prevState + 1 >= max) return 0;
+                    
+                    return prevState + 1
+                }
+                else {
+                    if(prevState - 1 <= min) return max;
+
+                    return prevState -1
+                }
+            })
+        };
+
 
         return (
-            <figure className={styles.imageContainer}>
+            <figure className={styles.imageContainer} data-testid='listingCard'>
                 {
                     Array.isArray(images) && images.length > 0 ? images.map((itm, idx) => {
-                        if(itm.isPrimary){
+
+                        if(activeIndex === idx){
                             return (
                                 <React.Fragment key={itm.id}>
                                     <Image  src={itm.url} alt='image of listing' fill/>
@@ -46,8 +68,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
                         </>
                     )
                 }
-                <button className={`${styles.navBtn} ${styles.prevBtn}`}>&lt;</button>
-                <button className={`${styles.navBtn} ${styles.nextBtn}`}>&gt;</button>
+                <button onClick={() => swipe(false)} className={`${styles.navBtn} ${styles.prevBtn}`}>&lt;</button>
+                <button onClick={() => swipe(true)} className={`${styles.navBtn} ${styles.nextBtn}`}>&gt;</button>
                 <figcaption></figcaption>
             </figure>
         )
