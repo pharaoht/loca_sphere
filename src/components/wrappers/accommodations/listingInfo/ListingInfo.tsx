@@ -10,14 +10,16 @@ interface Props {
     },
     title: string, 
     placeAreaSqM: string, 
+    roomAreaSqM: string,
     bathrooms: string, 
     bedrooms: string, 
+    peopleAllowed: string,
     listingType: {
         name: string
     } 
 };
 
-export default async function ListingInfo({ address, title, placeAreaSqM, bathrooms, bedrooms, listingType }: Props){
+export default async function ListingInfo({ address, title, placeAreaSqM, bathrooms, bedrooms, peopleAllowed, listingType, roomAreaSqM }: Props){
 
     const w = await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -45,15 +47,17 @@ export default async function ListingInfo({ address, title, placeAreaSqM, bathro
         <div className={styles.leftSide}>
             <h2>{title}</h2>
             <ul className={styles.infoRoom}>
-                <li>{bedrooms} bedroom(s) </li>
+                <li>{bedrooms} Bedroom(s) </li>
                 <li>•</li>
                 <li>{name}</li>
                 <li>•</li>
-                <li>{bathrooms} bathrooms</li>
+                <li>{bathrooms} Bathrooms</li>
                 <li>•</li>
-                <li>1 person</li>
+                <li>Up to {peopleAllowed} person(s)</li>
                 <li>•</li>
-                <li>{placeAreaSqM} m²</li>
+                <li>Room {roomAreaSqM} m²</li>
+                <li>•</li>
+                <li>Property {placeAreaSqM} m²</li>
             </ul>
             <div className={styles.location}>
                 <Image src='/location.png' alt='location icon' height={30} width={30} />
@@ -69,6 +73,10 @@ export function ListingInfoSkeleton() {
             <div className={styles.title}></div>
 
             <ul className={styles.infoRoom}>
+                <li className={styles.chip}></li>
+                <li>•</li>
+                <li className={styles.chip}></li>
+                <li>•</li>
                 <li className={styles.chip}></li>
                 <li>•</li>
                 <li className={styles.chip}></li>

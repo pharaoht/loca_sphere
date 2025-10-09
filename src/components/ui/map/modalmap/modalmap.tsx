@@ -50,7 +50,7 @@ const MapDisplay: React.FC<MapDisplayProps> = ({ longitude, latitude, zoom = 12,
         <div
             ref={mapContainerRef}
             style={{
-                width: "100vh",
+                width: "100%",
                 height: "400px", 
                 borderRadius: "8px",
                 overflow: "hidden",
