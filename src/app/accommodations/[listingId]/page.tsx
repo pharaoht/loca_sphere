@@ -104,7 +104,9 @@ const ListingsPage = async ({ params }: PageProps ) => {
                                 imageSrc={'/map.png'}
                                 buttonText='Map'
                             >
-                                <MapDisplay longitude={address.longitude} latitude={address.latitude} token={apikey || ''}/>
+                                <Suspense fallback={<>loading</>}>
+                                    <MapDisplay longitude={address.longitude} latitude={address.latitude} token={apikey || ''}/>
+                                </Suspense>
                             </ModalButton>
                         </li>
 
@@ -117,12 +119,13 @@ const ListingsPage = async ({ params }: PageProps ) => {
                             </button>
                         </li>
                         <li>
-                            <button className={styles.mapBtn}>
-                                <span className={styles.mapBtnIcon}>
-                                    <Image src='/camera.png' alt='Map button icon' height={25} width={25} />
-                                </span>
-                                Photos
-                            </button>
+                            <ModalButton
+                                imageAlt='Photo button icon'
+                                imageSrc={'/camera.png'}
+                                buttonText='Photo'
+                            >
+                                hi
+                            </ModalButton>
                         </li>
                         <li>
                             <button className={styles.mapBtn}>

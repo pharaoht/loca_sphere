@@ -10,18 +10,19 @@ interface MapDisplayProps {
     token: string;
 }
 
+
 const MapDisplay: React.FC<MapDisplayProps> = ({ longitude, latitude, zoom = 12, token }) => {
-    console.log(token)
+
     if (!token) return 'hii';
 
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);
+    mapboxgl.accessToken = token;
+    let init = true;
 
     useEffect(() => {
 
         if (mapRef.current) return; // initialize map only once
-
-        mapboxgl.accessToken = token;
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current!,
@@ -36,16 +37,20 @@ const MapDisplay: React.FC<MapDisplayProps> = ({ longitude, latitude, zoom = 12,
             .addTo(mapRef.current);
 
         return () => {
-            mapRef.current?.remove();
-        };
 
-    }, [latitude, longitude, zoom]);
+            if (mapRef.current && mapRef.current.loaded()) {
+                mapRef.current.remove();
+            }
+        }
+
+    }, [longitude, latitude, zoom]);
+
 
     return (
         <div
             ref={mapContainerRef}
             style={{
-                width: "100%",
+                width: "100vh",
                 height: "400px", 
                 borderRadius: "8px",
                 overflow: "hidden",
