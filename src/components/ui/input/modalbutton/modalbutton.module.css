@@ -10,7 +10,6 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    transition: opacity 0.3s ease;
     height: 100dvh;
 }
 
@@ -70,8 +69,6 @@
 .hide{
     display: none;
 }
-
-
 
 @media (max-width: 600px) {
 

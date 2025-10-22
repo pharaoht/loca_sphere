@@ -1,5 +1,8 @@
 interface ListParams {
     listingId: string
+    moveIn: string;
+    moveOut: string;
+    people: number;
 };
 
 interface PageProps {

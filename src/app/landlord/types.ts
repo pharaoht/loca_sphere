@@ -370,4 +370,10 @@ export type DropDownOptions = {
     amenityTypeOptions: [];
     amenityOptions: [];
     houseRulesOptions: Array<{ id: number, name: string, icon: string }>;
+    selectedAmenities: { 
+        amenity: {
+            amenityTypes: Array<{ id: string, name: string }>,
+            amenities: Array<any>
+        }
+    }
 }

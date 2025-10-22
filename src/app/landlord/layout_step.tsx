@@ -74,7 +74,7 @@ const StepComponentLayout: React.FC<Props> = ({ preLoadFormData = undefined, for
             const formData = isFile ? listingsApi.transformToFormData(formState[stepKeys[stepIndex]] as Step11State) : formState[stepKeys[stepIndex]];
  
             const result = await listingsApi.httpPostCreateListing(token || '', stepKeys[stepIndex], formData, isFile, listingId);
-
+            
             if(result?.success == false) return setErrorFormState(result?.invalidInputs);
 
             else if(stepIndex == 0 && result.id) setParam([{ key: 'formId', value: result.id }]);

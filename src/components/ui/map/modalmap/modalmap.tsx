@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from "mapbox-gl";
+import styles from './styles.module.css'
 
 interface MapDisplayProps {
     longitude: number;
@@ -39,18 +40,20 @@ const MapDisplay: React.FC<MapDisplayProps> = ({ longitude, latitude, zoom = 12,
         return () => {
 
             if (mapRef.current && mapRef.current.loaded()) {
+                
                 mapRef.current.remove();
             }
+            
         }
 
-    }, [longitude, latitude, zoom]);
+    }, [longitude, latitude, zoom, mapRef.current?.loaded()]);
 
 
     return (
         <div
+            className={styles.mapRefContainer}
             ref={mapContainerRef}
             style={{
-                width: "100%",
                 height: "400px", 
                 borderRadius: "8px",
                 overflow: "hidden",

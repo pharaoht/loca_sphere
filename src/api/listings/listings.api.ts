@@ -101,6 +101,29 @@ class ListingsApi extends BaseApi {
         }
     };
 
+    public async httpDeleteById(id: string, destination: string, listingId: string, token: string){
+
+        const url = this.findHostName();
+
+        const isSS = this.isServerSide();
+
+        const reqObj = {
+            url:`${url}/${destination}/${listingId}/${id}`,
+            method: 'DELETE',
+            accessToken: token,
+        }
+
+        if(isSS){
+            const result = await this.ssHttpRequest(reqObj);
+
+            return result
+        }
+
+        const res = await this.httpRequest({ requestConfig: reqObj });
+
+        return res
+    }
+
     public transformToFormData(data: Step11State){
 
         const formData = new FormData();
@@ -110,6 +133,7 @@ class ListingsApi extends BaseApi {
             formData.append(`files[${index}][isPrimary]`, String(+item.isPrimary));
             formData.append(`files[${index}][tag]`, item.tag);
             formData.append(`files[${index}][listingId]`, item.listingId);
+            formData.append(`files[${index}][xxFormxx]`, data.xxFormxx);
         });
 
         return formData;

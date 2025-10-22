@@ -28,7 +28,7 @@ const Navbar = () => {
 
     const pathName = usePathname();
 
-    const { userInfo } = useAuthContext();
+    const { userInfo, token } = useAuthContext();
 
     const cssHideClass = pathName === '/accommodations' ? styles.noStick : styles.stick;
 

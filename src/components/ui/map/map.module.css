@@ -34,3 +34,14 @@
 .marker:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
+
+
+.mapRefContainer{
+    width: 600px !important;
+}
+
+@media (max-width: 600px) {
+    .mapRefContainer {
+        width: 100% !important;
+    }
+}

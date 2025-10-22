@@ -81,6 +81,7 @@ class BaseApi {
         try {
             const response = await fetch(reqObj.url, {
                 headers: {
+                    ...(reqObj.accessToken ? { Authorization: `Bearer ${reqObj.accessToken}` } : {}),
                 },
                 method: 'POST',
                 body: reqObj.body

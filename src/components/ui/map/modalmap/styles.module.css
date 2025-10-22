@@ -1,0 +1,9 @@
+.mapRefContainer {
+    width: 600px !important;
+}
+
+@media (max-width: 600px) {
+    .mapRefContainer {
+        width: 100% !important;
+    }
+}

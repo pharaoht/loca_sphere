@@ -4,12 +4,15 @@ import Image from 'next/image';
 
 interface BookingFormProps {
     monthlyRent: number
+    peopleAllowed?: string
+    moveIn?: string
+    moveOut?: string 
     currency: {
         symbol: string
     }
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency }) => {
+const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn, moveOut, peopleAllowed }) => {
 
     return (
         <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
@@ -19,13 +22,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency }) => {
                         <span className={styles.price}>{currency.symbol} {monthlyRent}</span>
                         <span className={styles.duration}>/month</span>
                     </p>
-                    <p>3 people</p>
+                    <p>{ peopleAllowed ? `${peopleAllowed} person(s)` : `1 person`}</p>
                 </header>
                 <div className={styles.moveCoa}>
                     <div className={styles.btnContainer}>
                         <label className={styles.btnLabel}>Move in</label>
                         <button className={styles.fakeInput} type='button' >
-                            09-09-09
+                            {moveIn || '09-09-09'}
                         </button>
                     </div>
                     <div className={styles.arrowContainer}> 
@@ -34,7 +37,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency }) => {
                     <div className={styles.btnContainer}>
                         <label className={styles.btnLabel}>Move in</label>
                         <button className={styles.fakeInput} type='button'>
-                            09-09-09
+                            { moveOut || '09-09-09'}
                         </button>
                     </div>
                 </div>

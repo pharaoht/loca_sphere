@@ -5,6 +5,7 @@ import styles from './listingcard.module.css';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import moment from 'moment';
+import useParams from '@/hooks/useParams';
 
 interface ListingCardProps {
     variant: 'card' | 'listing'
@@ -21,6 +22,12 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
 
     const { symbol } = currency;
 
+    const { getParam } = useParams();
+
+    const moveInParam = getParam('moveIn');
+    const moveOutParam = getParam('moveOut');
+    const peopleAllowedParam = getParam('peopleAllowed');
+
     const todayDate = moment().format('DD MMM YYYY');
 
     const [activeIndex, setActiveIndex] = useState<number>(Array.isArray(images) && images.length > 0 ? images.findIndex(itm => itm.isPrimary) : 0);
@@ -30,17 +37,17 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
         function swipe(condition: boolean){
 
             let min = 0;
-            let max = images.length;
+            let max = images.length - 1;
 
             setActiveIndex(prevState => {
                 if(condition){
         
-                    if(prevState + 1 >= max) return 0;
+                    if(prevState + 1 > max) return 0;
                     
                     return prevState + 1
                 }
                 else {
-                    if(prevState - 1 <= min) return max;
+                    if(prevState - 1 < min) return max;
 
                     return prevState -1
                 }
@@ -77,8 +84,22 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
 
     function details(){
 
+        const generateParams = () => {
+
+            const params = new URLSearchParams();
+
+            if (moveInParam) params.append('moveIn', moveInParam);
+            if (moveOutParam) params.append('moveOut', moveOutParam);
+            if (peopleAllowedParam) params.append('peopleAllowed', peopleAllowedParam);
+
+            if(!params) return ''
+
+            return `?${params.toString()}`;
+
+        }
+
         const href = variant == 'listing' ? 
-            `/accommodations/${listingId}` 
+            `/accommodations/${listingId}${generateParams()}` 
             :   `/accommodations?long=${longitude}&lat=${latitude}&cityName=${city}&radius=10`;
 
         const pplAllowedString = peopleAllowed === 1 ? `${peopleAllowed} person` : `${peopleAllowed} people`;

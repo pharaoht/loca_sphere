@@ -1,9 +1,10 @@
 import { Step11State } from '@/app/landlord/types';
 import { StepComponentProps } from '../step_1/component';
 import styles from '../step_1/styles.module.css';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SelectGroup from '@/components/ui/input/select/select';
 import Image from 'next/image';
+import listingsApi from '@/api/listings/listings.api';
 
 //todo:
 //fix is primary bug
@@ -13,7 +14,7 @@ const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPend
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const tags = dropDownData.amenityTypeOptions;
+    const tags = dropDownData.selectedAmenities.amenity.amenityTypes;
     const existingImages = stepState.existing;
 
     const removeFile = (index: number) => {
@@ -48,6 +49,11 @@ const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPend
         fileInputRef?.current?.click();
     }
 
+    const handleDeleteFile = async (listingId: string, id: number) => {
+
+        const result = await listingsApi.httpDeleteById(String(id), 'images', listingId, '')
+    }
+
     const handleFileUpdate = (index: number, value: string) => {
 
         const current = stepState.images;
@@ -78,13 +84,23 @@ const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPend
                     {
                         existingImages.map((itm) => {
                             return (
-                                <Image 
-                                    key={itm.id}
-                                    src={itm.url}
-                                    height={40}
-                                    width={60}
-                                    alt='images'
-                                />
+                                <div className={styles.imageWrapper} key={itm.id}>
+                                    <button
+                                        onClick={() => handleDeleteFile(itm.listingId, itm.id)}
+                                        type="button"
+                                        className={styles.deleteButton}
+                                    >
+                                        ×
+                                    </button>
+                                
+                                    <Image 
+                                        key={itm.id}
+                                        src={itm.url}
+                                        height={40}
+                                        width={60}
+                                        alt='images'
+                                    />
+                                </div>
                             )
                         })
                     }
@@ -128,7 +144,7 @@ const StepElevenComponent: React.FC<StepComponentProps<Step11State>> = ({ isPend
                                         idnName='tag'
                                     />
                                     <label>
-                                        <input type='radio' name='isPrimary' defaultChecked={file.isPrimary} value={+file.isPrimary}/>
+                                        <input type='radio' name='isPrimary' defaultChecked={false} value={0}/>
                                         Is Primary
                                     </label>
 

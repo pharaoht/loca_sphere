@@ -21,10 +21,14 @@ import MapDisplay from '@/components/ui/map/modalmap/modalmap';
 
 interface ListParams {
     listingId: string
+    moveIn?: string
+    moveOut?: string
+    peopleAllowed?: string
 };
 
 interface PageProps {
     params: Promise<ListParams>;
+    searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 const getListingDetails = async (listingId: string) => {
@@ -38,15 +42,17 @@ const getListingDetails = async (listingId: string) => {
 
 const apikey = await mapBoxApiKey();
 
-const ListingsPage = async ({ params }: PageProps ) => {
+const ListingsPage = async ({ params, searchParams }: PageProps ) => {
 
     const { listingId } = await params;
+
+    const { moveIn, moveOut, peopleAllowed } = await searchParams;
 
     const listing = await getListingDetails(listingId);
 
     if (listing.success === false) return notFound();
     
-    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed, roomAreaSqM, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing || {};
+    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing || {};
 
     return (
         <div className={styles.container}>
@@ -61,7 +67,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                             roomAreaSqM={roomAreaSqM}
                             bathrooms={bathrooms}
                             bedrooms={bedrooms}
-                            peopleAllowed={peopleAllowed}
+                            peopleAllowed={ppl}
                         />
                     </Suspense>
                     <div className={styles.rightSide}>
@@ -184,7 +190,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                     <hr/>
                     
                     <Suspense fallback={<>Loading...</>}>
-                        <Spaces id={listingId} amenity={amenity || undefined}/>
+                        <Spaces id={listingId} amenity={amenity || undefined} images={images}/>
                     </Suspense>
                     <hr/>
                    
@@ -235,7 +241,7 @@ const ListingsPage = async ({ params }: PageProps ) => {
                 </div>
 
                 <div className={styles.rightSplit}>
-                    <BookingForm monthlyRent={monthlyRent} currency={currency} />
+                    <BookingForm monthlyRent={monthlyRent} currency={currency} moveIn={moveIn} moveOut={moveOut} peopleAllowed={peopleAllowed} />
                 </div>
 
                 

@@ -73,10 +73,18 @@
         flex-direction: column;
     }
 
+    .availabilityLegend{
+        justify-content: center;
+    }
 
 
     .avInfoContainer{
         display: flex;
         flex-direction: column;
+        
+    }
+
+    .avInfoRow{
+        justify-content: space-evenly;
     }
 }

@@ -31,9 +31,13 @@ const ImageContainer: React.FC<ImageContainerProps> = async ({ images }) => {
             <div className={styles.grid}>
                 { images.length > 1 ?
                     images.filter((itm, idx) => idx != primaryIndex).map((itm, idx) => {
-                        return (
-                            <div key={itm.id} className={styles.smallImage}><Image className={styles.listImage} src={itm.url} alt="Small 1" fill /></div>
-                        )
+
+                        if(idx < 4){
+                        
+                            return (
+                                <div key={itm.id} className={styles.smallImage}><Image className={styles.listImage} src={itm.url} alt="Small 1" fill /></div>
+                            )
+                        }
                     })
                     :
                     (

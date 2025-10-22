@@ -38,7 +38,7 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
         if (formData?.success === false) return notFound();
     }
 
-    const [currencyOptions, listingTypeOptions, genderOptions, bedroomAmenityOptions, amenityTypeOptions, amenityOptions, houseRulesOptions, ] 
+    const [currencyOptions, listingTypeOptions, genderOptions, bedroomAmenityOptions, amenityTypeOptions, amenityOptions, houseRulesOptions, selectedAmenities ] 
     = await Promise.all([
         listingsApi.httpGetListingOptions('currency'),
         listingsApi.httpGetListingOptions('listingType'),
@@ -47,6 +47,7 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
         listingsApi.httpGetListingOptions('amenityType'),
         listingsApi.httpGetListingOptions('amenity'),
         listingsApi.httpGetListingOptions('houseRules'),
+        listingsApi.httpGetDetailsForListing('amenity', formId ?? '')
     ]);
 
     return (
@@ -62,6 +63,7 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
                 amenityTypeOptions,
                 amenityOptions,
                 houseRulesOptions,
+                selectedAmenities
             }}
         />
 
