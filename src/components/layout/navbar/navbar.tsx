@@ -34,7 +34,7 @@ const Navbar = () => {
 
 
     return (
-        <nav className={`${styles.container} ${cssHideClass}`}>
+        <nav id='navbar' className={`${styles.container} ${cssHideClass}`}>
             <div className={styles.logo}>
                 <Link href='/'>
                     <Image className={styles.mainLogo} src="/logo_full.avif" alt="Logo" priority height={60} width={175} />

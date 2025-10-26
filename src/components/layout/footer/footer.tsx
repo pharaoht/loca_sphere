@@ -12,7 +12,7 @@ const Footer = () => {
     const cssHideClass = pathName === '/accommodations' || /landlord/.test(pathName) ? styles.hide : null;
 
     return (
-        <footer className={`${styles.container} ${cssHideClass}`}>
+        <footer id='footer' className={`${styles.container} ${cssHideClass}`}>
             <ul className={styles.icons}>
                 <li>
                     <a href="https://www.facebook.com" aria-label="Facebook" target="_blank" rel="noopener noreferrer">

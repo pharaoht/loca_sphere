@@ -1,18 +1,20 @@
 import React from 'react';
 import styles from './bookingform.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface BookingFormProps {
     monthlyRent: number
     peopleAllowed?: string
     moveIn?: string
     moveOut?: string 
+    listingId: string
     currency: {
         symbol: string
     }
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn, moveOut, peopleAllowed }) => {
+const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn, moveOut, peopleAllowed, listingId }) => {
 
     return (
         <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
@@ -42,7 +44,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn
                     </div>
                 </div>
                 <div >
-                    <button className={styles.bookBtn}>Start booking</button>
+                    <Link 
+                        href={`/booking/${listingId}?moveIn=${moveIn}&moveOut=${moveOut}&peopleAllowed=${peopleAllowed}`} 
+                        className={styles.bookBtn}>
+                        Start booking
+                    </Link>
                 </div>
 
                 <p>Don't worry - pressing this button won't charge you anything!</p>

@@ -13,7 +13,7 @@ import BudgetFilter from './filters/budget/budgetFilter';
 const Infobar = () => {
     
     return (
-        <header className={styles.container}>
+        <header id='infobar' className={styles.container}>
             <section className={`${styles.base} ${styles.search} ${styles.hide}`}>
                 <SearchFilter />
         

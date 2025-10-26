@@ -144,8 +144,8 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
                             </button>
                         </li>
                     </ul>
-                    <section className={styles.navLinks}>
-                        <nav className={styles.navNav}>
+                    <section id='nattynav' className={styles.navLinks}>
+                        <nav  className={styles.navNav}>
                             <ul className={styles.links}>
                                 <li className={styles.link}>
                                     <Link href='#overview'>Overview</Link>
@@ -241,7 +241,14 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
                 </div>
 
                 <div className={styles.rightSplit}>
-                    <BookingForm monthlyRent={monthlyRent} currency={currency} moveIn={moveIn} moveOut={moveOut} peopleAllowed={peopleAllowed} />
+                    <BookingForm 
+                        monthlyRent={monthlyRent} 
+                        currency={currency} 
+                        moveIn={moveIn} 
+                        moveOut={moveOut} 
+                        peopleAllowed={peopleAllowed} 
+                        listingId={listingId}
+                    />
                 </div>
 
                 
