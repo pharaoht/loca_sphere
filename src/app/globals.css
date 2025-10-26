@@ -24,6 +24,7 @@ legend {
   --desktop-margin: 8%;
   --primary-green: rgb(68, 196, 130);
   --secondary-green: rgb(20, 174, 92);
+  --light-green-background:rgb(230, 254, 240);
   --third-green: #4fcc94;
   --primary-red: rgb(255, 206, 195);
   --font-grey: #798797;
@@ -79,6 +80,10 @@ body {
   display: none;
 }
 
+hr{
+  border: .5px solid var(--light-gray);
+}
+
 /* .dark body {
 	background-color: #121212;
 	color: white !important;
@@ -87,4 +92,10 @@ body {
 .dark input, select, textarea, #formSidebar {
   background-color: #121212 !important;
   color: white !important;
+}
+
+#footer, #navbar, #infobar, #nattynav {
+  background-color: #121212;
+  color: #fff;
+  border: 1px solid #121212;
 } */
