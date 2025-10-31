@@ -31,9 +31,7 @@ class AuthApi extends BaseApi {
         const isServerSide = this.isServerSide();
 
         const hostName = this.findHostName();
-
-        console.log(rf, 'logging')
-
+        
         const reqObj: HttpRequestConfig = {
             url: hostName + '/ownership' + '/' + listingId,
             withCredentials: true,
