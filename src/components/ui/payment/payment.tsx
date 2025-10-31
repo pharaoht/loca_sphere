@@ -18,15 +18,34 @@ const PaymentDetailForm = () => {
                     <button onClick={() => setShow(prev => !prev)} type='button'>Edit</button>
                 </BookingRequestFormGrid.FormItem>
 
+
+                <h3>deatils</h3>
                 <BookingRequestFormGrid.FormItem size="full">
-                    <div>
-                        <h3>deatils</h3>
-                        <BookingRequestFormGrid.FormItem size="full">
-                            <label>Name on card</label>
-                            <input type="text" />
-                        </BookingRequestFormGrid.FormItem>
-                    </div>
+                    <label>Name on card</label>
+                    <input type="text" />
                 </BookingRequestFormGrid.FormItem>
+
+                <BookingRequestFormGrid.FormItem size="half">
+                    <label>Card number</label>
+                    <input type='number' />
+                </BookingRequestFormGrid.FormItem>
+
+                <BookingRequestFormGrid.FormItem size='quarter'>
+                    <label>Expiration date</label>
+                    <input type="text" />
+                </BookingRequestFormGrid.FormItem>
+                <BookingRequestFormGrid.FormItem size='quarter'>
+                    <label>CVC</label>
+                    <input type="text" />
+                </BookingRequestFormGrid.FormItem>
+
+                <h4>Or choose another method</h4>
+                <BookingRequestFormGrid.FormItem size='quarter'>
+                    <label>Card</label>
+                    <input type="text" />
+                </BookingRequestFormGrid.FormItem>
+            
+
             </>
         </BookingRequestFormGrid>
     )
