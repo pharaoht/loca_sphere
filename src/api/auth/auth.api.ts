@@ -38,7 +38,7 @@ class AuthApi extends BaseApi {
             method: 'GET',
             refreshToken: rf
         }
-
+        console.log(rf)
         const data = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, })
             : await this.ssHttpRequest(reqObj);
 
