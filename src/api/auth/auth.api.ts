@@ -32,13 +32,15 @@ class AuthApi extends BaseApi {
 
         const hostName = this.findHostName();
 
+        console.log(rf, 'logging')
+
         const reqObj: HttpRequestConfig = {
             url: hostName + '/ownership' + '/' + listingId,
             withCredentials: true,
             method: 'GET',
             refreshToken: rf
         }
-        console.log(rf)
+        
         const data = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, })
             : await this.ssHttpRequest(reqObj);
 
