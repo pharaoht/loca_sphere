@@ -1,7 +1,9 @@
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import styles from './bookingform.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import moment from 'moment';
 
 interface BookingFormProps {
     monthlyRent: number
@@ -16,9 +18,17 @@ interface BookingFormProps {
 
 const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn, moveOut, peopleAllowed, listingId }) => {
 
+    const [ today, setToday ] = useState<string>('');
+    const [ future, setFuture ] = useState<string>('');
+
+    useEffect(() => {
+        setToday(moment(new Date()).format('YYYY-MM-DD'))
+        setFuture(moment(new Date()).add(30, 'days').format('YYYY-MM-DD'))
+    }, [])
+
     return (
         <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
-            <form className={styles.bpInnerContainer}>
+            <div className={styles.bpInnerContainer}>
                 <header className={styles.bpHeader}>
                     <p className={styles.bpTitle}>
                         <span className={styles.price}>{currency.symbol} {monthlyRent}</span>
@@ -30,22 +40,22 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn
                     <div className={styles.btnContainer}>
                         <label className={styles.btnLabel}>Move in</label>
                         <button className={styles.fakeInput} type='button' >
-                            {moveIn || '09-09-09'}
+                            {moveIn || today}
                         </button>
                     </div>
                     <div className={styles.arrowContainer}> 
                         <Image src='/arrow-right.png' alt='' height={35} width={35} />
                     </div>
                     <div className={styles.btnContainer}>
-                        <label className={styles.btnLabel}>Move in</label>
+                        <label className={styles.btnLabel}>Move out</label>
                         <button className={styles.fakeInput} type='button'>
-                            { moveOut || '09-09-09'}
+                            {moveOut || future}
                         </button>
                     </div>
                 </div>
                 <div >
                     <Link 
-                        href={`/booking/${listingId}?moveIn=${moveIn}&moveOut=${moveOut}&peopleAllowed=${peopleAllowed}`} 
+                        href={`/booking/${listingId}?moveIn=${moveIn || today}&moveOut=${moveOut || future}&peopleAllowed=${peopleAllowed || 1}`} 
                         className={styles.bookBtn}>
                         Start booking
                     </Link>
@@ -60,7 +70,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn
                     <p>You'll pay through LocaSphere:</p>
 
                 </div>
-            </form>
+            </div>
         </section>
     )
 };

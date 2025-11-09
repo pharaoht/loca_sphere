@@ -5,6 +5,7 @@ import Link from 'next/link';
 import listingsApi from '@/api/listings/listings.api';
 import { notFound, redirect } from 'next/navigation';
 import PaymentDetailForm from '@/components/ui/payment/payment';
+import bookingApi from '@/api/booking/booking.api';
 
 export const metadata = {
     title: "LocaSphere - Checkout",
@@ -20,9 +21,12 @@ interface ListParams {
 
 interface PageProps {
     params: Promise<ListParams>;
+    searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
 const getListingDetails = async (listingId: string) => {
+
+    if(!listingId) return false;
 
     const qs = 'amenity,utility,bedroomAmenity,hostRules,currency,listingType,host,images';
 
@@ -35,29 +39,35 @@ const getUserDetails = async () => {
     //get users details if there is a session
 };
 
-const checkListingAvalibility = async () => {
-    return true
+const checkListingAvalibility = async (listingId = '', startDate: string = '' , endDate: string = '') => {
+
+    if(!startDate || !endDate) return false;
+
+    const result = await bookingApi.httpCheckAvalibility(listingId, startDate, endDate);
+
+    return result.success;
 }
 
 
-const Booking: React.FC<PageProps> = async ({ params }) => {
+const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     const { listingId } = await params;
 
-    if(!listingId){
+    const searchP = await searchParams;
 
-        return notFound();
-    }
+    const { moveIn, moveOut, peopleAllowed } = searchP;
 
-    const isAvaliable = await checkListingAvalibility();
+    if(!listingId) return notFound();
+    
+    const isAvaliable = await checkListingAvalibility(listingId, moveIn, moveOut);
 
-    if(!isAvaliable){
-        redirect(`/accomodations/${listingId}`)
-    }
+    if (!isAvaliable) return redirect(`/accommodations/${listingId}`)
 
     const listing = await getListingDetails(listingId);
 
-    const user = await getUserDetails()
+    if(!listing) return notFound();
+
+    const user = await getUserDetails();
 
     const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, } = listing || {};
 

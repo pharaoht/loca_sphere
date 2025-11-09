@@ -19,6 +19,8 @@ import ModalButton from '@/components/ui/input/modalbutton/modalbutton';
 import { mapBoxApiKey } from '@/server_actions/mapbox';
 import MapDisplay from '@/components/ui/map/modalmap/modalmap';
 
+export const revalidate = 60; 
+
 interface ListParams {
     listingId: string
     moveIn?: string
