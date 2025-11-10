@@ -1,11 +1,30 @@
 'use client';
-
 import BookingRequestFormGrid from '@/app/booking/[listingId]/form/form';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+
+type formProps = {
+    email: string,
+    countryCode: number,
+    phoneNumber: number,
+    firstName: string,
+    lastName: string,
+    birthday: string,
+    gender: number,
+    nationality: number,
+    occupation: number,
+    placeOfWork?: string,
+    viaEmail?: boolean,
+    viaWhatsApp?: boolean,
+    messageToLandlord: string
+}
 
 export default function PersonalDetailsForm( ) {
 
     const [ show, setShow ] = useState<boolean>(true);
+
+    const [ formState, setFormState ] = useState({});
+
+    const [ isPending, setTransition ] = useTransition();
 
     const onSubmitHandler = async () => {
 

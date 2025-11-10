@@ -96,6 +96,6 @@ hr{
 
 #footer, #navbar, #infobar, #nattynav {
   background-color: #121212;
-  color: #fff;
+  color: var(--dark-font-gray);;
   border: 1px solid #121212;
 } */
