@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import styles from './styles.module.css';
-import PersonalDetailsForm from '@/components/ui/personalDetails/personalDetail';
-import Link from 'next/link';
-import listingsApi from '@/api/listings/listings.api';
-import { notFound, redirect } from 'next/navigation';
-import PaymentDetailForm from '@/components/ui/payment/payment';
+import userApi from '@/api/user/user.api';
 import bookingApi from '@/api/booking/booking.api';
+import { notFound, redirect } from 'next/navigation';
+import listingsApi from '@/api/listings/listings.api';
+import PaymentDetailForm from '@/components/ui/payment/payment';
+import PersonalDetailsForm from '@/components/ui/personalDetails/personalDetail';
+import { cookies } from 'next/headers';
 
 export const metadata = {
     title: "LocaSphere - Checkout",
@@ -35,10 +36,6 @@ const getListingDetails = async (listingId: string) => {
     return result;
 }
 
-const getUserDetails = async () => {
-    //get users details if there is a session
-};
-
 const checkListingAvalibility = async (listingId = '', startDate: string = '' , endDate: string = '') => {
 
     if(!startDate || !endDate) return false;
@@ -48,12 +45,30 @@ const checkListingAvalibility = async (listingId = '', startDate: string = '' , 
     return result.success;
 }
 
+const getNationalities = async () => {
+    
+    const nationalities = await userApi.httpGetUserOptions('nationality');
+
+    return nationalities;
+}
+
+const getOccupations = async () => {
+
+    return []
+}
+
 
 const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     const { listingId } = await params;
 
     const searchP = await searchParams;
+
+    const cookieStore = await cookies();
+
+    const token = cookieStore.get('refresh_token')?.value;
+
+    console.log(token)
 
     const { moveIn, moveOut, peopleAllowed } = searchP;
 
@@ -67,7 +82,11 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     if(!listing) return notFound();
 
-    const user = await getUserDetails();
+    const user = null;
+
+    const nationalities = await getNationalities();
+
+    const occupations = await getOccupations();
 
     const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, } = listing || {};
 
@@ -76,8 +95,8 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
             <div className={styles.containerSplit}>
                 <section className={styles.left}>
                     <h1 className={styles.h1}>Book your new place <span className={styles.blue}>in minutes</span></h1>
-                    <p className={styles.banner}><Link className={styles.link} href='/login'>Log in</Link> for a faster checkout using your saved details, or <Link className={styles.link} href='/sign-up'>sign up</Link> to manage and track your bookings easily.</p>
-                    <PersonalDetailsForm />
+
+                    <PersonalDetailsForm nationalities={nationalities} occupations={occupations} />
                     <PaymentDetailForm />
                 </section>
                 
@@ -99,28 +118,69 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                     
                         <h2 className={styles.title}>Single bedroom in Vilapicina i la Torre Llobeta</h2>
 
-                        <div>
-                            <span>Pin Icon</span>
-                            <p>Address</p>
-                        </div>
+                        <address className={styles.address}>
+                            <Image 
+                                src='/location.png' 
+                                alt=''
+                                aria-hidden="true"
+                                height={25}
+                                width={25} />
+                            <span>Rua Sabino de Sousa, Penha de França, Lisbon</span>
+                        </address>
 
-                        <div>
-                            MoveIn date {'>'} MoveOut date 
+                        <div className={styles.moveCoa}>
+                            <div className={styles.btnContainer}>
+                                <label className={styles.btnLabel}>Move in</label>
+                                <button className={styles.fakeInput} type='button' disabled>
+                                    {moveIn}
+                                </button>
+                            </div>
+                            <div className={styles.arrowContainer}>
+                                <Image src='/arrow-right.png' alt='' height={35} width={35} />
+                            </div>
+                            <div className={styles.btnContainer}>
+                                <label className={styles.btnLabel}>Move out</label>
+                                <button className={styles.fakeInput} type='button' disabled>
+                                    {moveOut}
+                                </button>
+                            </div>
                         </div>
                         
 
                         <hr></hr>
                         <div>
                             <h3>Price details</h3>
-                            <div>
-
+                            <div className={styles.priceBreakDown}>
+                                <span className={styles.smallFont}>First rental payment</span>
+                                <span className={`${styles.fontBold} ${styles.smallFont}`}>300</span>
                             </div>
+                            <div className={styles.priceBreakDown}>
+                                <span className={styles.smallFont}>One time service fee</span>
+                                <span className={`${styles.fontBold} ${styles.smallFont}`}>300</span>
+                            </div>
+                            <hr></hr>
+                            <div className={styles.priceBreakDown}>
+                                <span className={styles.bigFont}>Total</span>
+                                <span className={`${styles.fontBold} ${styles.bigFont}`}>300</span>
+                            </div>
+                            <hr></hr>
+                            <p className={styles.disclaimerText}>You will be charged if, and only if, the landlord approves your request.</p>
+                            <button className={styles.reviewBtn} type='button'>Review price details </button>
                         </div>
 
                     </div>
 
                     <div className={styles.listingDetails}>
-                        hi
+                        <h3 className={styles.promoCodeHeader}><Image src='/promo-code.png' alt='' height={35} width={35} /> Do you have a promo code?</h3>
+                        <div className={styles.inlineDiv}>
+                            <input placeholder='Add promo code here' /> 
+                            <button>Apply code</button>
+                        </div>
+                    </div>
+
+                    <div className={styles.listingDetails}>
+                        <h3>Your reservation</h3>
+                        
                     </div>
                 </section>
 

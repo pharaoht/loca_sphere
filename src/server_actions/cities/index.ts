@@ -1,4 +1,6 @@
+"use server";
 import citiesApi from "@/api/cities/cities.api";
+import { cookies } from "next/headers";
 
 export async function saGetCities(queryString: string){
 
@@ -7,3 +9,33 @@ export async function saGetCities(queryString: string){
     return data
 }
 
+export async function serverApi({ url = '', method = "GET", body = {}, headers = {}, query = {} }) {
+    const cookieStore = await cookies(); 
+    const allCookies = cookieStore.getAll();
+
+    const cookieHeader = allCookies
+        .map((c) => `${c.name}=${c.value}`)
+        .join("; ");
+
+
+    const res = await fetch(url, {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieHeader,
+            ...headers,
+        },
+        body: method !== "GET" && body ? JSON.stringify(body) : undefined,
+        cache: "no-store",
+    });
+
+    const text = await res.text();
+    let json;
+    try {
+        json = JSON.parse(text);
+    } catch {
+        json = text;
+    }
+
+    return json;
+}

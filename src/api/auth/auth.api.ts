@@ -1,5 +1,6 @@
 import axios from "axios";
 import BaseApi, { HttpRequestConfig } from "../base.api";
+import { serverApi } from "@/server_actions/cities";
 
 class AuthApi extends BaseApi {
 
@@ -40,7 +41,8 @@ class AuthApi extends BaseApi {
         }
         
         const data = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, })
-            : await this.ssHttpRequest(reqObj);
+            : await serverApi({ url: reqObj.url })
+
 
         return data
     }

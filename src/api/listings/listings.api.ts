@@ -72,7 +72,7 @@ class ListingsApi extends BaseApi {
 
             const result = await this.ssHttpRequest(reqObj);
 
-            const dal = optionsDal.fromDto(result);
+            const dal = optionsDal.fromDto(result.data);
 
             return dal;
         }

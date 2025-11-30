@@ -14,7 +14,7 @@ const PaymentDetailForm = () => {
         <BookingRequestFormGrid formSubmitHandler={onSubmitHandler}>
             <>
                 <BookingRequestFormGrid.FormItem size='full' className='headerGroup'>
-                    <h2>Payment details</h2>
+                    <h2>2. Payment details</h2>
                     <button onClick={() => setShow(prev => !prev)} type='button'>Edit</button>
                 </BookingRequestFormGrid.FormItem>
 

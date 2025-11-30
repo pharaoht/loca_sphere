@@ -24,26 +24,140 @@
     flex-direction: column;
     flex: 1.2;
     margin-right: 5rem;
-    gap: 10px;
-}
-
-.banner {
-    padding: 1rem;
-    line-height: 1rem;
-    border-radius: 10px;
-    background-color: var(--five-blue);
-    color: black;
-}
-
-.link {
-    text-decoration: underline;
-    color: var(--secondary-color-blue);
+    gap: 1rem;
 }
 
 .blue{
     color: var(--secondary-color-blue)
 }
 
+.moveCoa {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr .3fr 1fr;
+    gap: 5px
+}
+
+.btnContainer {
+    height: 8vh;
+    position: relative;
+}
+
+.btnLabel {
+    position: absolute;
+    padding: 10px;
+    font-size: .9rem;
+    color: var(--gray-color-2);
+}
+
+.arrowContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fakeInput {
+    border: 1px solid var(--border-grey);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: .5rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 1rem;
+
+    color: var(--dark-font-gray);
+}
+
+.fakeInput:hover {
+    background-color: rgb(247, 252, 254)
+}
+
+
+/* price details */
+.priceBreakDown{
+    display: flex;
+    justify-content: space-between;
+
+    letter-spacing: .5px;
+    margin: .7rem 0;
+}
+
+.smallFont{
+    font-size: .9rem;
+}
+
+.bigFont{
+    font-size: 1.2rem;
+}
+
+.fontBold {
+    font-weight: 600;
+}
+
+.disclaimerText {
+    text-align: center;
+    margin: .7rem 0;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    color: rgb(100, 122, 133)
+}
+
+.reviewBtn{
+
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 12px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    color: rgb(100, 122, 133)
+        
+}
+
+.reviewBtn:hover {
+    background: var(--five-blue);
+    border-radius: 1rem;
+}
+
+
+/* coupon div */
+.inlineDiv {
+    display: flex;
+    gap: 1rem
+}
+
+.inlineDiv>input {
+    flex: 2.5;
+    padding: 0.75rem;
+    border: 1px solid var(--border-grey);
+    border-radius: 10px;
+    font: inherit;
+}
+
+.inlineDiv>input::placeholder {
+    color: var(--border-grey)
+}
+
+.inlineDiv>button {
+    flex: 1.5;
+    border: 1px solid var(--third-color-blue);
+    color: var(--third-color-blue);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.promoCodeHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
 
 /* form */
@@ -87,6 +201,12 @@
 .title {
     font-size: 22px;
     line-height: 26px;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 @media (max-width: 600px) {
