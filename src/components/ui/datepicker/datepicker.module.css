@@ -1,0 +1,86 @@
+.moveCoa {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr .3fr 1fr;
+    gap: 5px;
+
+}
+
+.btnContainer {
+    height: 8vh;
+    position: relative;
+}
+
+.btnLabel {
+    position: absolute;
+    padding: 10px;
+    font-size: .9rem;
+    color: var(--gray-color-2);
+}
+
+.arrowContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fakeInput {
+    border: 1px solid var(--border-grey);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: .5rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 1rem;
+
+    color: var(--dark-font-gray);
+}
+
+.fakeInput:hover {
+    background-color: rgb(247, 252, 254)
+}
+
+/* Floating window hidden by default */
+.floatingWindow {
+    position: absolute;
+    top: 50%;
+    right: 110%;
+    /* places it to the LEFT of the button */
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+}
+
+/* Show state (toggle this class from React) */
+.showFloating {
+    opacity: 1 !important;
+    pointer-events: auto;
+    transform: translateY(-50%) scale(1);
+}
+
+/* Optional arrow pointing at button */
+.floatingWindow::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent white;
+    filter: drop-shadow(1px 0 0 rgba(0, 0, 0, 0.1));
+}

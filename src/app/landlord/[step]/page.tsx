@@ -2,7 +2,6 @@ import { type Metadata } from 'next';
 import StepComponentLayout from '../layout_step';
 import listingsApi from '@/api/listings/listings.api';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
 import authApi from '@/api/auth/auth.api';
 
 interface PageProps {
@@ -17,10 +16,6 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
 
     const searchParam = await searchParams;
 
-    const cookieStore = await cookies();
-
-    const token = cookieStore.get('refresh_token')?.value;
-
     const stepParam = param.step;
 
     const formId = searchParam.formId;
@@ -29,7 +24,7 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
 
     if(formId) {
 
-        const isOwner = await authApi.httpOwnerShip(token || '', formId)
+        const isOwner = await authApi.httpOwnerShip('', formId)
         
         if(!isOwner.success) return notFound();
 

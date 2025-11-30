@@ -20,17 +20,17 @@ const Footer = () => {
                     </a>
                 </li>
                 <li>
-                    <a href="https://www/.instagram.com" aria-label="Threads" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com" aria-label="Threads" target="_blank" rel="noopener noreferrer">
                         <Image src="/icons/threads_icon.svg" alt="Threads" width={40} height={40} />
                     </a>
                 </li>
                 <li>
-                    <a href="https://www/.tiktok.com" aria-label="Tiktok" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.tiktok.com" aria-label="Tiktok" target="_blank" rel="noopener noreferrer">
                         <Image src="/icons/tiktok_icon.svg" alt="Tiktok" width={40} height={40} />
                     </a>
                 </li>
                 <li>
-                    <a href="https://www/.snapchat.com" aria-label="SnapChat" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.snapchat.com" aria-label="SnapChat" target="_blank" rel="noopener noreferrer">
                         <Image src="/icons/snapchat_icon.svg" alt="Instagram" width={40} height={40} />
                     </a>
                 </li>

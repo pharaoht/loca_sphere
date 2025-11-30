@@ -6,7 +6,15 @@ type UserInfo = {
     id: string,
     displayName: string,
     pfp: string,
-
+    givenName: string,
+    surName: string,
+    birthday: string,
+    email: string,
+    gender: string,
+    countryCode: number | undefined,
+    phoneNumber: number | undefined,
+    nationality: number | undefined,
+    occupation: number | undefined,
 }
 
 const useAuth = () => {
@@ -35,9 +43,10 @@ const useAuth = () => {
     }
 
     useEffect(() => {
-
+    
         const fetchToken = async () => {
             await getToken()
+     
         };
 
         fetchToken();
@@ -59,7 +68,7 @@ const useAuth = () => {
 
     return {
         userInfo,
-        token
+        token,
     }
 };
 

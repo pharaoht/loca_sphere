@@ -4,6 +4,8 @@ import styles from './bookingform.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import moment from 'moment';
+import DatePicker from '../datepicker/datepicker';
+import Calendar from '../infobar/filters/calender/calender';
 
 interface BookingFormProps {
     monthlyRent: number
@@ -15,6 +17,8 @@ interface BookingFormProps {
         symbol: string
     }
 }
+
+//floating calendar window
 
 const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn, moveOut, peopleAllowed, listingId }) => {
 
@@ -36,23 +40,14 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn
                     </p>
                     <p>{ peopleAllowed ? `${peopleAllowed} person(s)` : `1 person`}</p>
                 </header>
-                <div className={styles.moveCoa}>
-                    <div className={styles.btnContainer}>
-                        <label className={styles.btnLabel}>Move in</label>
-                        <button className={styles.fakeInput} type='button' >
-                            {moveIn || today}
-                        </button>
-                    </div>
-                    <div className={styles.arrowContainer}> 
-                        <Image src='/arrow-right.png' alt='' height={35} width={35} />
-                    </div>
-                    <div className={styles.btnContainer}>
-                        <label className={styles.btnLabel}>Move out</label>
-                        <button className={styles.fakeInput} type='button'>
-                            {moveOut || future}
-                        </button>
-                    </div>
-                </div>
+  
+                <DatePicker 
+                    moveInInput={moveIn || today} 
+                    moveOutInput={moveOut || future} 
+                    isDisabled={false} 
+                    floatingWindowContent={<Calendar/>} 
+                />
+                
                 <div >
                     <Link 
                         href={`/booking/${listingId}?moveIn=${moveIn || today}&moveOut=${moveOut || future}&peopleAllowed=${peopleAllowed || 1}`} 

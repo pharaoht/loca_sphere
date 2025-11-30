@@ -10,6 +10,12 @@
 .headerGroup {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.headerGroup a {
+    text-decoration: underline;
+    color: var(--secondary-color-blue);
 }
 
 .formGroup {
@@ -22,12 +28,27 @@
 
 }
 
+.formGroup span {
+    margin: .5rem 0;
+    line-height: 1.5rem;
+}
+
 .formGroup input,
+.formGroup select,
+.formGroup button,
+.headerGroup button,
 .formGroup textarea {
     padding: 0.75rem;
     border: 1px solid var(--border-grey);
     border-radius: 10px;
     font: inherit;
+}
+
+.formGroup button,
+.headerGroup button{
+    cursor: pointer;
+    background: transparent;
+    
 }
 
 .formGroup input:hover {
