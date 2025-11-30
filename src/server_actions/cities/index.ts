@@ -37,5 +37,6 @@ export async function serverApi({ url = '', method = "GET", body = {}, headers =
         json = text;
     }
 
+    console.log(json)
     return json;
 }
