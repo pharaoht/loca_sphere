@@ -13,6 +13,7 @@ export async function serverApi({ url = '', method = "GET", body = {}, headers =
     const cookieStore = await cookies(); 
     const allCookies = cookieStore.getAll();
 
+    console.log(allCookies)
     const cookieHeader = allCookies
         .map((c) => `${c.name}=${c.value}`)
         .join("; ");
@@ -23,6 +24,7 @@ export async function serverApi({ url = '', method = "GET", body = {}, headers =
         headers: {
             "Content-Type": "application/json",
             Cookie: cookieHeader,
+            credentials: 'include',
             ...headers,
         },
         body: method !== "GET" && body ? JSON.stringify(body) : undefined,

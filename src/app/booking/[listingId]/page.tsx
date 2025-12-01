@@ -6,7 +6,7 @@ import { notFound, redirect } from 'next/navigation';
 import listingsApi from '@/api/listings/listings.api';
 import PaymentDetailForm from '@/components/ui/payment/payment';
 import PersonalDetailsForm from '@/components/ui/personalDetails/personalDetail';
-import { cookies } from 'next/headers';
+import authApi from '@/api/auth/auth.api';
 
 export const metadata = {
     title: "LocaSphere - Checkout",
@@ -57,18 +57,16 @@ const getOccupations = async () => {
     return []
 }
 
+const getUserInfo = async () => {
+
+    
+}
 
 const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     const { listingId } = await params;
 
     const searchP = await searchParams;
-
-    const cookieStore = await cookies();
-
-    const token = cookieStore.get('refresh_token')?.value;
-
-    console.log(token)
 
     const { moveIn, moveOut, peopleAllowed } = searchP;
 
