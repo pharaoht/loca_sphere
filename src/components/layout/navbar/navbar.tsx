@@ -32,7 +32,6 @@ const Navbar = () => {
 
     const cssHideClass = pathName === '/accommodations' ? styles.noStick : styles.stick;
 
-    console.log(userInfo)
     return (
         <nav id='navbar' className={`${styles.container} ${cssHideClass}`}>
             <div className={styles.logo}>

@@ -1,8 +1,8 @@
 import authApi from "@/api/auth/auth.api";
 import userApi from "@/api/user/user.api";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 
-type UserInfo = {
+export type UserInfo = {
     id: string,
     displayName: string,
     pfp: string,
@@ -21,24 +21,35 @@ const useAuth = () => {
 
     const [token, setToken] = useState<string | null>(''); 
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+    const [ isLoading, setIsLoading ] = useState(true);
 
     const getToken = useCallback(async () => {
 
-        const tk = await authApi.httpGetToken();
-        
+        const res = await authApi.httpGetToken();
+
+        const tk = res?.data?.data?.accessToken;
+
         if(tk){
-            setToken(tk.accessToken)
-            await getUserInfo(tk.accessToken, setUserInfo);
+
+            setToken(tk);
+        
+            const response = await getUserInfo(tk);
+
+            setUserInfo(response.data);
+
         }
        
+        setIsLoading(false);
 
     }, [token]);
 
-    const getUserInfo = async (token: string, cb: (...args: any) => void) => {
+    const getUserInfo = async (token: string) => {
 
         if (!token) return;
 
-        await userApi.httpGetUserInfo(token, cb);
+        const response = await userApi.httpGetUserInfo(token);
+
+        return response
 
     }
 
@@ -69,6 +80,7 @@ const useAuth = () => {
     return {
         userInfo,
         token,
+        isLoading
     }
 };
 

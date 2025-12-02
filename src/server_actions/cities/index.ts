@@ -13,7 +13,7 @@ export async function serverApi({ url = '', method = "GET", body = {}, headers =
     const cookieStore = await cookies(); 
     const allCookies = cookieStore.getAll();
 
-    console.log(allCookies)
+    console.log(allCookies, '***')
     const cookieHeader = allCookies
         .map((c) => `${c.name}=${c.value}`)
         .join("; ");

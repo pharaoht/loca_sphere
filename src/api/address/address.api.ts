@@ -20,9 +20,11 @@ class AddressApi extends BaseApi {
         return str;
     }
 
-    async getAddressesByCoordinates(searchParams = {}): Promise<Address[] | null>{
+    async getAddressesByCoordinates(searchParams = {}) {
 
         const url = this.findHostName();
+
+        const isServerSide = this.isServerSide()
 
         const paramStr = this.formatFilterString(searchParams);
 
@@ -31,14 +33,14 @@ class AddressApi extends BaseApi {
             method: 'GET'
         };
      
-        const result = await this.httpRequest({
-            requestConfig: reqObj,  
+        const result = isServerSide ? await this.ssHttpRequest(reqObj) : await this.httpRequest({
+            requestConfig: reqObj,
         });
 
         return result;
     };
 
-    async httpFetGeoCodingAddress(queryString: string, cb?: (...args: any) => void, type: boolean = false): Promise<[] | null> {
+    async httpFetGeoCodingAddress(queryString: string, cb?: (...args: any) => void, type: boolean = false) {
 
         const url = this.findHostName();
 

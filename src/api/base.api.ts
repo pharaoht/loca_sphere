@@ -183,20 +183,16 @@ class BaseApi {
                 signal: this.abortController.signal,
                 headers
             });
-           
-            if(response.status !== 200) throw new Error('Request failed');
 
-            if(cb) return cb(response?.data);
-
-            return response?.data
+            return response;
         }
         catch (err: any) {
 
-            const error = err?.response?.data.error || undefined;
+            const errorResponse = err?.response?.data || { success: false, message: 'Something went wrong', statusCode: 400 }
 
             if(axios.isCancel(err)) return;
 
-            if(err instanceof Error) this.error = error || err.message;
+            return errorResponse
 
         }
         finally {
