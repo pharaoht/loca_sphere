@@ -25,8 +25,7 @@ class UserApi extends BaseApi{
         
         const results = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, cb}) 
         : await this.ssHttpRequest(reqObj);
-   
-        if (results?.success) return results.data;
+
 
         return results;
     }
@@ -51,16 +50,12 @@ class UserApi extends BaseApi{
 
         const results = !isServerSide ? await this.httpRequest({ requestConfig: reqObj }) :
             await this.ssHttpRequest(reqObj);
-
-        if(results?.success) return results.data;
-
+    
         return results
 
     }
 
     public async httpPatchUpdateUserProfile(accessToken: string | undefined = '', userObj = {}){
-
-        if(!accessToken) return false;
 
         const url = this.findHostName();
 
@@ -69,6 +64,7 @@ class UserApi extends BaseApi{
         const reqObj: HttpRequestConfig = {
             url: url,
             method: 'PATCH',
+            withCredentials: true,
             accessToken: accessToken,
             data: userObj
         };
@@ -77,8 +73,6 @@ class UserApi extends BaseApi{
             await this.ssHttpRequest(reqObj, undefined) 
             : await this.httpRequest({ requestConfig: reqObj, cb: () => undefined });
 
-        console.log(results);
-        
         return results;
     }
 };

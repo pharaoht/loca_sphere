@@ -4,9 +4,7 @@ import userApi from '@/api/user/user.api';
 import bookingApi from '@/api/booking/booking.api';
 import { notFound, redirect } from 'next/navigation';
 import listingsApi from '@/api/listings/listings.api';
-import PaymentDetailForm from '@/components/ui/payment/payment';
-import PersonalDetailsForm from '@/components/ui/personalDetails/personalDetail';
-import authApi from '@/api/auth/auth.api';
+import BookingFormWrapper from './wrapper/formWrapper';
 
 export const metadata = {
     title: "LocaSphere - Checkout",
@@ -57,11 +55,6 @@ const getOccupations = async () => {
     return []
 }
 
-const getUserInfo = async () => {
-
-    
-}
-
 const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     const { listingId } = await params;
@@ -80,8 +73,6 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     if(!listing) return notFound();
 
-    const user = null;
-
     const nationalities = await getNationalities();
 
     const occupations = await getOccupations();
@@ -93,9 +84,7 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
             <div className={styles.containerSplit}>
                 <section className={styles.left}>
                     <h1 className={styles.h1}>Book your new place <span className={styles.blue}>in minutes</span></h1>
-
-                    <PersonalDetailsForm nationalities={nationalities} occupations={occupations} />
-                    <PaymentDetailForm />
+                    <BookingFormWrapper nationalities={nationalities} occupations={occupations} />
                 </section>
                 
                 <section className={styles.right}>

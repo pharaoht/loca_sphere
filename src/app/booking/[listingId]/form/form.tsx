@@ -14,6 +14,7 @@ export interface BookingRequestFormGridItemProps {
     className?: 'formGroup' | 'headerGroup';
     style?: CSSProperties;
     children?: ReactNode;
+    customClass?: string;
     [key: string]: any;
 }
 
@@ -37,6 +38,7 @@ BookingRequestFormGrid.FormItem = ({
     className = 'formGroup',
     style,
     children,
+    customClass,
     ...rest
 }: BookingRequestFormGridItemProps) => {
     return (

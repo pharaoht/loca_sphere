@@ -1,10 +1,8 @@
 'use client';
-import userApi from '@/api/user/user.api';
 import BookingRequestFormGrid from '@/app/booking/[listingId]/form/form';
-import { useAuthContext } from '@/context/auth.context';
-import { ToastContainer, toast } from 'react-toastify'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { UserInfo } from '@/hooks/useAuth';
 
 type formProps = {
     email: string,
@@ -25,6 +23,9 @@ type formProps = {
 interface ComponentProps {
     nationalities: Array<{id: number, countryName: string}>
     occupations: Array<any>
+    submitHandler: (...args: any) => void
+    userInfo: UserInfo |  null
+    token: string | null | undefined;
 }
 
 const defaultProps: formProps = {
@@ -43,9 +44,8 @@ const defaultProps: formProps = {
     messageToLandlord: ''
 } 
 
-const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations }) => {
+const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations, submitHandler, userInfo, token }) => {
 
-    const { userInfo, token } = useAuthContext();
     const [ show, setShow ] = useState<boolean>(true);
     const [formState, setFormState] = useState<formProps>(defaultProps);
 
@@ -64,11 +64,6 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
 
         return Array.isArray(arr) && arr.length > 0;
     }
-
-    const onSubmitHandler = async () => {
-        await userApi.httpPatchUpdateUserProfile(token || '', formState);
-        toast.success("Saved successfully!");
-    } 
 
     useEffect(() => {
 
@@ -90,12 +85,9 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
         }
     }, [ userInfo ])
 
-
-
     return (
         <>
 
-            <ToastContainer position="bottom-right" autoClose={3000} />
             <BookingRequestFormGrid formSubmitHandler={() => {}}>
                 <>
                     { !token &&
@@ -261,8 +253,8 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                                 <textarea id='message'></textarea>
                             </BookingRequestFormGrid.FormItem>
 
-                            <BookingRequestFormGrid.FormItem size='half' >
-                            <button onClick={onSubmitHandler} type='button'>Save personal details</button>
+                            <BookingRequestFormGrid.FormItem size='full' customClass='blueButton' style={{flexDirection: 'row-reverse'}} >
+                                <button onClick={() => submitHandler(formState)} type='button'>Save personal details</button>
                             </BookingRequestFormGrid.FormItem>
 
                             <BookingRequestFormGrid.FormItem size='full'>
