@@ -1,10 +1,9 @@
 'use client';
-
 import userApi from "@/api/user/user.api";
 import PaymentDetailForm from "@/components/ui/payment/payment";
 import PersonalDetailsForm from "@/components/ui/personalDetails/personalDetail";
 import { useAuthContext } from "@/context/auth.context";
-import { useEffect } from "react";
+import { useState, useTransition } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 interface ComponentProps {
@@ -16,13 +15,18 @@ const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupatio
 
     const { userInfo, isLoading, token } = useAuthContext();
 
+    const [ isTransition, setTransition ] = useTransition();
+
+    const [ inValidInputs, setInValidInputs ] = useState([]);
+
     if(isLoading) return <>Loading...</>
 
     const personalDetailSubmitHandler = async (formState: {}) => {
 
         const results = await userApi.httpPatchUpdateUserProfile(token || '', formState);
-
-        if (!results.success){
+        
+        if (!results.data.success){
+            setInValidInputs(results.data)
             return toast.error(`Error occurred | "${results.message}" | Status code ${results.statusCode}`)
         }
 
@@ -40,6 +44,8 @@ const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupatio
                 occupations={occupations}
                 token={token}
                 userInfo={userInfo}
+                loadingState={isTransition}
+                inValidInputs={inValidInputs}
              />
             <PaymentDetailForm />
         </>

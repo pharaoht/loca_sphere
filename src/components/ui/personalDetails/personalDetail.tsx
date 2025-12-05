@@ -26,6 +26,8 @@ interface ComponentProps {
     submitHandler: (...args: any) => void
     userInfo: UserInfo |  null
     token: string | null | undefined;
+    loadingState: boolean;
+    inValidInputs: Array<{}>
 }
 
 const defaultProps: formProps = {
@@ -44,7 +46,7 @@ const defaultProps: formProps = {
     messageToLandlord: ''
 } 
 
-const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations, submitHandler, userInfo, token }) => {
+const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations, submitHandler, userInfo, token, loadingState, inValidInputs }) => {
 
     const [ show, setShow ] = useState<boolean>(true);
     const [formState, setFormState] = useState<formProps>(defaultProps);
@@ -116,6 +118,7 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                                     placeholder='Enter your email '
                                     onChange={onUpdateField} 
                                     value={formState?.email}  
+                                    
                                 />
                             </BookingRequestFormGrid.FormItem>
 
@@ -180,8 +183,8 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                                                 type='radio' 
                                                 id='gender-male' 
                                                 name='gender' 
-                                                value={'0'}
-                                                checked={formState.gender == '0'} 
+                                                value={'1'}
+                                                checked={formState.gender == '1'} 
                                                 onChange={onUpdateField}
                                             />
                                             <label htmlFor='gender-male'>Male</label>
@@ -191,8 +194,8 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                                                 type='radio' 
                                                 id='gender-female' 
                                                 name='gender' 
-                                                value={'1'}
-                                                checked={formState.gender == '1'} 
+                                                value={'2'}
+                                                checked={formState.gender == '2'} 
                                                 onChange={onUpdateField}
                                             />
                                             <label htmlFor='gender-female'>Female</label>

@@ -47,7 +47,7 @@ const getNationalities = async () => {
     
     const nationalities = await userApi.httpGetUserOptions('nationality');
 
-    return nationalities;
+    return nationalities?.data;
 }
 
 const getOccupations = async () => {
