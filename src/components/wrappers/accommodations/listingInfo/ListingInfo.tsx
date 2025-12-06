@@ -21,8 +21,6 @@ interface Props {
 
 export default async function ListingInfo({ address, title, placeAreaSqM, bathrooms, bedrooms, peopleAllowed, listingType, roomAreaSqM }: Props){
 
-    const w = await new Promise((resolve) => setTimeout(resolve, 2000));
-
     if(!address){
 
         return (

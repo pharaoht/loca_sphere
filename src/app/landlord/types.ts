@@ -1,3 +1,5 @@
+import { BedroomAmenityReturnType } from "@/dal/bedroom.dal";
+
 export const stepKeys = [
     'step-1', 'step-2', 'step-3', 'step-4', 'step-5',
     'step-6', 'step-7', 'step-8', 'step-9', 'step-10', 'step-11'
@@ -363,16 +365,16 @@ export function parseFormData(data: any):  DefaultStateType{
 
 
 export type DropDownOptions = {
-    currencyOptions: Array<{ id: number, name: string }>;
-    listingTypeOptions: [];
-    genderOptions: [];
-    bedroomAmenityOptions: Array<{ id: number, name: string, icon: string }>;
-    amenityTypeOptions: [];
-    amenityOptions: [];
-    houseRulesOptions: Array<{ id: number, name: string, icon: string }>;
+    currencyOptions: Array<{ id: any, name: any }>;
+    listingTypeOptions: any;
+    genderOptions: any;
+    bedroomAmenityOptions: BedroomAmenityReturnType[]
+    amenityTypeOptions: any,
+    amenityOptions: any;
+    houseRulesOptions: Array<{ id: any, name: any, icon: any }>;
     selectedAmenities: { 
         amenity: {
-            amenityTypes: Array<{ id: string, name: string }>,
+            amenityTypes: Array<{ id: any, name: any }>,
             amenities: Array<any>
         }
     }

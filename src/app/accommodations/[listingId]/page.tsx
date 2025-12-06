@@ -39,7 +39,7 @@ const getListingDetails = async (listingId: string) => {
 
     const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
 
-    return result;
+    return result.data;
 }
 
 const apikey = await mapBoxApiKey();

@@ -1,6 +1,7 @@
 import authApi from "@/api/auth/auth.api";
 import userApi from "@/api/user/user.api";
 import { useCallback, useEffect, useState, useTransition } from "react";
+import { toast } from "react-toastify";
 
 export type UserInfo = {
     id: string,
@@ -37,6 +38,9 @@ const useAuth = () => {
 
             setUserInfo(response.data);
 
+        }
+        else {
+            console.warn(`Error occured | ${res.message} | Status code ${res.statusCode}`)
         }
        
         setIsLoading(false);

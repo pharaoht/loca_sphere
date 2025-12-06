@@ -5,9 +5,14 @@ type GenderDalType = {
     sex: string
 }
 
-class GenderDal extends BaseDal<GenderDalType> {
+type GenderDalReturnType = {
+    id: number,
+    name: string
+}
 
-    fromDto(dto: GenderDalType[], cb?: (...args: any) => void): Array<{ id: number | string; name: string; }> {
+class GenderDal extends BaseDal<GenderDalType, GenderDalReturnType> {
+
+    fromDto(dto: GenderDalType[], cb?: (...args: any) => void): GenderDalReturnType[] {
         
         return dto.map((itm, idx) => {
 

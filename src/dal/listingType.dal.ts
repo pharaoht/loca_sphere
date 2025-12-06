@@ -5,9 +5,14 @@ type ListingType = {
     name: string
 };
 
-class ListingTypeDal extends BaseDal<ListingType> {
+type ListingReturnType = {
+    id: number | string;
+    name: string
+};
 
-    fromDto(dto: ListingType[]): Array<{ id: number | string; name: string; }> {
+class ListingTypeDal extends BaseDal<ListingType, ListingReturnType> {
+
+    fromDto(dto: ListingType[]): ListingReturnType[] {
         
         return dto.map((itm, idx) => {
 

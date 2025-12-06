@@ -1,7 +1,5 @@
-abstract class BaseDal<TDto> {
-
-
-    abstract fromDto(dto: TDto[], cb?: (...args: any) => void): Array<{ id: number | string, name: string }>
-};
+abstract class BaseDal<TDto, TReturn> {
+  abstract fromDto(dto: TDto[]) : TReturn[];
+}
 
 export default BaseDal;
