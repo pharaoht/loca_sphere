@@ -6,9 +6,15 @@ type HouseRulesType = {
     icon: string
 }
 
-class HouseRulesDal extends BaseDal<HouseRulesType> {
+type HouseRulesReturnType = {
+    id: number,
+    name: string,
+    icon: string
+}
 
-    fromDto(dto: HouseRulesType[], cb?: (...args: any) => void): Array<{ id: number | string; name: string; }> {
+class HouseRulesDal extends BaseDal<HouseRulesType, HouseRulesReturnType> {
+
+    fromDto(dto: HouseRulesType[], cb?: (...args: any) => void): HouseRulesReturnType[] {
         
         return dto.map((itm, idx) => {
 

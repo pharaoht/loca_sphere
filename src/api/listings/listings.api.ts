@@ -2,6 +2,7 @@ import { DalFactory } from '@/dal/dal.factory';
 import BaseApi, { HttpRequestConfig } from '../base.api';
 import axios from 'axios';
 import { Step11State } from '@/app/landlord/types';
+import { DalMap } from '@/dal/dal.factory';
 
 class ListingsApi extends BaseApi {   
 
@@ -55,7 +56,7 @@ class ListingsApi extends BaseApi {
 
     }
 
-    public async httpGetListingOptions(option: string, cb?: (...args: any) => void ){
+    public async httpGetListingOptions<K extends keyof DalMap>(option: K, cb?: (...args: any) => void ): Promise<any> {
 
         const url = this.findHostName();
 

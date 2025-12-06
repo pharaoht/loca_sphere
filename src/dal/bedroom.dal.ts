@@ -1,14 +1,20 @@
 import BaseDal from "./base.dal";
 
-type BedroomAmenityType = {
+export type BedroomAmenityType = {
     id: number;
     name: string;
     icon: string;
 }
 
-class BedroomAmenityDal extends BaseDal<BedroomAmenityType> {
+export type BedroomAmenityReturnType = {
+    id: number;
+    name: string;
+    icon: string;
+}
 
-    fromDto(dto: BedroomAmenityType[], cb?: (...args: any) => void): Array<{ id: number | string; name: string; icon: string }> {
+class BedroomAmenityDal extends BaseDal<BedroomAmenityType, BedroomAmenityReturnType> {
+
+    fromDto(dto: BedroomAmenityType[], cb?: (...args: any) => void): BedroomAmenityReturnType[] {
         
         return dto.map((itm, idx) => {
 

@@ -1,3 +1,5 @@
+import { BedroomAmenityReturnType } from "@/dal/bedroom.dal";
+
 export const stepKeys = [
     'step-1', 'step-2', 'step-3', 'step-4', 'step-5',
     'step-6', 'step-7', 'step-8', 'step-9', 'step-10', 'step-11'
@@ -366,7 +368,7 @@ export type DropDownOptions = {
     currencyOptions: Array<{ id: any, name: any }>;
     listingTypeOptions: any;
     genderOptions: any;
-    bedroomAmenityOptions: Array<{ id: any, name: any, icon: any }>;
+    bedroomAmenityOptions: BedroomAmenityReturnType[]
     amenityTypeOptions: any,
     amenityOptions: any;
     houseRulesOptions: Array<{ id: any, name: any, icon: any }>;

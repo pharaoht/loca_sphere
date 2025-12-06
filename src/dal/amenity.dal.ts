@@ -5,9 +5,14 @@ type AmenityType = {
     amenityName: string
 }
 
-class AmenityTypeDal extends BaseDal<AmenityType> {
+type AmenityReturnType = {
+    id: number,
+    name: string
+}
 
-    fromDto(dto: AmenityType[], cb?: (...args: any) => void): Array<{ id: number | string; name: string; }> {
+class AmenityTypeDal extends BaseDal<AmenityType, AmenityReturnType> {
+
+    fromDto(dto: AmenityType[], cb?: (...args: any) => void): AmenityReturnType[] {
         
         return dto.map((itm, idx) => {
 

@@ -1,14 +1,19 @@
 import BaseDal from "./base.dal"
 
-type CurrencyDalType = {
+export type CurrencyDalType = {
     id: number
     symbol: string
     code: string
 }
 
-class CurrencyDal extends BaseDal<CurrencyDalType> {
+export type CurrencyDalReturnType = {
+    id: number
+    name: string
+}
 
-    fromDto(dto: CurrencyDalType[]): Array<{ id: number | string; name: string; }> {
+class CurrencyDal extends BaseDal<CurrencyDalType, CurrencyDalReturnType> {
+
+    fromDto(dto: CurrencyDalType[]): CurrencyDalReturnType[] {
         
         return dto.map((itm, idx) => {
 
