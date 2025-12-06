@@ -31,7 +31,7 @@ const getListingDetails = async (listingId: string) => {
 
     const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
 
-    return result;
+    return result.data;
 }
 
 const checkListingAvalibility = async (listingId = '', startDate: string = '' , endDate: string = '') => {

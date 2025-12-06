@@ -8,7 +8,7 @@ type BedroomAmenityType = {
 
 class BedroomAmenityDal extends BaseDal<BedroomAmenityType> {
 
-    fromDto(dto: BedroomAmenityType[], cb?: (...args: any) => void): Array<{ id: number | string; name: string; }> {
+    fromDto(dto: BedroomAmenityType[], cb?: (...args: any) => void): Array<{ id: number | string; name: string; icon: string }> {
         
         return dto.map((itm, idx) => {
 

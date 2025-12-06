@@ -67,26 +67,13 @@ class ListingsApi extends BaseApi {
         };
 
         const optionsDal = DalFactory.create(option);
-    
-        if(isSS){
 
-            const result = await this.ssHttpRequest(reqObj);
+        const result = await this.ssHttpRequest(reqObj);
 
-            const dal = optionsDal.fromDto(result.data);
+        const dal = optionsDal.fromDto(result.data);
 
-            return dal;
-        }
-        else {
-            const result = await this.httpRequest({
-                requestConfig: reqObj,
-                cb: (data) => {
-                    const transformed = optionsDal.fromDto(data);
-                    cb?.(transformed);
-                }
-            });
-
-            return result;
-        }
+        return dal;
+        
     };
 
     public async httpGetListingByListingId(listId: string){

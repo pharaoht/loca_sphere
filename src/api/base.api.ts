@@ -188,10 +188,11 @@ class BaseApi {
         }
         catch (err: any) {
 
-            if(axios.isCancel(err)) return;
+            if(axios.isCancel(err)) return null;
 
             return {
                 success: err?.response?.data.success || false,
+                data: err?.response.data || [],
                 message: err?.response?.data.message || 'Something went wrong...',
                 statusCode: err?.response?.data.statusCode || 500,
             }

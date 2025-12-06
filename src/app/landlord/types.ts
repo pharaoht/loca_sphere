@@ -363,16 +363,16 @@ export function parseFormData(data: any):  DefaultStateType{
 
 
 export type DropDownOptions = {
-    currencyOptions: Array<{ id: number, name: string }>;
-    listingTypeOptions: [];
-    genderOptions: [];
-    bedroomAmenityOptions: Array<{ id: number, name: string, icon: string }>;
-    amenityTypeOptions: [];
-    amenityOptions: [];
-    houseRulesOptions: Array<{ id: number, name: string, icon: string }>;
+    currencyOptions: Array<{ id: any, name: any }>;
+    listingTypeOptions: any;
+    genderOptions: any;
+    bedroomAmenityOptions: Array<{ id: any, name: any, icon: any }>;
+    amenityTypeOptions: any,
+    amenityOptions: any;
+    houseRulesOptions: Array<{ id: any, name: any, icon: any }>;
     selectedAmenities: { 
         amenity: {
-            amenityTypes: Array<{ id: string, name: string }>,
+            amenityTypes: Array<{ id: any, name: any }>,
             amenities: Array<any>
         }
     }
