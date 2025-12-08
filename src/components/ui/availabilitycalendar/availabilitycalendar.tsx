@@ -92,8 +92,9 @@ const AvailabilityCalendar: React.FC<AvailabilityCalendarProps> = ({ year, price
                                 className={styles.gridItem}
                             >
                                 {
-                                    percentage.map((itm)=> (
+                                    percentage.map((itm, idx)=> (
                                         <div 
+                                            key={idx}
                                             className={styles.bookedOverlay} 
                                             style={{ width: `${itm.widthPercentage}%`, left: `${itm.leftPercentage}%` }}>
                                         </div>
