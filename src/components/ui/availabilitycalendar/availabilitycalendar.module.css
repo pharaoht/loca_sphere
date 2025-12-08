@@ -45,6 +45,17 @@
     border-radius: 0.5rem;
 }
 
+.bookedOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: var(--primary-red);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 0.5rem;
+}
+
 @media (max-width: 500px){
     .grid{
         grid-template-columns: repeat(3, 1fr);

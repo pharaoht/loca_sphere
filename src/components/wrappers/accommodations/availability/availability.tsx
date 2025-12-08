@@ -10,10 +10,11 @@ interface Props {
     minimumStayDays: number;
     maxStayDays: number;
     updatedAt: string;
+    bookings: Array<any>
     
 };
 
-const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays, updatedAt }) => {
+const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays, updatedAt, monthlyRent, bookings }) => {
 
 
     if(!id){
@@ -29,8 +30,8 @@ const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays,
         <SectionWrapper id='availability' headerText='Availability'>
             <div className={styles.availabilitySection}>
                 <div className={styles.availabilityCalendar}>
-                    <AvailabilityCalendar year={new Date().getFullYear()}/>
-                    <AvailabilityCalendar year={new Date().getFullYear() + 1}/>
+                    <AvailabilityCalendar year={new Date().getFullYear()} price={monthlyRent} bookings={bookings} />
+                    <AvailabilityCalendar year={new Date().getFullYear() + 1} price={monthlyRent} bookings={bookings} />
                 </div>
             
                 <ul className={styles.availabilityLegend}>

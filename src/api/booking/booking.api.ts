@@ -58,6 +58,21 @@ class BookingApi extends BaseApi {
         return res
 
     }
+
+    public async httpGetAvailability(listingId: string = ''){
+
+        if(!listingId) return false;
+
+        const url = this.findHostName();
+
+        const reqObj = {
+            url: `${url}/get-availability/${listingId}`
+        }
+
+        const results = await this.ssHttpRequest(reqObj);
+
+        return results;
+    }
 };
 
 const bookingApi = new BookingApi();

@@ -18,6 +18,7 @@ import Conditions from '@/components/wrappers/accommodations/conditions/conditio
 import ModalButton from '@/components/ui/input/modalbutton/modalbutton';
 import { mapBoxApiKey } from '@/server_actions/mapbox';
 import MapDisplay from '@/components/ui/map/modalmap/modalmap';
+import bookingApi from '@/api/booking/booking.api';
 
 export const revalidate = 60; 
 
@@ -42,6 +43,13 @@ const getListingDetails = async (listingId: string) => {
     return result.data;
 }
 
+const getAvailability = async (listingId: string) => {
+
+    const result = await bookingApi.httpGetAvailability(listingId);
+
+    return result.data;
+}
+
 const apikey = await mapBoxApiKey();
 
 const ListingsPage = async ({ params, searchParams }: PageProps ) => {
@@ -51,6 +59,8 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
     const { moveIn, moveOut, peopleAllowed } = await searchParams;
 
     const listing = await getListingDetails(listingId);
+
+    const availability = await getAvailability(listingId);
 
     if (listing.success === false) return notFound();
     
@@ -202,6 +212,8 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
                             maxStayDays={maxStayDays}
                             minimumStayDays={minimumStayDays}
                             updatedAt={updatedAt}
+                            monthlyRent={monthlyRent}
+                            bookings={availability}
                         />
                     </Suspense>
                     <hr/>
