@@ -65,7 +65,7 @@
 }
 
 .date {
-
+    min-width: 100px;
 }
 
 .arrow {
