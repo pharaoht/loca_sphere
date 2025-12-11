@@ -37,7 +37,6 @@ const TODAY = new Date();
 const TODAYSMONTH = TODAY.getMonth();
 const TODAYSYEAR = TODAY.getFullYear();
 
-//todo get screen width, to determine rendering of both grid components
 const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, params, closedWindowHandler = undefined, moveOutDate }) => {
 
     const [ currentMonthIndex, setCurrentMonthIndex ] = useState<number>(moveInDate.getMonth());
