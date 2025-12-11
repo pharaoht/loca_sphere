@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from './cg.module.css';
 import CalendarBtn from "../calendarButton/calendarButton";
-
-const MONTHSOFTHEYEAR = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-const DAYSOFTHEWEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-const DaysOfTheWeekTableHeader: React.FC<{ daysOfTheWeekArray: Array<String> }> = ({ daysOfTheWeekArray }) => (
-    daysOfTheWeekArray.map((itm, idx) => (
-        <div className={styles.weekday} role='columnheader' key={idx}>{itm}</div>
-    ))
-);
+import DaysOfTheWeekTableHeader from "../calendarHeader/calendarHeader";
+import CalendarCaption from "../calendarCaption/calendarCaption";
 
 interface CalendarGridProps {
     monthIndex: number;
@@ -18,41 +10,34 @@ interface CalendarGridProps {
     displayLeftToggleArrow: boolean;
     toggleMonthHandler: (...args: any) => void;
     setDateHandler: (...args: any) => void;
+    mobileHandler?: (...arfs: any) => void;
     calendarDayGridArray: number[];
     selectedMoveInDate: Date | null;
     selectedMoveOutDate: Date | null;
-    forBooking?: boolean
+    forBooking?: boolean;
+    isMobile?: boolean;
 }
 
 const CalendarGrid: React.FC<CalendarGridProps> = (
-    { monthIndex, yearValue, displayLeftToggleArrow, toggleMonthHandler, calendarDayGridArray, 
-        setDateHandler, selectedMoveInDate, selectedMoveOutDate, forBooking = false 
+    { 
+        monthIndex, yearValue, displayLeftToggleArrow, toggleMonthHandler, calendarDayGridArray, 
+        setDateHandler, selectedMoveInDate, selectedMoveOutDate, forBooking = false, isMobile = false,
+        mobileHandler = undefined
     }
 ) => {
 
-    const displayMonthValue = MONTHSOFTHEYEAR[monthIndex];
-
-    const [ animation, setAnimation ] = useState<boolean>(false);
-    
-    useEffect(() => {
-        setAnimation(true);
-
-        const timeOut = setTimeout(()=> {
-            setAnimation(false)
-        }, 250);
-
-        return () => clearTimeout(timeOut)
-    }, [monthIndex])
-
     return (
         <section className={styles.calendarTable}>
-            <header className={styles.caption}>
-                {displayLeftToggleArrow && <button className={`${styles.switchBtn} ${styles.toggleBtnL}`} onClick={toggleMonthHandler}>&lt;</button>} 
-                <span className={`${styles.monthDisplay} ${animation && styles.slide}`}>{displayMonthValue} {yearValue}</span> 
-                {!displayLeftToggleArrow && <button className={`${styles.switchBtn} ${styles.toggleBtnR}`} onClick={toggleMonthHandler}>&gt;</button>}
-            </header>
+            <CalendarCaption 
+                monthIndex={monthIndex}
+                displayLeftToggleArrow={displayLeftToggleArrow}
+                onClickHandler={toggleMonthHandler}
+                yearValue={yearValue}
+                isMobile={isMobile}
+                mobileOnClickHandler={mobileHandler}
+            />
             <section className={styles.gridDates} role='grid'>
-                <DaysOfTheWeekTableHeader  daysOfTheWeekArray={DAYSOFTHEWEEK}/> 
+                <DaysOfTheWeekTableHeader /> 
                 {
                     calendarDayGridArray.map((itm, idx) => (
                        <CalendarBtn

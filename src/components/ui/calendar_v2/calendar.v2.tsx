@@ -4,6 +4,8 @@ import CalendarGrid from './calendarGrid/calendarGrid';
 import styles from './styles.module.css';
 import moment from 'moment';
 import { toast, ToastContainer } from 'react-toastify';
+import { useWindowSize } from 'usehooks-ts';
+import useDate from '@/hooks/useDate';
 
 interface CalendarProps {
     moveInDate: Date;
@@ -43,6 +45,9 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
     const [ selectedMoveInDate, setSelectedMoveInDate ] = useState<Date | null>(moveInDate);
     const [ selectedMoveOutDate, setSelectedMoveOutDate] = useState<Date | null>(moveOutDate);
 
+    const { width } = useWindowSize();
+    const { convertDateToDisplay } = useDate();
+
     //Don’t store derived in state.
     //If you can compute it → don’t store it.
     const isEndOfYear = currentMonthIndex === 11;
@@ -50,6 +55,7 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
     const nextYearValue = isEndOfYear ? currentYearValue + 1 : currentYearValue;
     const isDisabled = TODAYSYEAR === currentYearValue && TODAYSMONTH === currentMonthIndex;
     const totalDays = calculateTotalDays(selectedMoveInDate, selectedMoveOutDate);
+    const isMobile = width <= 800;
 
     function calculateTotalDays(startDate: Date | null, endDate: Date | null){
 
@@ -137,7 +143,9 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
         <section className={styles.calendarContainer}>
             <ToastContainer position="bottom-right" autoClose={3000} />
             <header className={styles.selectedDateContainer}>
-                
+                <span className={styles.date}>{convertDateToDisplay(selectedMoveInDate)}</span>
+                <span className={styles.arrow}>&gt;</span>
+                <span className={styles.date}>{convertDateToDisplay(selectedMoveOutDate)}</span>
             </header>
             <div className={styles.calendarGridContainer}>
                 <CalendarGrid 
@@ -149,17 +157,22 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
                     setDateHandler={setDatesHandler}
                     selectedMoveInDate={selectedMoveInDate}
                     selectedMoveOutDate={selectedMoveOutDate}
+                    isMobile={isMobile}
+                    mobileHandler={nextMonthHandler}
+
                 />
-                <CalendarGrid 
-                    toggleMonthHandler={nextMonthHandler} 
-                    monthIndex={nextMonthIndex} 
-                    yearValue={nextYearValue} 
-                    displayLeftToggleArrow={false}
-                    calendarDayGridArray={generateCalendarDays(nextYearValue, nextMonthIndex)}
-                    setDateHandler={setDatesHandler}
-                    selectedMoveInDate={selectedMoveInDate}
-                    selectedMoveOutDate={selectedMoveOutDate}
-                />
+                { !isMobile &&
+                    <CalendarGrid 
+                        toggleMonthHandler={nextMonthHandler} 
+                        monthIndex={nextMonthIndex} 
+                        yearValue={nextYearValue} 
+                        displayLeftToggleArrow={false}
+                        calendarDayGridArray={generateCalendarDays(nextYearValue, nextMonthIndex)}
+                        setDateHandler={setDatesHandler}
+                        selectedMoveInDate={selectedMoveInDate}
+                        selectedMoveOutDate={selectedMoveOutDate}
+                    />
+                }
             </div>
             <div className={styles.calendarControls}>
                 <span className={styles.daysDisplay}>Total days: {totalDays}</span>
