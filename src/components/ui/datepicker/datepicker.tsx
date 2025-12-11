@@ -12,6 +12,11 @@ interface Props {
     floatingWindowContent: ReactNode | null;
 }
 
+const params = {
+    moveIn: 'moveIn',
+    moveOut: 'moveOut'
+}
+
 const DatePicker: React.FC<Props> = ({ moveInInput = '', moveOutInput = '', floatingWindowContent, isDisabled = false }) => {
 
     const [ isOpen, setIsOpen ] = useState<boolean>(false);
@@ -20,7 +25,7 @@ const DatePicker: React.FC<Props> = ({ moveInInput = '', moveOutInput = '', floa
         <div className={styles.moveCoa}>
 
             <div className={styles.btnContainer}>
-                <Dropdown startFromRightSide={true} dropDownContent={<CalendarV2 moveInDate={new Date()} moveOutDate={new Date()} />}>
+                <Dropdown startFromRightSide={true} dropDownContent={<CalendarV2 setParamHandler={() => {}} params={params} moveInDate={new Date()} moveOutDate={new Date()} />}>
                 <label htmlFor="move-in" className={styles.btnLabel}>Move in</label>
                 <button 
                     className={styles.fakeInput} 
