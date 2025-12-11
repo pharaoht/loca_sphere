@@ -69,7 +69,10 @@ const Dropdown: React.FC<DropdownProps> = ({ children, dropDownContent, startFro
                     </button>
                 </div>
                 {
-                    (React.isValidElement(dropDownContent) && dropDownContent.type !== React.Suspense) ? React.cloneElement(dropDownContent) : (
+                    (React.isValidElement(dropDownContent) && dropDownContent.type !== React.Suspense) ? 
+                        React.cloneElement(dropDownContent as ReactElement<{ closedWindowHandler: () => void }>, {
+                            closedWindowHandler: () => setIsActive(false)
+                        }) : (
                         dropDownContent
                     )
                 }

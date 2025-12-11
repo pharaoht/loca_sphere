@@ -3,14 +3,17 @@ import { Address } from '../map/map';
 import ListingCard from '../listingcard/listingCard';
 
 interface Props {
-    listings: Array<Address>
+    listings: Array<Address> | any
 }
 
 const Listings: React.FC<Props> = async ({ listings }) => {
-
-    if(!listings || listings.length === 0){
+    
+    if (!listings || listings.length === 0){
         return (
-            <ul><li>No listings found</li></ul>
+            <ul>
+                <li>No listings found.</li>
+                <li>"{listings?.message}"" status code {listings?.statusCode}</li>
+            </ul>
         )
     }
 
@@ -18,11 +21,13 @@ const Listings: React.FC<Props> = async ({ listings }) => {
     return (
         <ul className={styles.listingContainer}>
             {
-                listings.map((itm, idx) => (
+                Array.isArray(listings) ? listings.map((itm, idx) => (
                     <li key={itm.id}>
                        <ListingCard variant='listing' data={itm}/>
                     </li>
                 ))
+                :
+                null
             }
         </ul>
     )

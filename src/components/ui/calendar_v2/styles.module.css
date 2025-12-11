@@ -1,0 +1,52 @@
+.calendarGridContainer{
+    display: flex;
+    gap: 1rem;
+    min-height: 21rem;
+}
+
+.calendarContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.calendarControls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.calendarControlBtn {
+    font-size: min(14px, .8rem);
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--secondary-color-blue);
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--secondary-color-blue);
+    padding: 10px 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    transition:
+        background-color 0.15s ease,
+        transform 0.15s ease;
+}
+
+.calendarControlBtn:hover {
+
+    transform: scale(1.11);
+}
+
+.calendarControlBtn:active {
+
+    transform: scale(1.05) translateY(1px);
+}
+
+.daysDisplay{
+    transition:
+        background-color 0.15s ease,
+        transform 0.15s ease;
+}

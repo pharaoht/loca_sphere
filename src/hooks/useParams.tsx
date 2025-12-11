@@ -34,10 +34,26 @@ const useParams = () => {
         router.replace(`?${params.toString()}`, { scroll: false });
     }
 
+    function parseUrlDate(param?: string) {
+    
+        if (!param) return null;
+
+        const parts = param.split("-");
+
+        if (parts.length == 3) return parts;
+
+        const x = param.split('/');
+
+        if(x.length == 3) return x;
+
+        return null;
+    }
+
     return {
         getParam,
         setParam,
         deleteParam,
+        parseUrlDate,
         router
     }
 };
