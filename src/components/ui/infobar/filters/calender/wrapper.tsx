@@ -2,20 +2,39 @@
 import styles from '../../../../wrappers/button/infobutton.module.css';
 import Image from 'next/image';
 import Dropdown from "@/components/ui/dropdown/dropdown"
-import Calendar from "./calender"
 import useParams from "@/hooks/useParams";
 import useDate from "@/hooks/useDate";
+import CalendarV2 from '@/components/ui/calendar_v2/calendar.v2';
+
+const params = {
+    moveIn: 'moveIn',
+    moveOut: 'moveOut',
+}
+
+const newDate = new Date();
+newDate.setHours(0, 0, 0, 0); 
 
 const CalendarWrapper = () => {
 
-    const { getParam } = useParams();
-    const { formatDate, getDateAsString } = useDate();
+    const { getParam, parseUrlDate, setParam } = useParams();
+    const { getDateAsString, createDateObject, convertDateToDisplay } = useDate();
 
-    const movein = getParam('moveIn');
-    const moveOut = getParam('moveOut');
+    const movein = parseUrlDate(getParam(params.moveIn) || '');
+    const moveOut = parseUrlDate(getParam(params.moveOut) || '');
+
+    //date for tomsorrow
+    const santizeMoveInDateObj = movein ? createDateObject(movein[0], movein[1], movein[2]) : newDate;
+    const santizeMoveOutDateObj = moveOut ? createDateObject(moveOut[0], moveOut[1], moveOut[2]) : null
 
     return (
-        <Dropdown dropDownContent={<Calendar/>}>
+        <Dropdown dropDownContent={
+                <CalendarV2 
+                    params={params}
+                    moveInDate={santizeMoveInDateObj} 
+                    moveOutDate={santizeMoveOutDateObj}
+                    setParamHandler={setParam}
+                />
+            }>
             <button className={`${styles.btnBaseClass} ${styles.default} ${styles.selectorBtn}`} type='button' >
                 <span>
                     
@@ -24,7 +43,7 @@ const CalendarWrapper = () => {
                 </span>
 
                 <span>
-                    {`${movein && formatDate(movein, 'YYYY-MM-DD') || getDateAsString()} | ${ moveOut && formatDate(moveOut, 'YYYY-MM-DD') || ''}`}
+                    {`${movein && convertDateToDisplay(santizeMoveInDateObj) || getDateAsString()} | ${ santizeMoveOutDateObj && convertDateToDisplay(santizeMoveOutDateObj) || ''}`}
                 </span>
                 
                 <span className={styles.hide}>

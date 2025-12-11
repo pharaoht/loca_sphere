@@ -90,7 +90,7 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                 <section className={styles.right}>
                     <div className={styles.imageContainer}>
                         <Image 
-                            src={images[0].url} 
+                            src={images[0]?.url ?? '/photo.jpg'} 
                             alt='image of listing' 
                             fill
                             sizes="100vw"

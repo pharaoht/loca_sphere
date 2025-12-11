@@ -58,9 +58,11 @@ export type Address = {
 };
 
 
-interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; listings: Array<Address>}
+interface MapboxProps { coordinates: LngLatLike; mpKey: string | undefined; listings: Array<Address> | any}
 
 const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) => {
+
+    if (!Array.isArray(listings)) return (<>no listings</>);
 
     mapboxgl.accessToken = mpKey;
 

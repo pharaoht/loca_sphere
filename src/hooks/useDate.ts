@@ -32,15 +32,38 @@ const useDate = () => {
         return formattedDate;
     }
 
-    function getDateAsString(format: string = 'YYYY-MMM-DD' ){
+    function getDateAsString(format: string = 'YYYY MMM DD' ){
 
         return moment().format(format)
+    }
+
+    function createDateObject(year: string | number, month: string | number, day: string | number): Date {
+        const y = String(year).padStart(4, '0');
+        const m = String(month).padStart(2, '0');
+        const d = String(day).padStart(2, '0');
+
+        const newDate = new Date(+y, +m - 1, +d, 0, 0, 0, 0);
+
+        if(isNaN(newDate.getDate())){
+            return new Date();
+        }
+
+        return newDate;
+    }
+
+    function convertDateToDisplay(dateObject?: Date | null, format: string = 'YYYY MMM DD'){
+
+        if(!dateObject) return;
+
+        return moment(dateObject).format(format);
     }
 
     return {
         createMomentObj,
         formatDate,
-        getDateAsString
+        getDateAsString,
+        createDateObject,
+        convertDateToDisplay
     }
 }
 

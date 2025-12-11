@@ -2,6 +2,8 @@
 import { ReactNode, useState } from 'react';
 import styles from './datepicker.module.css';
 import Image from 'next/image';
+import Dropdown from '../dropdown/dropdown';
+import CalendarV2 from '../calendar_v2/calendar.v2';
 
 interface Props {
     moveInInput: string | undefined | null;
@@ -10,13 +12,20 @@ interface Props {
     floatingWindowContent: ReactNode | null;
 }
 
+const params = {
+    moveIn: 'moveIn',
+    moveOut: 'moveOut'
+}
+
 const DatePicker: React.FC<Props> = ({ moveInInput = '', moveOutInput = '', floatingWindowContent, isDisabled = false }) => {
 
     const [ isOpen, setIsOpen ] = useState<boolean>(false);
 
     return (
         <div className={styles.moveCoa}>
+
             <div className={styles.btnContainer}>
+                <Dropdown startFromRightSide={true} dropDownContent={<CalendarV2 setParamHandler={() => {}} params={params} moveInDate={new Date()} moveOutDate={new Date()} />}>
                 <label htmlFor="move-in" className={styles.btnLabel}>Move in</label>
                 <button 
                     className={styles.fakeInput} 
@@ -30,11 +39,7 @@ const DatePicker: React.FC<Props> = ({ moveInInput = '', moveOutInput = '', floa
                 >
                     {moveInInput}
                 </button>
-                
-                <div className={`${isOpen && styles.showFloating} ${styles.floatingWindow} `} >
-                    {floatingWindowContent}
-                </div>
-
+                </Dropdown>
             </div>
             <div className={styles.arrowContainer} aria-hidden="true">
                 <Image src='/arrow-right.png' alt='' height={35} width={35} />

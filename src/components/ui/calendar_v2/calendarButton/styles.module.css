@@ -1,0 +1,54 @@
+/* -------------------------------------------------
+   Base styles (shared by ALL states)
+--------------------------------------------------*/
+.calendarBtn {
+    text-align: center;
+    padding: 0.7rem 0.5rem;
+    border-radius: 5px;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+    color: rgb(34, 66, 81);
+    border: 1px solid transparent;
+}
+
+/* -------------------------------------------------
+   Modifier styles (only what changes)
+--------------------------------------------------*/
+
+/* Past date */
+.disabled {
+    cursor: not-allowed;
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* Selected start/end date */
+.active {
+    cursor: pointer;
+    background-color: var(--secondary-color-blue);
+    border-color: var(--third-color-blue);
+}
+
+/* Date inside selected range */
+.range {
+    cursor: pointer;
+    background-color: var(--four-blue);
+    border-color: var(--secondary-color-blue);
+}
+
+/* Normal day */
+.day {
+    cursor: pointer;
+    background: #fff;
+    border-color: #fff;
+}
+
+.day:hover {
+    opacity: 0.7;
+    background-color: var(--third-color-blue);
+    transform: scale(1.15);
+}
+
+.day:active {
+    background-color: var(--third-color-blue);
+    transform: scale(1.05) translateY(1px);
+}

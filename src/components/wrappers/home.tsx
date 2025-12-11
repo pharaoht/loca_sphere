@@ -4,12 +4,12 @@ import { Address } from "../ui/map/map";
 import Slider from "../ui/slider/slides"
 
 interface Props {
-    apiData?: Address[] | null
+    apiData?: Address[] | null | any
     location: string
 }
 const ListingByLocations: React.FC<Props> = ({ apiData, location }) => {
-    
-    if( apiData?.length === 0 ){
+
+    if( apiData?.length === 0){
 
         return (
             <Slider title={location}>
@@ -21,7 +21,7 @@ const ListingByLocations: React.FC<Props> = ({ apiData, location }) => {
     return (
         <Slider title={location}>
             {
-                apiData?.map((listing) => (
+                Array.isArray(apiData) && apiData?.map((listing) => (
                     <li key={listing.id}>
                         <ListingCard
                             variant="card"
