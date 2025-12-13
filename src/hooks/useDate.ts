@@ -58,12 +58,25 @@ const useDate = () => {
         return moment(dateObject).format(format);
     }
 
+    function isDateInPast(date: string | string[]){
+        
+        let input = date;
+
+        if(Array.isArray(date)){
+
+            input = date.join('-')
+        }
+
+        return moment(input).isSameOrBefore(moment(), "day");
+    }
+
     return {
         createMomentObj,
         formatDate,
         getDateAsString,
         createDateObject,
-        convertDateToDisplay
+        convertDateToDisplay,
+        isDateInPast
     }
 }
 
