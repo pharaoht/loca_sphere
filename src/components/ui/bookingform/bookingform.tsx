@@ -24,7 +24,7 @@ const params = {
 
 const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, peopleAllowed, listingId, availability }) => {
 
-    const { getParam, parseUrlDate, setParam } = useParams();
+    const { getParam, parseUrlDate, setParam, router, deleteParam } = useParams();
     const { createDateObject, convertDateToDisplay  } = useDate();
 
     const moveIn = parseUrlDate(getParam(params.moveIn) || '');
@@ -33,6 +33,23 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
     const santizeMoveInDateObj = moveIn ? createDateObject(moveIn[0], moveIn[1], moveIn[2]) : null;
     const santizeMoveOutDateObj = moveOut ? createDateObject(moveOut[0], moveOut[1], moveOut[2]) : null;
 
+    const isDisabled = !santizeMoveInDateObj || !santizeMoveOutDateObj;
+
+    const cssToggleClass = isDisabled ? styles.disabled : styles.active;
+
+    const handleBookingClick = () => {
+        const moveInParam = moveIn?.join("-") ?? "";
+        const moveOutParam = moveOut?.join("-") ?? "";
+        const peopleParam = peopleAllowed || 1;
+
+        router.push(
+            `/booking/${listingId}?moveIn=${moveInParam}&moveOut=${moveOutParam}&peopleAllowed=${peopleParam}`
+        );
+    };
+
+    const deleteParamHandler = () => {
+        deleteParam([params.moveIn, params.moveOut])
+    }
 
     return (
         <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
@@ -58,16 +75,19 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
                             params={params}
                             isBookingCalendar={true}
                             bookingAvailability={availability}
+                            deleteParamHandler={deleteParamHandler}
                          />
                     }
                 />
                 
                 <div >
-                    <Link 
-                        href={`/booking/${listingId}?moveIn=${moveIn}&moveOut=${moveOut}&peopleAllowed=${peopleAllowed || 1}`} 
-                        className={styles.bookBtn}>
+                    <button 
+                        className={`${styles.bookBtn} ${cssToggleClass}`} 
+                        onClick={handleBookingClick}
+                        disabled={isDisabled}
+                    >
                         Start booking
-                    </Link>
+                    </button>
                 </div>
 
                 <p>Don't worry - pressing this button won't charge you anything!</p>

@@ -71,3 +71,24 @@
 .arrow {
     opacity: 0.7;
 }
+
+@media (max-width: 500px) {
+
+    .calendarGridContainer {
+        width: calc(100vw-15px);
+        padding: 20px 5px;
+
+    }
+
+    .calendarControlBtn {
+        font-size: min(14px, .8rem);
+        padding: 10px .5rem;
+        gap: 5px;
+    }
+
+    .daysDisplay {
+        padding: 10px;
+        font-size: .75rem;
+    }
+
+}

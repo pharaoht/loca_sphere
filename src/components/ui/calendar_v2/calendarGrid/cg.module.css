@@ -83,3 +83,10 @@
         transform: translateX(0);
     }
 }
+
+@media (max-width: 500px) {
+    .calendarGrid {
+        grid-template-columns: repeat(7, minmax(40px, 1fr));
+        gap: 2px;
+    }
+}

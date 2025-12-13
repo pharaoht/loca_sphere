@@ -89,9 +89,18 @@
     width: 100%;
     font-size: 1rem;
     border-radius: .5rem;
-    background-color: var(--secondary-color-blue);
     border: none;
     color: #fff;
+
+}
+
+.disabled {
+    cursor: not-allowed;
+    background-color: var(--gray-color-2);
+}
+
+.active {
+    background-color: var(--secondary-color-blue);
     cursor: pointer;
 }
 

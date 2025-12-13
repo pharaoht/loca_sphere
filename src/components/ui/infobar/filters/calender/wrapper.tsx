@@ -16,15 +16,19 @@ newDate.setHours(0, 0, 0, 0);
 
 const CalendarWrapper = () => {
 
-    const { getParam, parseUrlDate, setParam } = useParams();
-    const { getDateAsString, createDateObject, convertDateToDisplay } = useDate();
+    const { getParam, parseUrlDate, setParam, deleteParam } = useParams();
+    const { getDateAsString, createDateObject, convertDateToDisplay, isDateInPast } = useDate();
 
     const movein = parseUrlDate(getParam(params.moveIn) || '');
     const moveOut = parseUrlDate(getParam(params.moveOut) || '');
 
     //date for tomsorrow
-    const santizeMoveInDateObj = movein ? createDateObject(movein[0], movein[1], movein[2]) : newDate;
-    const santizeMoveOutDateObj = moveOut ? createDateObject(moveOut[0], moveOut[1], moveOut[2]) : null
+    const santizeMoveInDateObj = movein && !isDateInPast(movein) ? createDateObject(movein[0], movein[1], movein[2]) : newDate;
+    const santizeMoveOutDateObj = moveOut && !isDateInPast(moveOut) ? createDateObject(moveOut[0], moveOut[1], moveOut[2]) : null;
+
+    const deleteParams = () => {
+        deleteParam([params.moveIn, params.moveOut])
+    }
 
     return (
         <Dropdown dropDownContent={
@@ -33,6 +37,7 @@ const CalendarWrapper = () => {
                     moveInDate={santizeMoveInDateObj} 
                     moveOutDate={santizeMoveOutDateObj}
                     setParamHandler={setParam}
+                    deleteParamHandler={deleteParams}
                 />
             }>
             <button className={`${styles.btnBaseClass} ${styles.default} ${styles.selectorBtn}`} type='button' >

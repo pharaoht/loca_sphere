@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import CalendarGrid from './calendarGrid/calendarGrid';
 import styles from './styles.module.css';
 import moment from 'moment';
@@ -18,6 +18,7 @@ interface CalendarProps {
     closedWindowHandler?: () => void;
     isBookingCalendar?: boolean;
     bookingAvailability?: Array<{}> | undefined;
+    deleteParamHandler?: (...args: any) => void
 }
 
 const generateCalendarDays = (year: number, month: number) => {
@@ -51,7 +52,8 @@ const TODAYSYEAR = TODAY.getFullYear();
 const CalendarV2: React.FC<CalendarProps> = (
     { 
         moveInDate, setParamHandler, params, closedWindowHandler = undefined, 
-        moveOutDate, isBookingCalendar = false, bookingAvailability = undefined 
+        moveOutDate, isBookingCalendar = false, bookingAvailability = undefined,
+        deleteParamHandler
     }
 ) => {
 
@@ -59,6 +61,7 @@ const CalendarV2: React.FC<CalendarProps> = (
     const [ currentYearValue, setCurrentYearValue ] = useState<number>(moveInDate?.getFullYear() ?? TODAY.getFullYear());
     const [ selectedMoveInDate, setSelectedMoveInDate ] = useState<Date | null>(moveInDate);
     const [ selectedMoveOutDate, setSelectedMoveOutDate] = useState<Date | null>(moveOutDate);
+    const [ isTrasitioning, setTransition ] = useTransition();
 
     const { width } = useWindowSize();
     const { convertDateToDisplay } = useDate();
@@ -97,8 +100,12 @@ const CalendarV2: React.FC<CalendarProps> = (
     };
 
     const clearDatesHandler = () => {
+
+
         setSelectedMoveInDate(null);
         setSelectedMoveOutDate(null);
+
+        if (deleteParamHandler) deleteParamHandler();
     };
 
     const submitDatesHandler = () => {
@@ -113,7 +120,7 @@ const CalendarV2: React.FC<CalendarProps> = (
             { key: params.moveOut, value: moveOutDateString }
         ]
 
-        setParamHandler(p);
+        setTransition(() => setParamHandler(p))
 
         if (closedWindowHandler) closedWindowHandler();
     };
@@ -151,7 +158,7 @@ const CalendarV2: React.FC<CalendarProps> = (
         if (selectedMoveInDate && desiredDateMs < moveInDatesms){
             return setSelectedMoveInDate(desiredDate)
         }
-        if(selectedMoveInDate && !selectedMoveOutDate && !isAvailable(selectedMoveInDate.getTime(), desiredDateMs)){
+        if (isBookingCalendar && selectedMoveInDate && !selectedMoveOutDate && !isAvailable(selectedMoveInDate.getTime(), desiredDateMs)){
             return toast.error('Invalid dates.')
         }
         if (selectedMoveInDate && !selectedMoveOutDate && desiredDateMs > moveInDatesms){
@@ -215,7 +222,7 @@ const CalendarV2: React.FC<CalendarProps> = (
                     type='button' 
                     onClick={submitDatesHandler}
                 >
-                    Submit dates
+                    { isTrasitioning ? 'loading': 'Submit dates' }
                 </button>
             </div>
         </section>
