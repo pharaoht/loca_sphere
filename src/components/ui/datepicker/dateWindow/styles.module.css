@@ -1,0 +1,44 @@
+.window {
+    position: absolute;
+    padding: 16px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    left: auto;
+    top: 100;
+    right: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 2000;
+}
+
+.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .window {
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            /* move it slightly up */
+            right: auto;
+        
+            transform: translate(-50%, -40%);
+            width: calc(100% - 32px);
+            max-width: 420px;
+            max-height: 80vh;
+        
+            border-radius: 12px;
+    }
+
+    .window.open {
+       
+    }
+}

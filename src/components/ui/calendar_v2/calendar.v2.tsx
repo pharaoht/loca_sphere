@@ -8,14 +8,16 @@ import { useWindowSize } from 'usehooks-ts';
 import useDate from '@/hooks/useDate';
 
 interface CalendarProps {
-    moveInDate: Date;
+    moveInDate: Date | null;
     moveOutDate: Date | null;
     params: { moveIn: string, moveOut: string };
     setParamHandler: (queries: {
         key: string;
         value: string;
     }[]) => void;
-    closedWindowHandler?: () => void
+    closedWindowHandler?: () => void;
+    isBookingCalendar?: boolean;
+    bookingAvailability?: Array<{}> | undefined;
 }
 
 const generateCalendarDays = (year: number, month: number) => {
@@ -33,14 +35,28 @@ const generateCalendarDays = (year: number, month: number) => {
     return grid;
 };
 
+const calculateTotalDays = (startDate: Date | null, endDate: Date | null) => {
+
+    if (!startDate || !endDate) return 0;
+
+    const total = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    return total;
+}
+
 const TODAY = new Date();
 const TODAYSMONTH = TODAY.getMonth();
 const TODAYSYEAR = TODAY.getFullYear();
 
-const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, params, closedWindowHandler = undefined, moveOutDate }) => {
+const CalendarV2: React.FC<CalendarProps> = (
+    { 
+        moveInDate, setParamHandler, params, closedWindowHandler = undefined, 
+        moveOutDate, isBookingCalendar = false, bookingAvailability = undefined 
+    }
+) => {
 
-    const [ currentMonthIndex, setCurrentMonthIndex ] = useState<number>(moveInDate.getMonth());
-    const [ currentYearValue, setCurrentYearValue ] = useState<number>(moveInDate.getFullYear());
+    const [ currentMonthIndex, setCurrentMonthIndex ] = useState<number>(moveInDate?.getMonth() ?? TODAY.getMonth());
+    const [ currentYearValue, setCurrentYearValue ] = useState<number>(moveInDate?.getFullYear() ?? TODAY.getFullYear());
     const [ selectedMoveInDate, setSelectedMoveInDate ] = useState<Date | null>(moveInDate);
     const [ selectedMoveOutDate, setSelectedMoveOutDate] = useState<Date | null>(moveOutDate);
 
@@ -56,18 +72,8 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
     const totalDays = calculateTotalDays(selectedMoveInDate, selectedMoveOutDate);
     const isMobile = width <= 800;
 
-    function calculateTotalDays(startDate: Date | null, endDate: Date | null){
-
-        if(!startDate || !endDate) return 0;
-
-        const total = Math.ceil(( endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-
-        return total;
-    }
-
     const previousMonthHandler = () => {
         //react event handlers dont need to be pure, they dont effect the render process
-
         if(isDisabled) return;
 
         if(currentMonthIndex == 0){
@@ -112,6 +118,21 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
         if (closedWindowHandler) closedWindowHandler();
     };
 
+    const isAvailable = (moveInMs: number, moveOutMs: number) => {
+
+        if(!bookingAvailability) return undefined;
+
+        let isAvailable = true;
+
+        bookingAvailability.forEach((itm: any) => {
+            if (moveInMs < itm.startDateMiliSeconds && moveOutMs > itm.endDateMiliSeconds){
+                isAvailable = false;
+            }
+        });
+
+        return isAvailable;
+    }
+
     const setDatesHandler = (y: number, m: number, d: number) => {
 
         const desiredDate = new Date(y,m,d,0,0,0,0);
@@ -129,6 +150,9 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
         }
         if (selectedMoveInDate && desiredDateMs < moveInDatesms){
             return setSelectedMoveInDate(desiredDate)
+        }
+        if(selectedMoveInDate && !selectedMoveOutDate && !isAvailable(selectedMoveInDate.getTime(), desiredDateMs)){
+            return toast.error('Invalid dates.')
         }
         if (selectedMoveInDate && !selectedMoveOutDate && desiredDateMs > moveInDatesms){
             return setSelectedMoveOutDate(desiredDate)
@@ -158,6 +182,8 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
                     selectedMoveOutDate={selectedMoveOutDate}
                     isMobile={isMobile}
                     mobileHandler={nextMonthHandler}
+                    forBooking={isBookingCalendar}
+                    bookingData={bookingAvailability}
 
                 />
                 { !isMobile &&
@@ -170,6 +196,8 @@ const CalendarV2: React.FC<CalendarProps> = ({ moveInDate, setParamHandler, para
                         setDateHandler={setDatesHandler}
                         selectedMoveInDate={selectedMoveInDate}
                         selectedMoveOutDate={selectedMoveOutDate}
+                        forBooking={isBookingCalendar}
+                        bookingData={bookingAvailability}
                     />
                 }
             </div>
@@ -203,3 +231,8 @@ export default CalendarV2;
 //keep the internal data is date objects
 
 //storing both values in state would violate one of React’s core principles:
+
+
+
+//2025-01-14 -> 2025-02-02
+//2025-01-15 -> 2025-02-01

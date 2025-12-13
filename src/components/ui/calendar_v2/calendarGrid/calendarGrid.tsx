@@ -16,15 +16,31 @@ interface CalendarGridProps {
     selectedMoveOutDate: Date | null;
     forBooking?: boolean;
     isMobile?: boolean;
+    bookingData?: Array<any> | undefined
 }
 
 const CalendarGrid: React.FC<CalendarGridProps> = (
     { 
         monthIndex, yearValue, displayLeftToggleArrow, toggleMonthHandler, calendarDayGridArray, 
         setDateHandler, selectedMoveInDate, selectedMoveOutDate, forBooking = false, isMobile = false,
-        mobileHandler = undefined
+        mobileHandler = undefined, bookingData = undefined
     }
 ) => {
+
+    const checkAvailability = (y: number, m: number, d: number) => {
+
+        const buttonTimeStamp = new Date(y,m,d,0,0,0,0);
+
+        let isAvailable = true;
+
+        bookingData?.forEach((itm) => {
+            if (( buttonTimeStamp >= itm.startDateMiliSeconds ) && ( buttonTimeStamp <= itm.endDateMiliSeconds )){
+                isAvailable = false;
+            }
+        });
+
+        return isAvailable;
+    }
 
     return (
         <section className={styles.calendarTable}>
@@ -38,7 +54,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = (
             />
             <section className={styles.gridDates} role='grid'>
                 <DaysOfTheWeekTableHeader /> 
-                {
+                { 
                     calendarDayGridArray.map((itm, idx) => (
                        <CalendarBtn
                             key={idx} 
@@ -48,6 +64,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = (
                             onClickHandler={setDateHandler} 
                             moveInDate={selectedMoveInDate?.getTime() || null}
                             moveOutDate={selectedMoveOutDate?.getTime() || null}
+                            isAvailable={forBooking ? checkAvailability(yearValue, monthIndex, itm) : undefined}
                         />
                     ))
                 }

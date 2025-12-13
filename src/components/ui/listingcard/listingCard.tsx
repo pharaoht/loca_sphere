@@ -24,8 +24,6 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
 
     const { getParam } = useParams();
 
-    const moveInParam = getParam('moveIn');
-    const moveOutParam = getParam('moveOut');
     const peopleAllowedParam = getParam('peopleAllowed');
 
     const todayDate = moment().format('DD MMM YYYY');
@@ -84,22 +82,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
 
     function details(){
 
-        const generateParams = () => {
-
-            const params = new URLSearchParams();
-
-            if (moveInParam) params.append('moveIn', moveInParam);
-            if (moveOutParam) params.append('moveOut', moveOutParam);
-            if (peopleAllowedParam) params.append('peopleAllowed', peopleAllowedParam);
-
-            if(!params) return ''
-
-            return `?${params.toString()}`;
-
-        }
-
         const href = variant == 'listing' ? 
-            `/accommodations/${listingId}${generateParams()}` 
+            `/accommodations/${listingId}?peopleAllowed=${!peopleAllowedParam ? 1 : peopleAllowedParam}` 
             :   `/accommodations?long=${longitude}&lat=${latitude}&cityName=${city}&radius=10`;
 
         const pplAllowedString = peopleAllowed === 1 ? `${peopleAllowed} person` : `${peopleAllowed} people`;
