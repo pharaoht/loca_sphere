@@ -35,6 +35,12 @@
     border-color: var(--secondary-color-blue);
 }
 
+.booked {
+    cursor: not-allowed;
+    text-decoration: line-through;
+    background-color: var(--primary-red);
+}
+
 /* Normal day */
 .day {
     cursor: pointer;

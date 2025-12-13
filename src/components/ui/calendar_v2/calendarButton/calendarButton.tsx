@@ -8,9 +8,10 @@ type CalendarButtonProps = {
     year: number;
     month: number;
     day: number | null;
+    isAvailable?: boolean | undefined;
 };
 
-const CalendarBtn: React.FC<CalendarButtonProps> = ({ onClickHandler, day, year, month, moveInDate, moveOutDate }) => {
+const CalendarBtn: React.FC<CalendarButtonProps> = ({ onClickHandler, day, year, month, moveInDate, moveOutDate, isAvailable }) => {
 
     if (!day) return (<div></div>);
 
@@ -36,16 +37,19 @@ const CalendarBtn: React.FC<CalendarButtonProps> = ({ onClickHandler, day, year,
         ( isButtonActive && styles.active ) || 
         ( isButtonInPast && styles.disabled ) || 
         ( isButtonInSelectedDateRange && styles.range ) || 
+        ( isAvailable !== undefined && !isAvailable && styles.booked ) ||
         ( styles.day )
     
     const baseBtnCssClass = styles.calendarBtn;
+
+    const isPressable = !isButtonInPast && (isAvailable === undefined || isAvailable)
     
     return (
         <button 
             type='button'
             disabled={isButtonInPast}
             className={`${baseBtnCssClass} ${cssButtonClass}`}
-            onClick={() => !isButtonInPast && onClickHandler(year, month, day)}
+            onClick={() => isPressable && onClickHandler(year, month, day)}
         >
             {day}
         </button>

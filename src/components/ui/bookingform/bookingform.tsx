@@ -1,34 +1,38 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './bookingform.module.css';
-import Image from 'next/image';
 import Link from 'next/link';
-import moment from 'moment';
 import DatePicker from '../datepicker/datepicker';
-import Calendar from '../infobar/filters/calender/calender';
+import useParams from '@/hooks/useParams';
+import useDate from '@/hooks/useDate';
+import CalendarV2 from '../calendar_v2/calendar.v2';
 
 interface BookingFormProps {
-    monthlyRent: number
-    peopleAllowed?: string
-    moveIn?: string
-    moveOut?: string 
-    listingId: string
+    monthlyRent: number;
+    peopleAllowed?: string;
+    listingId: string;
     currency: {
         symbol: string
-    }
+    };
+    availability: Array<{}>
 }
 
-//floating calendar window
+const params = {
+    moveIn: 'moveIn',
+    moveOut: 'moveOut'
+}
 
-const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn, moveOut, peopleAllowed, listingId }) => {
+const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, peopleAllowed, listingId, availability }) => {
 
-    const [ today, setToday ] = useState<string>('');
-    const [ future, setFuture ] = useState<string>('');
+    const { getParam, parseUrlDate, setParam } = useParams();
+    const { createDateObject, convertDateToDisplay  } = useDate();
 
-    useEffect(() => {
-        setToday(moment(new Date()).format('YYYY-MM-DD'))
-        setFuture(moment(new Date()).add(30, 'days').format('YYYY-MM-DD'))
-    }, [])
+    const moveIn = parseUrlDate(getParam(params.moveIn) || '');
+    const moveOut = parseUrlDate(getParam(params.moveOut) || '');
+
+    const santizeMoveInDateObj = moveIn ? createDateObject(moveIn[0], moveIn[1], moveIn[2]) : null;
+    const santizeMoveOutDateObj = moveOut ? createDateObject(moveOut[0], moveOut[1], moveOut[2]) : null;
+
 
     return (
         <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
@@ -42,15 +46,25 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, moveIn
                 </header>
   
                 <DatePicker 
-                    moveInInput={moveIn || today} 
-                    moveOutInput={moveOut || future} 
+                    moveInInput={santizeMoveInDateObj} 
+                    moveOutInput={santizeMoveOutDateObj} 
                     isDisabled={false} 
-                    floatingWindowContent={<Calendar/>} 
+                    convertDateToString={convertDateToDisplay}
+                    floatingWindowContent={
+                        <CalendarV2
+                            moveInDate={santizeMoveInDateObj}
+                            moveOutDate={santizeMoveOutDateObj}
+                            setParamHandler={setParam}
+                            params={params}
+                            isBookingCalendar={true}
+                            bookingAvailability={availability}
+                         />
+                    }
                 />
                 
                 <div >
                     <Link 
-                        href={`/booking/${listingId}?moveIn=${moveIn || today}&moveOut=${moveOut || future}&peopleAllowed=${peopleAllowed || 1}`} 
+                        href={`/booking/${listingId}?moveIn=${moveIn}&moveOut=${moveOut}&peopleAllowed=${peopleAllowed || 1}`} 
                         className={styles.bookBtn}>
                         Start booking
                     </Link>

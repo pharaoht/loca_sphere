@@ -56,7 +56,7 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
 
     const { listingId } = await params;
 
-    const { moveIn, moveOut, peopleAllowed } = await searchParams;
+    const { peopleAllowed } = await searchParams;
 
     const listing = await getListingDetails(listingId);
 
@@ -258,10 +258,9 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
                     <BookingForm 
                         monthlyRent={monthlyRent} 
                         currency={currency} 
-                        moveIn={moveIn} 
-                        moveOut={moveOut} 
                         peopleAllowed={peopleAllowed} 
                         listingId={listingId}
+                        availability={availability}
                     />
                 </div>
 

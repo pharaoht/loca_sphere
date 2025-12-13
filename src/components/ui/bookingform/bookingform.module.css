@@ -150,7 +150,9 @@
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     }
 
-      .collapsed {
+    
+
+    .collapsed {
         transform: translateY(70%); /* show just the header portion */
         overflow: hidden;
     }
