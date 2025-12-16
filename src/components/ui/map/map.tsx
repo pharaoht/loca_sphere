@@ -39,7 +39,18 @@ export type List = {
 	createdAt: string;
 	updatedAt: string; 
 	currency: Currency;
-    images: Array<ListingImages>
+    images: Array<ListingImages>;
+    nextAvailableDate: {
+        tz: string;
+        milliseconds: number;
+        yymmdd: string;
+    }
+    utilityMap: {
+        waterIncluded: boolean,
+        electricIncluded: boolean,
+        internetIncluded: boolean,
+        allBillsIncluded: boolean ,
+    }
 };
 
 export type Address = {

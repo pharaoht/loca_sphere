@@ -84,9 +84,13 @@
     }
 }
 
-@media (max-width: 500px) {
-    .calendarGrid {
+@media (max-width: 700px) {
+
+    .calendarTable{
+        width: 100%;
+    }
+    .gridDates {
         grid-template-columns: repeat(7, minmax(40px, 1fr));
-        gap: 2px;
+        gap: 5px;
     }
 }

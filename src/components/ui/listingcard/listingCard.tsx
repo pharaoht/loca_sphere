@@ -4,7 +4,6 @@ import { Address, ListingImages } from '../map/map';
 import styles from './listingcard.module.css';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import moment from 'moment';
 import useParams from '@/hooks/useParams';
 
 interface ListingCardProps {
@@ -18,15 +17,17 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
 
     const { listing, latitude, listingId, longitude, city, } = data;
 
-    const { images, peopleAllowed, bedrooms, title, currency, monthlyRent, isChecked, beds  } = listing;
+    const { images, peopleAllowed, bedrooms, title, currency, monthlyRent, isChecked, beds, nextAvailableDate, utilityMap } = listing;
+
+    const { yymmdd } = nextAvailableDate;
 
     const { symbol } = currency;
+
+    const { allBillsIncluded } = utilityMap;
 
     const { getParam } = useParams();
 
     const peopleAllowedParam = getParam('peopleAllowed');
-
-    const todayDate = moment().format('DD MMM YYYY');
 
     const [activeIndex, setActiveIndex] = useState<number>(Array.isArray(images) && images.length > 0 ? images.findIndex(itm => itm.isPrimary) : 0);
 
@@ -96,10 +97,10 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
                     <span className={styles.info}>Up to {pplAllowedString} - {bedroomString} </span>
                     <p className={styles.title}>{title}</p>
                     { isChecked && <span className={styles.trustll}>Place Verified</span> }
-                    {variant == 'listing' && <p className={styles.date}>From {todayDate}</p>}
+                    {variant == 'listing' && <p className={styles.date}>From {yymmdd}</p>}
                     <p className={styles.paymentContainer}>
                         <strong className={styles.price}>{symbol}{monthlyRent}</strong> / month 
-                        <span className={styles.infoThin}><i>Bills included</i></span>
+                        <span className={styles.infoThin}>{allBillsIncluded &&<i>All bills included</i>}</span>
                     </p>
                 </div>
             </Link>

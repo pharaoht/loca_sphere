@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect } from 'react';
 import styles from './bookingform.module.css';
-import Link from 'next/link';
 import DatePicker from '../datepicker/datepicker';
 import useParams from '@/hooks/useParams';
 import useDate from '@/hooks/useDate';
