@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './cg.module.css';
 import CalendarBtn from "../calendarButton/calendarButton";
 import DaysOfTheWeekTableHeader from "../calendarHeader/calendarHeader";
@@ -27,9 +27,11 @@ const CalendarGrid: React.FC<CalendarGridProps> = (
     }
 ) => {
 
+    const [ today, setToday ] = useState<number | null>(null);
+
     const checkAvailability = (y: number, m: number, d: number) => {
 
-        const buttonTimeStamp = new Date(y,m,d,0,0,0,0);
+        const buttonTimeStamp = new Date(Date.UTC(y,m,d,0,0,0,0));
 
         let isAvailable = true;
 
@@ -40,7 +42,10 @@ const CalendarGrid: React.FC<CalendarGridProps> = (
         });
 
         return isAvailable;
-    }
+    };
+
+    //Date has a dynamic value, must be set in useEffect to not get hydration error
+    useEffect(() => setToday(new Date().setHours(0,0,0,0)), []);
 
     return (
         <section className={styles.calendarTable}>
@@ -58,6 +63,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = (
                     calendarDayGridArray.map((itm, idx) => (
                        <CalendarBtn
                             key={idx} 
+                            today={today}
                             day={itm} 
                             year={yearValue} 
                             month={monthIndex} 

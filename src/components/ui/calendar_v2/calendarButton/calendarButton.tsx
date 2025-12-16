@@ -9,13 +9,13 @@ type CalendarButtonProps = {
     month: number;
     day: number | null;
     isAvailable?: boolean | undefined;
+    today: number | null
 };
 
-const CalendarBtn: React.FC<CalendarButtonProps> = ({ onClickHandler, day, year, month, moveInDate, moveOutDate, isAvailable }) => {
+const CalendarBtn: React.FC<CalendarButtonProps> = ({ onClickHandler, day, year, month, moveInDate, moveOutDate, isAvailable, today }) => {
 
-    if (!day) return (<div></div>);
+    if (!day || !today) return (<div></div>);
 
-    const today = new Date().setHours(0, 0, 0, 0);
     const buttonTimestamp = new Date(year, month, day).setHours(0, 0, 0, 0);
 
     //determine button type

@@ -72,7 +72,11 @@
     opacity: 0.7;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
+
+    .calendarContainer{
+        width: 100%;
+    }
 
     .calendarGridContainer {
         width: calc(100vw-15px);

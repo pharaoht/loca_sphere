@@ -56,7 +56,7 @@ const CalendarV2: React.FC<CalendarProps> = (
         deleteParamHandler
     }
 ) => {
-
+    
     const [ currentMonthIndex, setCurrentMonthIndex ] = useState<number>(moveInDate?.getMonth() ?? TODAY.getMonth());
     const [ currentYearValue, setCurrentYearValue ] = useState<number>(moveInDate?.getFullYear() ?? TODAY.getFullYear());
     const [ selectedMoveInDate, setSelectedMoveInDate ] = useState<Date | null>(moveInDate);
@@ -238,8 +238,3 @@ export default CalendarV2;
 //keep the internal data is date objects
 
 //storing both values in state would violate one of React’s core principles:
-
-
-
-//2025-01-14 -> 2025-02-02
-//2025-01-15 -> 2025-02-01
