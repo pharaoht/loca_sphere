@@ -6,22 +6,24 @@ interface Props {
     id: string;
     price: string;
     currency: string;
-    photos: [];
+    photos: any[];
     title: string;
-
+    dateAvailable: string;
 }
 
-const PopupContent: React.FC<Props> = ({ id, price, currency, photos, title }) => {
+const PopupContent: React.FC<Props> = ({ id, price, currency, photos, title, dateAvailable }) => {
 
+    const isPhotos = Array.isArray(photos) && photos.length > 0;
+    
     return (
         <div className={styles.container}>
             <div className={styles.imageWrapper}>
-                <Image className={styles.image} src='/photo.jpg' alt='photo of listing' fill/>
+                <Image className={styles.image} src={isPhotos ? photos[0].url : '/photo.jpg'} alt='photo of listing' fill/>
             </div>
             <div className={styles.textContent}>
                 <Link className={styles.link} href={`/accommodations/${id}`} >
                     <p className={styles.title}>{title}</p>
-                    <span className={styles.date}>Date</span>
+                    <span className={styles.date}>From: {dateAvailable}</span>
                     <p className={styles.price}><b>{currency}{price}</b>/ month <i>Bills included</i></p>
                 </Link>
             </div>

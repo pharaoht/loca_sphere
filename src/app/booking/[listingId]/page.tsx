@@ -27,7 +27,7 @@ const getListingDetails = async (listingId: string) => {
 
     if(!listingId) return false;
 
-    const qs = 'amenity,utility,bedroomAmenity,hostRules,currency,listingType,host,images';
+    const qs = 'amenity,utility,bedroomAmenity,hostRules,currency,listingType,host,images,address';
 
     const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
 
@@ -43,16 +43,11 @@ const checkListingAvalibility = async (listingId = '', startDate: string = '' , 
     return result.success;
 }
 
-const getNationalities = async () => {
+const getUserOptions = async (option: string) => {
     
-    const nationalities = await userApi.httpGetUserOptions('nationality');
+    const options = await userApi.httpGetUserOptions(option);
 
-    return nationalities?.data;
-}
-
-const getOccupations = async () => {
-
-    return []
+    return options?.data;
 }
 
 const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
@@ -73,11 +68,15 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     if(!listing) return notFound();
 
-    const nationalities = await getNationalities();
+    const nationalities = await getUserOptions('nationality');
 
-    const occupations = await getOccupations();
+    const occupations = await getUserOptions('occupation');
 
-    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, } = listing || {};
+    const { bedrooms, address, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, } = listing || {};
+
+    const { streetAddress, city, stateOrProvince } = address;
+
+    const { symbol } = currency;
 
     return (
         <div className={styles.container}>
@@ -103,7 +102,7 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                             <li>Checked</li>
                         </ul>
                     
-                        <h2 className={styles.title}>Single bedroom in Vilapicina i la Torre Llobeta</h2>
+                        <h2 className={styles.title}>{title}</h2>
 
                         <address className={styles.address}>
                             <Image 
@@ -112,7 +111,7 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                                 aria-hidden="true"
                                 height={25}
                                 width={25} />
-                            <span>Rua Sabino de Sousa, Penha de França, Lisbon</span>
+                            <span>{streetAddress}, {city} {stateOrProvince}</span>
                         </address>
 
                         <div className={styles.moveCoa}>
@@ -139,16 +138,16 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                             <h3>Price details</h3>
                             <div className={styles.priceBreakDown}>
                                 <span className={styles.smallFont}>First rental payment</span>
-                                <span className={`${styles.fontBold} ${styles.smallFont}`}>300</span>
+                                <span className={`${styles.fontBold} ${styles.smallFont}`}>{symbol} {monthlyRent}</span>
                             </div>
                             <div className={styles.priceBreakDown}>
                                 <span className={styles.smallFont}>One time service fee</span>
-                                <span className={`${styles.fontBold} ${styles.smallFont}`}>300</span>
+                                <span className={`${styles.fontBold} ${styles.smallFont}`}>{symbol} 300</span>
                             </div>
                             <hr></hr>
                             <div className={styles.priceBreakDown}>
                                 <span className={styles.bigFont}>Total</span>
-                                <span className={`${styles.fontBold} ${styles.bigFont}`}>300</span>
+                                <span className={`${styles.fontBold} ${styles.bigFont}`}>{symbol} 300</span>
                             </div>
                             <hr></hr>
                             <p className={styles.disclaimerText}>You will be charged if, and only if, the landlord approves your request.</p>

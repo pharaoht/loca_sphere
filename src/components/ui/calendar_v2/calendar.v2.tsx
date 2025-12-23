@@ -1,5 +1,5 @@
 'use client'
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import CalendarGrid from './calendarGrid/calendarGrid';
 import styles from './styles.module.css';
 import moment from 'moment';
@@ -10,7 +10,7 @@ import useDate from '@/hooks/useDate';
 interface CalendarProps {
     moveInDate: Date | null;
     moveOutDate: Date | null;
-    params: { moveIn: string, moveOut: string };
+    params: { moveIn: string, moveOut: string, };
     setParamHandler: (queries: {
         key: string;
         value: string;
@@ -18,7 +18,7 @@ interface CalendarProps {
     closedWindowHandler?: () => void;
     isBookingCalendar?: boolean;
     bookingAvailability?: Array<{}> | undefined;
-    deleteParamHandler?: (...args: any) => void
+    deleteParamHandler?: (...args: any) => void;
 }
 
 const generateCalendarDays = (year: number, month: number) => {
@@ -53,15 +53,14 @@ const CalendarV2: React.FC<CalendarProps> = (
     { 
         moveInDate, setParamHandler, params, closedWindowHandler = undefined, 
         moveOutDate, isBookingCalendar = false, bookingAvailability = undefined,
-        deleteParamHandler
+        deleteParamHandler,
     }
 ) => {
-    
+    //React only re-syncs props → state if you explicitly tell it to Initializing state from props is a one - time thing.
     const [ currentMonthIndex, setCurrentMonthIndex ] = useState<number>(moveInDate?.getMonth() ?? TODAY.getMonth());
     const [ currentYearValue, setCurrentYearValue ] = useState<number>(moveInDate?.getFullYear() ?? TODAY.getFullYear());
     const [ selectedMoveInDate, setSelectedMoveInDate ] = useState<Date | null>(moveInDate);
     const [ selectedMoveOutDate, setSelectedMoveOutDate] = useState<Date | null>(moveOutDate);
-    const [ isTrasitioning, setTransition ] = useTransition();
 
     const { width } = useWindowSize();
     const { convertDateToDisplay } = useDate();
@@ -117,12 +116,13 @@ const CalendarV2: React.FC<CalendarProps> = (
 
         const p = [
             { key: params.moveIn, value: moveInDateString }, 
-            { key: params.moveOut, value: moveOutDateString }
+            { key: params.moveOut, value: moveOutDateString },
         ]
 
-        setTransition(() => setParamHandler(p))
+        setParamHandler(p);
 
         if (closedWindowHandler) closedWindowHandler();
+
     };
 
     const isAvailable = (moveInMs: number, moveOutMs: number) => {
@@ -168,6 +168,17 @@ const CalendarV2: React.FC<CalendarProps> = (
             return setSelectedMoveOutDate(desiredDate)
         }
     };
+
+    useEffect(() => {
+        if(!moveInDate){
+            setSelectedMoveInDate(null);
+            setCurrentMonthIndex(TODAY.getMonth());
+            setCurrentYearValue(TODAY.getFullYear());
+        }
+        if(!moveOutDate){
+            setSelectedMoveOutDate(null)
+        }
+    }, [moveInDate, moveOutDate])
 
     return (
         <section className={styles.calendarContainer}>
@@ -219,10 +230,10 @@ const CalendarV2: React.FC<CalendarProps> = (
                 </button>
                 <button 
                     className={styles.calendarControlBtn} 
-                    type='button' 
+                    type='button'
                     onClick={submitDatesHandler}
                 >
-                    { isTrasitioning ? 'loading': 'Submit dates' }
+                   Submit dates
                 </button>
             </div>
         </section>

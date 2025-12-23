@@ -13,7 +13,7 @@ import ListingInfo, { ListingInfoSkeleton } from '../../../components/wrappers/a
 import ImageContainer, { SkeletonImageContainer } from '../../../components/wrappers/accommodations/listingImage/ImageContainer';
 import Landlord from '@/components/wrappers/accommodations/landlord/landlord';
 import listingsApi from '@/api/listings/listings.api';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Conditions from '@/components/wrappers/accommodations/conditions/conditions';
 import ModalButton from '@/components/ui/input/modalbutton/modalbutton';
 import { mapBoxApiKey } from '@/server_actions/mapbox';
@@ -40,7 +40,7 @@ const getListingDetails = async (listingId: string) => {
 
     const result = await listingsApi.httpGetDetailsForListing(qs, listingId);
 
-    return result.data;
+    return result;
 }
 
 const getAvailability = async (listingId: string) => {
@@ -64,7 +64,7 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
 
     if (listing.success === false) return notFound();
     
-    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing || {};
+    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing?.data || {};
 
     return (
         <div className={styles.container}>
