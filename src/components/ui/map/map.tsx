@@ -142,10 +142,11 @@ const Mapbox: React.FC<MapboxProps> = ({ coordinates, mpKey, listings = [] }) =>
 
             el.className = styles.marker;
             el.innerHTML = `${itm.listing.currency.symbol} ${itm?.listing?.monthlyRent}` || '';
-        
+            
             const htmlString = ReactDOMServer.renderToString(
                 <PopupContent 
-                    photos={[]} 
+                    dateAvailable={itm.listing.nextAvailableDate.yymmdd}
+                    photos={itm.listing.images} 
                     price={itm.listing.monthlyRent} 
                     id={itm.id} 
                     title={itm.listing.title} 

@@ -218,11 +218,11 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
 
                             <BookingRequestFormGrid.FormItem size='half'>
                                 <label htmlFor='occupation'>Occupation</label>
-                                <select id='occupation' name='occupation' onChange={onUpdateField}>
+                            <select id='occupation' name='occupation' onChange={onUpdateField} value={formState.occupation}>
                                     <option value=''>Choose your Occupation</option>
                                     {
                                         isValidArray(occupations) && occupations?.map((itm, idx) => (
-                                            <option key={itm.id} value={itm.id}>{itm.countryName}</option>
+                                            <option key={itm.id} value={itm.id}>{itm.occupationName}</option>
                                         ))
                                     }
                                 </select>

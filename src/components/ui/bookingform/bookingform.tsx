@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useTransition } from 'react';
 import styles from './bookingform.module.css';
 import DatePicker from '../datepicker/datepicker';
 import useParams from '@/hooks/useParams';
@@ -18,13 +18,14 @@ interface BookingFormProps {
 
 const params = {
     moveIn: 'moveIn',
-    moveOut: 'moveOut'
+    moveOut: 'moveOut',
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, peopleAllowed, listingId, availability }) => {
 
     const { getParam, parseUrlDate, setParam, router, deleteParam } = useParams();
     const { createDateObject, convertDateToDisplay  } = useDate();
+    const [ isTrasitioning, setTransition ] = useTransition();
 
     const moveIn = parseUrlDate(getParam(params.moveIn) || '');
     const moveOut = parseUrlDate(getParam(params.moveOut) || '');
@@ -32,11 +33,17 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
     const santizeMoveInDateObj = moveIn ? createDateObject(moveIn[0], moveIn[1], moveIn[2]) : null;
     const santizeMoveOutDateObj = moveOut ? createDateObject(moveOut[0], moveOut[1], moveOut[2]) : null;
 
-    const isDisabled = !santizeMoveInDateObj || !santizeMoveOutDateObj;
+    const isDisabled = 
+        isTrasitioning ||
+        !santizeMoveInDateObj ||
+        !santizeMoveOutDateObj;
 
     const cssToggleClass = isDisabled ? styles.disabled : styles.active;
 
     const handleBookingClick = () => {
+
+        if(isDisabled) return false;
+
         const moveInParam = moveIn?.join("-") ?? "";
         const moveOutParam = moveOut?.join("-") ?? "";
         const peopleParam = peopleAllowed || 1;
@@ -49,6 +56,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
     const deleteParamHandler = () => {
         deleteParam([params.moveIn, params.moveOut])
     }
+
+    const setParamHandler = (params: any) => {
+        setTransition(() => {
+            setParam(params)
+        })
+    }
+
+    useEffect(() => {
+        if(moveIn || moveOut){
+            deleteParamHandler()
+        }
+    }, []);
 
     return (
         <section className={`${styles.bookingPrice} ${styles.collapsed}`}>
@@ -70,7 +89,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
                         <CalendarV2
                             moveInDate={santizeMoveInDateObj}
                             moveOutDate={santizeMoveOutDateObj}
-                            setParamHandler={setParam}
+                            setParamHandler={setParamHandler}
                             params={params}
                             isBookingCalendar={true}
                             bookingAvailability={availability}
@@ -85,7 +104,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
                         onClick={handleBookingClick}
                         disabled={isDisabled}
                     >
-                        Start booking
+                        { isTrasitioning ? 'Loading...' : 'Start booking' }
                     </button>
                 </div>
 
