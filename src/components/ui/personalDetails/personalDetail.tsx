@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { UserInfo } from '@/hooks/useAuth';
 import LoadingVisual from '../loader/loader';
+import styles from '@/app/booking/[listingId]/form/formstyles.module.css'
 
 type formProps = {
     email: string,
@@ -21,6 +22,7 @@ type formProps = {
 
 interface ComponentProps {
     nationalities: Array<{id: number, countryName: string}>
+    countryCodes: Array<{id: number, countryName: string, callingCode: string}>
     occupations: Array<any>
     submitHandler: (...args: any) => void
     userInfo: UserInfo |  null
@@ -49,10 +51,17 @@ const defaultProps: formProps = {
 //add date validations, nothing in the future, and minimum age of 18
 //add color to button, loading states.
 
-const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations, submitHandler, userInfo, token, loadingState, inValidInputs, returnUrl, isLoggedIn }) => {
+const PersonalDetailsForm: React.FC<ComponentProps> = (
+    { 
+        nationalities, occupations, countryCodes, submitHandler, userInfo, token, 
+        loadingState, inValidInputs, returnUrl, isLoggedIn 
+    }
+) => {
 
     const [ show, setShow ] = useState<boolean>(true);
     const [formState, setFormState] = useState<formProps>(defaultProps);
+
+    const cssTransition = show ? null : styles.hide;
 
     const onUpdateField = (e: React.SyntheticEvent<HTMLInputElement | HTMLSelectElement>) => {
 
@@ -107,18 +116,17 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                             </p>
                         </BookingRequestFormGrid.FormItem>
                     }
-                    <BookingRequestFormGrid.FormItem size='full' className='headerGroup'>
+                    <BookingRequestFormGrid.FormItem size='full' customClass={show ? 'redButton' : ''} className='headerGroup'>
                         <h2>1. Personal Information</h2>
                         <button 
                             onClick={() => setShow(prev => !prev)} 
                             type='button'
                         >
-                            {show && <><img src='/x.svg' width={20} height={20} alt='' />Close</>}
+                            {show && <><img className={styles.icon} src='/x.svg' width={20} height={20} alt='' />Close</>}
                             {!show && <><Image src='/pencil.avif' width={20} height={20} alt='' />Edit</>}
                         </button>
                     </BookingRequestFormGrid.FormItem>
-                    { show && 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', width: '100%', gridColumn: 'span 4'}}>
+                        <div className={`${styles.subFormGrid} ${cssTransition}`}>
                             <BookingRequestFormGrid.FormItem size='half'>
                                 <label htmlFor='email'>Email</label>
                                 <input 
@@ -133,14 +141,22 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                             </BookingRequestFormGrid.FormItem>
 
                             <BookingRequestFormGrid.FormItem size='quarter'>
-                                <label htmlFor='countryCode'>Country Code</label>
-                                <input 
-                                    type='text' 
-                                    id='countryCode' 
-                                    name='countryCode' 
-                                    onChange={onUpdateField} 
-                                    value={formState?.countryCode} 
-                                />
+                                <label htmlFor='countryCode'>Country's calling code</label>
+                                <select id='countryCode' name='countryCode' onChange={onUpdateField} value={formState.countryCode}>
+                                    <option value=''>Calling code</option>
+                                    {
+                                        isValidArray(nationalities) && countryCodes?.map((itm, idx) => {
+
+                                            const displayName = itm.countryName.length > 10 ? 
+                                                itm.countryName.slice(0,15) + '... ' 
+                                                : itm.countryName;
+
+                                            return (
+                                                <option key={itm.id} value={itm.id}>{displayName} {` (${itm.callingCode})`}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
                             </BookingRequestFormGrid.FormItem>
  
                             <BookingRequestFormGrid.FormItem size='quarter'>
@@ -264,7 +280,6 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                                 <hr></hr>
                             </BookingRequestFormGrid.FormItem>
                         </div>
-                    }
                 </>
             </BookingRequestFormGrid>
                 

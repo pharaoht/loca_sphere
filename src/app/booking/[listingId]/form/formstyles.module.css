@@ -1,6 +1,6 @@
 .formGrid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.5rem;
     line-height: 1.5rem;
     color: var(--dark-font-gray);
@@ -25,7 +25,11 @@
 
 .formGroup label {
     font-weight: 600;
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
 }
 
 .formGroup span {
@@ -60,6 +64,13 @@
     transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
+.redButton button {
+
+    color: var(--dark-red);
+    border: 1px solid var(--dark-red);
+
+}
+
 .headerGroup button,
 .formGroup button:hover {
     opacity: 0.7;
@@ -81,7 +92,9 @@
     border: 1px solid var(--secondary-color-blue);
 }
 
-.formGroup input:hover {
+
+
+.formGroup input:hover, .formGrid select:hover, .formGroup input[type=radio]:hover {
     background-color: var(--five-blue);
 }
 
@@ -143,12 +156,12 @@
     height: 100%;
 }
 
-.formGroup>fieldset>div{
+.formGroup fieldset div{
     display: flex;
     gap: 10px;
     height: 100%;
 }
-.formGroup > fieldset > div > div {
+.formGroup fieldset div div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -168,9 +181,30 @@
     margin-left: 0.25rem;
 }
 
+.subFormGrid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    grid-column: span 4;
+    transition: max-height 0.3s ease-out, opacity 0.3s;
+    opacity: 1;
+    max-height: 40rem;
+}
+
+.subFormGrid.hide {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.icon{
+    fill: currentColor
+}
+
 
 @media (max-width: 1000px) {
-    .formGrid {
+    .formGrid, .subFormGrid {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;

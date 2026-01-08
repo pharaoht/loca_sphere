@@ -73,6 +73,8 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     const occupations = await getUserOptions('occupation');
 
+    const countryCodes = await getUserOptions('countryCode');
+
     const { bedrooms, address, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, } = listing || {};
 
     const { streetAddress, city, stateOrProvince } = address;
@@ -88,6 +90,7 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                     <h1 className={styles.h1}>Book your new place <span className={styles.blue}>in minutes</span></h1>
                     <Suspense fallback={<>Loading...</>}>
                         <BookingFormWrapper 
+                            countryCodes={countryCodes}
                             nationalities={nationalities} 
                             occupations={occupations} 
                             moveIn={moveIn}
