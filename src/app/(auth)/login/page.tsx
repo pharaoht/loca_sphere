@@ -10,6 +10,7 @@ const Page = () => {
     const [ state, action, pending ] = useActionState(loginAction, undefined);
 
     function loginAction(){
+        
         window.location.href = url
     }
 

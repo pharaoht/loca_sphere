@@ -1,7 +1,6 @@
 import authApi from "@/api/auth/auth.api";
 import userApi from "@/api/user/user.api";
 import { useCallback, useEffect, useState, useTransition } from "react";
-import { toast } from "react-toastify";
 
 export type UserInfo = {
     id: string,
@@ -16,6 +15,7 @@ export type UserInfo = {
     phoneNumber: number | undefined,
     nationality: number | undefined,
     occupation: number | undefined,
+    placeOfWork: string,
 }
 
 const useAuth = () => {

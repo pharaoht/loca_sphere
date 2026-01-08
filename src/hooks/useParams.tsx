@@ -1,4 +1,4 @@
-import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
+import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
 /**
  * If a route is statically rendered, calling useSearchParams will cause the Client Component tree up to the closest Suspense boundary to be client-side rendered.
@@ -8,7 +8,18 @@ const useParams = () => {
 
     const searchParams = useSearchParams();
 
+    const pathName = usePathname();
+
     const router = useRouter();
+
+    const getCurrentUrl = () => {
+
+        const query = searchParams.toString();
+
+        const currentUrl = query ? `${pathName}?${query}` : pathName
+
+        return currentUrl;
+    }
 
     const getParam = (key: string): string | null => {
 
@@ -49,11 +60,13 @@ const useParams = () => {
         return null;
     }
 
+
     return {
         getParam,
         setParam,
         deleteParam,
         parseUrlDate,
+        getCurrentUrl,
         router
     }
 };

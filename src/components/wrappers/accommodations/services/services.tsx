@@ -17,21 +17,25 @@ type Utility = {
     cleaningIncluded: boolean,
     cleaningFee: number | null,
     securityDeposit: number,
-    currency: string
+    currency: string,
+    adminFee: number,
 }
+
+const COMPONENTID = 'servicesandexpenses';
+const COMPONETHEADERTEXT = 'Services and expenses'
 
 const Services: React.FC<Props> = async ({ id, utilityMap }) => {
 
     if (!id || !utilityMap){
 
         return (
-            <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
+            <SectionWrapper id={COMPONENTID} headerText={COMPONETHEADERTEXT}>
                 <p>No services found...</p>
             </SectionWrapper>
         )
     };
 
-    const { waterIncluded, electricIncluded, gasIncluded, internetIncluded, cleaningIncluded, cleaningFee, securityDeposit, currency } = utilityMap;
+    const { waterIncluded, electricIncluded, gasIncluded, internetIncluded, cleaningIncluded, cleaningFee, securityDeposit, currency, adminFee } = utilityMap;
 
     const isIncluded = (condition: boolean) => {
 
@@ -54,7 +58,7 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
     }
 
     return (
-        <SectionWrapper id='servicesandexpenses' headerText='Services and expenses'>
+        <SectionWrapper id={COMPONENTID} headerText={COMPONETHEADERTEXT}>
             <p><b>Extra services, expenses and fees to be paid directly to the Landlord</b></p>
 
             <div className={styles.servicesPayment}>
@@ -105,9 +109,9 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
                 <div >
                     <div className={styles.spSd}>
                         <h4>Admin fee in advance</h4>
-                        <h4><b>{currency} 75</b></h4>
+                        <h4><b>{currency} {adminFee}</b></h4>
                     </div>
-                    <p>One time fee charged in advance for necessary maintenance.</p>
+                    <p>One time fee charged in advance to keep LocaSphere up and running.</p>
                 </div>
 
                 <div>
@@ -116,7 +120,7 @@ const Services: React.FC<Props> = async ({ id, utilityMap }) => {
                         <h4><b>{ cleaningIncluded ? 'Included' : `${currency} ${cleaningFee}` }</b></h4>
                     </div>
                     {
-                        cleaningIncluded ? <p>One less thing on your to-do list! Cleaning is covered for you.</p> : <p></p>
+                        cleaningIncluded ? <p>One less thing on your to-do list! Cleaning is covered for you.</p> : <p>This host charges a cleaning fee</p>
                     }
                     
                 </div>

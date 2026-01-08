@@ -85,7 +85,7 @@ hr{
   border: .5px solid var(--light-gray);
 }
 
-/* .dark body {
+.dark body {
 	background-color: #121212;
 	color: white !important;
 }
@@ -95,8 +95,12 @@ hr{
   color: white !important;
 }
 
+.dark button{
+  color: var(--dark-font-gray);
+}
+
 #footer, #navbar, #infobar, #nattynav {
   background-color: #121212;
-  color: var(--dark-font-gray);;
+  color: var(--dark-font-gray);
   border: 1px solid #121212;
-} */
+}
