@@ -11,7 +11,7 @@ interface Props {
 export interface BookingRequestFormGridItemProps {
     as?: ElementType;
     size?: 'full' | 'half' | 'quarter';
-    className?: 'formGroup' | 'headerGroup';
+    className?: 'formGroup' | 'headerGroup' | 'SideEffectButtonGroup';
     style?: CSSProperties;
     children?: ReactNode;
     customClass?: string;
@@ -38,12 +38,12 @@ BookingRequestFormGrid.FormItem = ({
     className = 'formGroup',
     style,
     children,
-    customClass,
+    customClass = '',
     ...rest
 }: BookingRequestFormGridItemProps) => {
     return (
         <Component
-            className={`${styles[className]} ${styles[size]}`}
+            className={`${styles[className]} ${styles[size]} ${styles[customClass]}`}
             style={style}
             {...rest}
         >

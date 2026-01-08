@@ -44,11 +44,41 @@
     font: inherit;
 }
 
-.formGroup button,
-.headerGroup button{
+.formGroup button {
     cursor: pointer;
     background: transparent;
-    
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.headerGroup button {
+    cursor: pointer;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 5.5rem;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.headerGroup button,
+.formGroup button:hover {
+    opacity: 0.7;
+    /* background-color: var(--third-color-blue); */
+    transform: scale(1.09);
+}
+
+.headerGroup button,
+.formGroup button:active {
+    /* background-color: var(--third-color-blue); */
+    transform: scale(1.05) translateY(1px);
+}
+
+.blueButton button{
+    display: flex;
+    align-items: center;
+    min-width: 3rem;
+    color: var(--secondary-color-blue);
+    border: 1px solid var(--secondary-color-blue);
 }
 
 .formGroup input:hover {
@@ -136,4 +166,16 @@
     font-size: 0.9em;
     opacity: 0.8;
     margin-left: 0.25rem;
+}
+
+
+@media (max-width: 1000px) {
+    .formGrid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        line-height: 1.5rem;
+        color: var(--dark-font-gray);
+        font-size: 1rem;
+    }
 }

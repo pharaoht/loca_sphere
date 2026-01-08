@@ -18,7 +18,7 @@ class BookingApi extends BaseApi {
         const reqObj: HttpRequestConfig = {
             url: `${url}/create`,
             method: 'POST',
-            body: data,
+            data: data,
             accessToken: token
         };
 

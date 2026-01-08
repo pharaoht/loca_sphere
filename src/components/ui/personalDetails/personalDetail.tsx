@@ -1,8 +1,10 @@
 'use client';
 import BookingRequestFormGrid from '@/app/booking/[listingId]/form/form';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { UserInfo } from '@/hooks/useAuth';
+import LoadingVisual from '../loader/loader';
 
 type formProps = {
     email: string,
@@ -15,9 +17,6 @@ type formProps = {
     nationality: string,
     occupation: string,
     placeOfWork?: string,
-    viaEmail?: boolean,
-    viaWhatsApp?: boolean,
-    messageToLandlord: string
 }
 
 interface ComponentProps {
@@ -27,7 +26,9 @@ interface ComponentProps {
     userInfo: UserInfo |  null
     token: string | null | undefined;
     loadingState: boolean;
-    inValidInputs: Array<{}>
+    inValidInputs: Array<{}>;
+    returnUrl: string;
+    isLoggedIn: boolean;
 }
 
 const defaultProps: formProps = {
@@ -41,12 +42,14 @@ const defaultProps: formProps = {
     nationality: '',
     occupation: '',
     placeOfWork: '',
-    viaEmail: false,
-    viaWhatsApp: false,
-    messageToLandlord: ''
 } 
 
-const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations, submitHandler, userInfo, token, loadingState, inValidInputs }) => {
+//todo: display form validation errors
+// add country code drop down
+//add date validations, nothing in the future, and minimum age of 18
+//add color to button, loading states.
+
+const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupations, submitHandler, userInfo, token, loadingState, inValidInputs, returnUrl, isLoggedIn }) => {
 
     const [ show, setShow ] = useState<boolean>(true);
     const [formState, setFormState] = useState<formProps>(defaultProps);
@@ -82,6 +85,7 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                 phoneNumber: userInfo.phoneNumber ? String(userInfo.phoneNumber) : '',
                 gender: userInfo.gender ? String(userInfo.gender) : '',
                 birthday: userInfo.birthday || '',
+                placeOfWork: userInfo.placeOfWork || '',
 
             }))
         }
@@ -99,16 +103,22 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                             style={{ padding: '1rem', lineHeight: '1rem', borderRadius: '10px', backgroundColor: 'var(--five-blue)', color: 'black'}}
                         >
                             <p>
-                                <Link href='/login'>Log in</Link> for a faster checkout using your saved details, or <Link href='/sign-up'>sign up</Link> to manage and track your bookings easily.
+                                <Link href={`/login?returnTo=${returnUrl}`}>Log in</Link> for a faster checkout using your saved details, or <Link href='/sign-up'>sign up</Link> to manage and track your bookings easily.
                             </p>
                         </BookingRequestFormGrid.FormItem>
                     }
                     <BookingRequestFormGrid.FormItem size='full' className='headerGroup'>
-                        <h2>1. Personal details</h2>
-                        <button onClick={() => setShow(prev => !prev)} type='button'>(icon) Edit</button>
+                        <h2>1. Personal Information</h2>
+                        <button 
+                            onClick={() => setShow(prev => !prev)} 
+                            type='button'
+                        >
+                            {show && <><img src='/x.svg' width={20} height={20} alt='' />Close</>}
+                            {!show && <><Image src='/pencil.avif' width={20} height={20} alt='' />Edit</>}
+                        </button>
                     </BookingRequestFormGrid.FormItem>
                     { show && 
-                        <>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', width: '100%', gridColumn: 'span 4'}}>
                             <BookingRequestFormGrid.FormItem size='half'>
                                 <label htmlFor='email'>Email</label>
                                 <input 
@@ -229,41 +239,31 @@ const PersonalDetailsForm: React.FC<ComponentProps> = ({ nationalities, occupati
                             </BookingRequestFormGrid.FormItem>
 
                             <BookingRequestFormGrid.FormItem size='full'>
-                                <label htmlFor='destination'>Destination University/Place of work</label>
-                                <input type='text' id='destination' />
-                            </BookingRequestFormGrid.FormItem>
-
-                            <BookingRequestFormGrid.FormItem size='full'>
-                                <fieldset>
-                                    <legend>Keep me updated with exclusive deals and promotions:</legend>
-                                    <div>
-                                        <div>
-                                            <input id='v' type='checkbox' />
-                                            <label htmlFor='v'>Via email <span>(optional)</span></label>
-                                        </div>
-
-                                        <div>
-                                            <input id='w' type='checkbox' />
-                                            <label htmlFor='w'>Via Whatsapp</label>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </BookingRequestFormGrid.FormItem>
-
-                            <BookingRequestFormGrid.FormItem size='full'>
-                                <label htmlFor='message'>Write a message to your landlord </label>
-                                <span>Landlords are more likely to accept your request if you share your reasons for moving, your work or studies, and details about yourself and companions.</span>
-                                <textarea id='message'></textarea>
+                                <label htmlFor='placeOfWork'>Destination University/Place of work</label>
+                                <input 
+                                    type='text' 
+                                    id='placeOfWork' 
+                                    name='placeOfWork'
+                                    placeholder='University of London / Freelancer'
+                                    onChange={onUpdateField} 
+                                    value={formState?.placeOfWork}
+                                />
                             </BookingRequestFormGrid.FormItem>
 
                             <BookingRequestFormGrid.FormItem size='full' customClass='blueButton' style={{flexDirection: 'row-reverse'}} >
-                                <button onClick={() => submitHandler(formState)} type='button'>Save personal details</button>
+                                <button 
+                                    onClick={() => submitHandler(formState)} 
+                                    type='button'
+                                    disabled={loadingState}
+                                >
+                                    { !loadingState ? 'Save personal details' : <LoadingVisual/> }
+                                </button>
                             </BookingRequestFormGrid.FormItem>
 
                             <BookingRequestFormGrid.FormItem size='full'>
                                 <hr></hr>
                             </BookingRequestFormGrid.FormItem>
-                        </>
+                        </div>
                     }
                 </>
             </BookingRequestFormGrid>

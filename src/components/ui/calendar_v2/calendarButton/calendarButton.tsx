@@ -1,4 +1,5 @@
 'use client'
+import Button from '../../input/button/button';
 import styles from './styles.module.css';
 
 type CalendarButtonProps = {
@@ -44,15 +45,30 @@ const CalendarBtn: React.FC<CalendarButtonProps> = ({ onClickHandler, day, year,
 
     const isPressable = !isButtonInPast && (isAvailable === undefined || isAvailable)
     
+    // Accessible label
+    const statusLabel = isButtonInPast
+        ? 'past date'
+        : isAvailable === false
+            ? 'booked'
+            : isButtonActive
+                ? 'selected'
+                : isButtonInSelectedDateRange
+                    ? 'in selected range'
+                    : 'available';
+
+    const ariaLabel = `${day} ${month + 1} ${year}, ${statusLabel}`;
+
     return (
-        <button 
+        <Button 
             type='button'
-            disabled={isButtonInPast}
+            isDisabled={isButtonInPast}
             className={`${baseBtnCssClass} ${cssButtonClass}`}
-            onClick={() => isPressable && onClickHandler(year, month, day)}
+            baseClassOverride={true}
+            ariaLabel={ariaLabel}
+            buttonHandler={() => isPressable && onClickHandler(year, month, day)}
         >
             {day}
-        </button>
+        </Button>
     ) 
 };
 

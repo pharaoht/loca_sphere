@@ -5,6 +5,7 @@ import bookingApi from '@/api/booking/booking.api';
 import { notFound, redirect } from 'next/navigation';
 import listingsApi from '@/api/listings/listings.api';
 import BookingFormWrapper from './wrapper/formWrapper';
+import { Suspense } from 'react';
 
 export const metadata = {
     title: "LocaSphere - Checkout",
@@ -62,7 +63,7 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
     
     const isAvaliable = await checkListingAvalibility(listingId, moveIn, moveOut);
 
-    if (!isAvaliable) return redirect(`/accommodations/${listingId}`)
+    if (!isAvaliable || !moveIn || !moveOut || !peopleAllowed) return redirect(`/accommodations/${listingId}`)
 
     const listing = await getListingDetails(listingId);
 
@@ -76,6 +77,8 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
 
     const { streetAddress, city, stateOrProvince } = address;
 
+    const { dueAtBooking, adminFee } = utilityMap || {};
+
     const { symbol } = currency;
 
     return (
@@ -83,7 +86,16 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
             <div className={styles.containerSplit}>
                 <section className={styles.left}>
                     <h1 className={styles.h1}>Book your new place <span className={styles.blue}>in minutes</span></h1>
-                    <BookingFormWrapper nationalities={nationalities} occupations={occupations} />
+                    <Suspense fallback={<>Loading...</>}>
+                        <BookingFormWrapper 
+                            nationalities={nationalities} 
+                            occupations={occupations} 
+                            moveIn={moveIn}
+                            moveOut={moveOut}
+                            listingId={listingId}
+                            guests={peopleAllowed}
+                        />
+                    </Suspense>
                 </section>
                 
                 <section className={styles.right}>
@@ -142,12 +154,16 @@ const Booking: React.FC<PageProps> = async ({ params, searchParams }) => {
                             </div>
                             <div className={styles.priceBreakDown}>
                                 <span className={styles.smallFont}>One time service fee</span>
-                                <span className={`${styles.fontBold} ${styles.smallFont}`}>{symbol} 300</span>
+                                <span className={`${styles.fontBold} ${styles.smallFont}`}>{symbol} {adminFee}</span>
+                            </div>
+                            <div className={styles.priceBreakDown}>
+                                <span className={styles.smallFont}>Security Deposit</span>
+                                <span className={`${styles.fontBold} ${styles.smallFont}`}><i>Paid to landlord directly</i></span>
                             </div>
                             <hr></hr>
                             <div className={styles.priceBreakDown}>
                                 <span className={styles.bigFont}>Total</span>
-                                <span className={`${styles.fontBold} ${styles.bigFont}`}>{symbol} 300</span>
+                                <span className={`${styles.fontBold} ${styles.bigFont}`}>{symbol} {dueAtBooking}</span>
                             </div>
                             <hr></hr>
                             <p className={styles.disclaimerText}>You will be charged if, and only if, the landlord approves your request.</p>
