@@ -42,6 +42,7 @@
 .btnContainer {
     height: 8vh;
     position: relative;
+    cursor: not-allowed;
 }
 
 .btnLabel {
@@ -49,6 +50,7 @@
     padding: 10px;
     font-size: .9rem;
     color: var(--gray-color-2);
+    cursor: not-allowed;
 }
 
 .arrowContainer {
@@ -60,12 +62,12 @@
 }
 
 .fakeInput {
+    cursor: not-allowed;
     border: 1px solid var(--border-grey);
     width: 100%;
     height: 100%;
     min-height: 3.5rem;
     padding: 10px;
-    cursor: pointer;
     border-radius: .5rem;
     display: flex;
     justify-content: flex-start;
@@ -73,12 +75,8 @@
     align-items: flex-end;
     font-size: 1rem;
     color: var(--dark-font-gray);
-}
 
-.fakeInput:hover {
-    background-color: rgb(247, 252, 254)
 }
-
 
 /* price details */
 .priceBreakDown{
@@ -183,20 +181,25 @@
 .verifications{
     display: flex;
     flex-wrap: wrap;
-    -webkit-box-align: center;
-    align-items: center;
-    justify-content: space-between;
-    display: flex;
-    font-size: 0.875rem;
+    gap: .5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .verifications li{
     line-height: 1rem;
-    padding: 8px 12px;
+    padding: 8px 10px;
     background-color: var(--primary-green);
     border-radius: 20px;
     color: #fff;
     font-weight: 600;
+    font-size: clamp(0.875rem, 1.5vw, .9rem);
+    flex: 0 0 auto;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .title {

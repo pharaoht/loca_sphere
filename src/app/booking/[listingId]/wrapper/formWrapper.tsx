@@ -12,13 +12,14 @@ import { toast, ToastContainer } from "react-toastify";
 interface ComponentProps {
     nationalities: Array<any>,
     occupations: Array<any>,
+    countryCodes: Array<any>,
     moveIn: string,
     moveOut: string,
     listingId: string,
     guests: string,
 };
 
-const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupations, moveIn, moveOut, listingId, guests }) => {
+const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupations, countryCodes, moveIn, moveOut, listingId, guests }) => {
 
     const { userInfo, isLoading, token } = useAuthContext();
 
@@ -122,6 +123,7 @@ const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupatio
                 submitHandler={personalDetailSubmitHandler}
                 nationalities={nationalities} 
                 occupations={occupations}
+                countryCodes={countryCodes}
                 token={token}
                 userInfo={userInfo}
                 loadingState={loadingState.personalDetailLoadState}
