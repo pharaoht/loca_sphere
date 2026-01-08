@@ -85,7 +85,7 @@ hr{
   border: .5px solid var(--light-gray);
 }
 
-.dark body {
+/* .dark body {
 	background-color: #121212;
 	color: white !important;
 }
@@ -103,4 +103,4 @@ hr{
   background-color: #121212;
   color: var(--dark-font-gray);
   border: 1px solid #121212;
-}
+} */
