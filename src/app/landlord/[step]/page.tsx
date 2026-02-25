@@ -23,7 +23,7 @@ const WizardFormProvider: React.FC<PageProps> = async ({ params, searchParams })
     let formData: Awaited<ReturnType<typeof listingsApi.httpGetDetailsForListing>> | null = null;
 
     if(formId) {
-
+        console.log('by pass id')
         const isOwner = await authApi.httpOwnerShip('', formId)
         
         if(!isOwner.success) return notFound();

@@ -10,6 +10,7 @@ interface BookingFormProps {
     monthlyRent: number;
     peopleAllowed?: string;
     listingId: string;
+    minimumStayDays: number;
     currency: {
         symbol: string
     };
@@ -21,7 +22,7 @@ const params = {
     moveOut: 'moveOut',
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, peopleAllowed, listingId, availability }) => {
+const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, peopleAllowed, listingId, availability, minimumStayDays }) => {
 
     const { getParam, parseUrlDate, setParam, router, deleteParam } = useParams();
     const { createDateObject, convertDateToDisplay  } = useDate();
@@ -94,6 +95,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ monthlyRent, currency, people
                             isBookingCalendar={true}
                             bookingAvailability={availability}
                             deleteParamHandler={deleteParamHandler}
+                            minimumStayDays={minimumStayDays}
                          />
                     }
                 />
