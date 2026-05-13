@@ -41,15 +41,16 @@
 }
 
 .smContainer .active {
-    background-color: var(--secondary-color-blue);
+    background-color: var(--five-blue);
+    outline: var(--secondary-color-blue) 1px solid;
     font-weight: 600;
-    border-radius: 10px;
+    border-radius: 5px;
 
 }
 
 .smContainer .base:hover {
     background-color: var(--backgroud-gray);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .defaultBtn{

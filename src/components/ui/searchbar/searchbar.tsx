@@ -14,7 +14,7 @@ const Searchbar = () => {
 
     const { isLoading, error, sendRequest } = useHttp();
 
-    const debouncer = useDebounce(500, async (val) => {
+    const debouncer = useDebounce(750, async (val) => {
 
         const requestConfig = {
             url: `cities?location=${val}`,

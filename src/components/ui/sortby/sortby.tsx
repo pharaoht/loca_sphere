@@ -50,27 +50,28 @@ const Sortby: React.FC<Props> = ({ length = 0 }) => {
 
 
     const SortMethods = () => (
-        <section>
-            <ul className={styles.smContainer}>
-                {
-                    sortValues.map((itm, idx) => {
+        <ul className={styles.smContainer}>
+            {
+                sortValues.map((itm, idx) => {
 
-                        return (
-                            <li key={idx} className={`${orderByParam === itm.value && directionParam === itm.direction ? styles.active : styles.base}`}>
-                                <button 
-                                    className={styles.defaultBtn} 
-                                    type='button' 
-                                    value={itm.value} 
-                                    onClick={(event) => onClickHandler(event, itm.key, itm.value, itm.direction)}
-                                >
-                                    {itm.title}
-                                </button>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-        </section>
+                    const cssClass = orderByParam === itm.value && 
+                        directionParam === itm.direction ? styles.active : styles.base;
+                        
+                    return (
+                        <li key={idx} className={cssClass}>
+                            <button 
+                                className={styles.defaultBtn} 
+                                type='button' 
+                                value={itm.value} 
+                                onClick={(event) => onClickHandler(event, itm.key, itm.value, itm.direction)}
+                            >
+                                {itm.title}
+                            </button>
+                        </li>
+                    )
+                })
+            }
+        </ul>
     )
 
     return (
