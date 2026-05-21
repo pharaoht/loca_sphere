@@ -256,6 +256,7 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
 
                 <div className={styles.rightSplit}>
                     <BookingForm 
+                        minimumStayDays={minimumStayDays}
                         monthlyRent={monthlyRent} 
                         currency={currency} 
                         peopleAllowed={peopleAllowed} 

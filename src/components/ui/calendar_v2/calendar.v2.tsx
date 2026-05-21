@@ -10,6 +10,7 @@ import useDate from '@/hooks/useDate';
 interface CalendarProps {
     moveInDate: Date | null;
     moveOutDate: Date | null;
+    minimumStayDays?: number | null;
     params: { moveIn: string, moveOut: string, };
     setParamHandler: (queries: {
         key: string;
@@ -53,7 +54,7 @@ const CalendarV2: React.FC<CalendarProps> = (
     { 
         moveInDate, setParamHandler, params, closedWindowHandler = undefined, 
         moveOutDate, isBookingCalendar = false, bookingAvailability = undefined,
-        deleteParamHandler,
+        deleteParamHandler, minimumStayDays
     }
 ) => {
     //React only re-syncs props → state if you explicitly tell it to Initializing state from props is a one - time thing.
@@ -150,6 +151,8 @@ const CalendarV2: React.FC<CalendarProps> = (
         }
 
         const moveInDatesms = selectedMoveInDate.getTime();
+        const minimumStayMs = minimumStayDays && minimumStayDays * 24 * 60 * 60 * 1000;
+        const durationMs = desiredDateMs - moveInDatesms;
 
         if (selectedMoveInDate && desiredDateMs === moveInDatesms){
             setSelectedMoveOutDate(null);
@@ -157,6 +160,9 @@ const CalendarV2: React.FC<CalendarProps> = (
         }
         if (selectedMoveInDate && desiredDateMs < moveInDatesms){
             return setSelectedMoveInDate(desiredDate)
+        }
+        if (minimumStayDays && minimumStayMs && selectedMoveInDate && durationMs < minimumStayMs) {
+            return toast.error(`You must stay at least ${minimumStayDays} days`)
         }
         if (isBookingCalendar && selectedMoveInDate && !selectedMoveOutDate && !isAvailable(selectedMoveInDate.getTime(), desiredDateMs)){
             return toast.error('Invalid dates.')
@@ -220,6 +226,9 @@ const CalendarV2: React.FC<CalendarProps> = (
                 }
             </div>
             <div className={styles.calendarControls}>
+                {
+                    minimumStayDays && <span className={styles.daysDisplay}>Minimum stay: {minimumStayDays} days</span>
+                }
                 <span className={styles.daysDisplay}>Total days: {totalDays}</span>
                 <button 
                     className={styles.calendarControlBtn} 
