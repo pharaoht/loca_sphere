@@ -300,7 +300,7 @@ export function parseFormData(data: any):  DefaultStateType{
         },
         'step-6': {
             xxFormxx: data?.id,
-            listingAmenities: Object.values(data?.amenity?.amenities.reduce((acc: any, current: any) => {
+            listingAmenities: Object.values(data.data?.amenity?.amenities.reduce((acc: any, current: any) => {
 
                 const key = current.amenityTypeId;
                 

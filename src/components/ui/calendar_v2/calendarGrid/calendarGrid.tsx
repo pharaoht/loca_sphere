@@ -36,7 +36,10 @@ const CalendarGrid: React.FC<CalendarGridProps> = (
         let isAvailable = true;
 
         bookingData?.forEach((itm) => {
-            if (( buttonTimeStamp >= itm.startDateMiliSeconds ) && ( buttonTimeStamp <= itm.endDateMiliSeconds )){
+            if (
+                ( buttonTimeStamp >= itm.startDateMiliSeconds ) && 
+                ( buttonTimeStamp <= itm.endDateMiliSeconds )
+            ){
                 isAvailable = false;
             }
         });

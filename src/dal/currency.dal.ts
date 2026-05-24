@@ -14,9 +14,9 @@ export type CurrencyDalReturnType = {
 class CurrencyDal extends BaseDal<CurrencyDalType, CurrencyDalReturnType> {
 
     fromDto(dto: CurrencyDalType[]): CurrencyDalReturnType[] {
-        
+       
         return dto.map((itm, idx) => {
-
+            
             return {
                 id: itm.id,
                 name: `${itm.symbol} ${itm.code}`
