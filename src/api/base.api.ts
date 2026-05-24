@@ -69,10 +69,6 @@ class BaseApi {
             headers.Authorization = `Bearer ${requestObject.accessToken}`
         }
 
-        if (requestObject.refreshToken) {
-            headers.Cookie = `refresh_token=${requestObject.refreshToken}`
-        }
-
         return headers;
     }
 
@@ -181,7 +177,8 @@ class BaseApi {
             const response = await this.httpClient({
                 ...requestConfig,
                 signal: this.abortController.signal,
-                headers
+                headers,
+                withCredentials: true
             });
 
             return response;
