@@ -29,7 +29,7 @@ class BaseApi {
 
     constructor(resource: string, httpClient: AxiosInstance ){
         this.devBackendDomain = 'localhost:8000';
-        this.prodDomain = 'https://locaspherebackend-locasphere.up.railway.app';
+        this.prodDomain = 'https://api.loca-sphere.dev';
         this.resource = resource;
         this.httpClient = httpClient;
         this._isLoading = false;
@@ -176,9 +176,9 @@ class BaseApi {
 
             const response = await this.httpClient({
                 ...requestConfig,
-                signal: this.abortController.signal,
                 headers,
-                withCredentials: true
+                withCredentials: true,
+                signal: this.abortController.signal,
             });
 
             return response;
