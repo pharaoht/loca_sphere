@@ -163,6 +163,6 @@
 
     .collapsed {
         transform: translateY(70%); /* show just the header portion */
-        overflow: hidden;
+
     }
 }

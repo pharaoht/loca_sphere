@@ -333,7 +333,7 @@ export function parseFormData(data: any):  DefaultStateType{
         },
         'step-8': {
             xxFormxx: data?.id,
-            houseRules: data?.hostRulesMap.map((itm: any) => {
+            houseRules: data?.hostRulesMap?.map((itm: any) => {
                 
                 return {
                     id: itm.id,
@@ -347,7 +347,7 @@ export function parseFormData(data: any):  DefaultStateType{
         'step-10': {},
         'step-11': {
             xxFormxx: data?.id,
-            existing: data?.images.map((itm: any) => {
+            existing: data?.images?.map((itm: any) => {
                 return {
                     id: itm.id,
                     url: itm.url,

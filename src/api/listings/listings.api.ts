@@ -13,6 +13,8 @@ class ListingsApi extends BaseApi {
 
     public async httpGetDetailsForListing(queryString: string, listId: string){
 
+        if(!listId) return false;
+
         const url = this.findHostName();
 
         const isSS = this.isServerSide();

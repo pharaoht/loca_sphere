@@ -134,7 +134,7 @@ class BaseApi {
             const data = isJson ? await response.json() : await response.text();
 
             if (!response.ok) {
-  
+                console.log(data, response.url)
                 throw {
                     success: false,
                     message: data?.message || 'Unknown error',
