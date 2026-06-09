@@ -10,11 +10,11 @@ interface Props {
     minimumStayDays: number;
     maxStayDays: number;
     updatedAt: string;
-    bookings: Array<any>
-    
+    nextAvailableDate: string;
+    bookings: Array<any>;
 };
 
-const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays, updatedAt, monthlyRent, bookings }) => {
+const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays, updatedAt, monthlyRent, bookings, nextAvailableDate }) => {
 
 
     if(!id){
@@ -48,7 +48,7 @@ const Availability: React.FC<Props> = async ({ id, minimumStayDays, maxStayDays,
                 <div className={styles.avInfoContainer}>
                     <div className={styles.avInfoRow}>
                         <dt className={styles.avInfoLabel}>Available from:</dt>
-                        <dd className={styles.avText}><b>May 2025</b></dd>
+                        <dd className={styles.avText}><b>{nextAvailableDate}</b></dd>
                     </div>
                     <div className={styles.avInfoRow}>
                         <dt className={styles.avInfoLabel}>Last updated:</dt>

@@ -61,10 +61,10 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
     const listing = await getListingDetails(listingId);
 
     const availability = await getAvailability(listingId);
-
+  
     if (listing.success === false) return notFound();
     
-    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, } = listing?.data || {};
+    const { bedrooms, images, monthlyRent, description, placeAreaSqM, peopleAllowed: ppl, roomAreaSqM, beds, bathrooms, title, isChecked, address, bedroomAmenityMap, hostRulesMap, utilityMap, currency, listingType, hostingDetails, amenity, minimumStayDays, maxStayDays, updatedAt, nextAvailableDate } = listing?.data || {};
 
     return (
         <div className={styles.container}>
@@ -214,6 +214,7 @@ const ListingsPage = async ({ params, searchParams }: PageProps ) => {
                             updatedAt={updatedAt}
                             monthlyRent={monthlyRent}
                             bookings={availability}
+                            nextAvailableDate={nextAvailableDate}
                         />
                     </Suspense>
                     <hr/>

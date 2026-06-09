@@ -18,7 +18,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ variant = 'listing', data }) 
     const { listing, latitude, listingId, longitude, city, } = data;
 
     const { images, peopleAllowed, bedrooms, title, currency, monthlyRent, isChecked, beds, nextAvailableDate, utilityMap } = listing;
-
+    console.log(listing)
     const { yymmdd } = nextAvailableDate;
 
     const { symbol } = currency;
