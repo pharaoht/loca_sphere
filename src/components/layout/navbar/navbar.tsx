@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Dropdown from '@/components/ui/dropdown/dropdown';
 import { usePathname } from 'next/navigation';
 import { useAuthContext } from '@/context/auth.context';
+import { useEffect, useState } from 'react';
 
 
 
@@ -30,8 +31,14 @@ const Navbar = () => {
 
     const { userInfo, token } = useAuthContext();
 
+    const [ isMounted, setIsMounted ] = useState(false);
+
     const cssHideClass = pathName === '/accommodations' ? styles.noStick : styles.stick;
 
+    useEffect(() => setIsMounted(true), [])
+
+    if(!isMounted) return null;
+    
     return (
         <nav id='navbar' className={`${styles.container} ${cssHideClass}`}>
             <div className={styles.logo}>
@@ -61,7 +68,7 @@ const Navbar = () => {
                 </li> 
 
                 {
-                    userInfo && userInfo.hasOwnProperty('id') ? 
+                    isMounted && userInfo && userInfo.hasOwnProperty('id') ? 
                         <li>Welcome, {userInfo?.displayName}</li> 
                     :
                     <>
