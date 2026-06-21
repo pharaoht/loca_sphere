@@ -1,11 +1,13 @@
+import DashboardBar from '@/components/layout/dashboard-bar/dashboardBar';
 import styles from './dashboard.module.css';
 
 const Dashboard = () => {
 
     return (
-        <div>
+        <main>
+            <DashboardBar/>
             hi
-        </div>
+        </main>
     )
 };
 

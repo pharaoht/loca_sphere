@@ -1,0 +1,26 @@
+.container {
+    border-bottom: 1.5px solid #d1d5da;
+    padding: 0px 10rem;
+    height: 3rem;
+    color: var(--font-black);
+    font-weight: 500;
+}
+
+.linkList{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    font-size: 1.1rem;
+    line-height: 16px;
+    align-items: center;
+    gap: 2rem;
+    font-family: 'IntervalNextReg', sans-serif;
+}
+
+.linkList li:hover{
+    color: var(--secondary-color-blue);
+}
+
+.linkList>li:last-child {
+    margin-left: auto;
+}

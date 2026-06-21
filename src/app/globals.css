@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
 
+@font-face {
+  font-family: 'IntervalNextReg';
+  font-display: swap;
+  /* Replace these with the actual https:// links you copy from DevTools */
+  src: url('https://www.uniplaces.com/static/fonts/intervalnext-regular.woff2') format('woff2'),
+       url('https://www.uniplaces.com/static/fonts/intervalnext-regular.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
 
 
 legend {
