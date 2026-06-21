@@ -27,14 +27,14 @@ const useDate = () => {
 
             return '';
         }
-        const formattedDate = moment(inputDate, format).format(desiredFormat);
+        const formattedDate = moment(inputDate, format).clone().format(desiredFormat);
 
         return formattedDate;
     }
 
     function getDateAsString(format: string = 'YYYY MMM DD' ){
 
-        return moment().format(format)
+        return moment().clone().format(format)
     }
 
     function createDateObject(year: string | number, month: string | number, day: string | number): Date {
@@ -55,7 +55,7 @@ const useDate = () => {
 
         if(!dateObject) return;
 
-        return moment(dateObject).format(format);
+        return moment(dateObject).clone().format(format);
     }
 
     function isDateInPast(date: string | string[]){
@@ -67,7 +67,7 @@ const useDate = () => {
             input = date.join('-')
         }
 
-        return moment(input).isSameOrBefore(moment(), "day");
+        return moment(input).clone().isSameOrBefore(moment(), "day");
     }
 
     return {
