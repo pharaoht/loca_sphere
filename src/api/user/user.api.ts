@@ -1,6 +1,5 @@
 import axios from "axios";
 import BaseApi, { HttpRequestConfig } from "../base.api";
-import { url } from "inspector";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 class UserApi extends BaseApi{

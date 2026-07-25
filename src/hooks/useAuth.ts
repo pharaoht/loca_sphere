@@ -1,5 +1,6 @@
 import authApi from "@/api/auth/auth.api";
 import userApi from "@/api/user/user.api";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
 export type UserInfo = {
@@ -19,21 +20,23 @@ export type UserInfo = {
 }
 
 const useAuth = () => {
-
-    const [token, setToken] = useState<string | null>(''); 
+    const pathname = usePathname()
+    const [token, setToken] = useState<string | null>('');
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-    const [ isLoading, setIsLoading ] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
     const getToken = useCallback(async () => {
 
+        // if(pathname.startsWith('/dashboard')) return
+        
         const res = await authApi.httpGetToken();
 
         const tk = res?.data?.data?.accessToken;
 
-        if(tk){
+        if (tk) {
 
             setToken(tk);
-        
+
             const response = await getUserInfo(tk);
 
             setUserInfo(response.data);
@@ -42,7 +45,7 @@ const useAuth = () => {
         else {
             console.warn(`Error occured | ${res.message} | Status code ${res.statusCode}`)
         }
-       
+
         setIsLoading(false);
 
     }, [token]);
@@ -58,28 +61,28 @@ const useAuth = () => {
     }
 
     useEffect(() => {
-    
+
         const fetchToken = async () => {
             await getToken()
-     
+
         };
 
         fetchToken();
-    
+
     }, []);
 
     //Schedule a refresh ahead of expiry
-    useEffect(() => {
+    // useEffect(() => {
 
-        if(!token) return;
-        
-        const c = setTimeout(async () => {
-            await getToken()
-        }, 15 * 60000);
+    //     if (!token) return;
 
-        return () => clearTimeout(c)
+    //     const c = setTimeout(async () => {
+    //         await getToken()
+    //     }, 15 * 60000);
 
-    }, [ token ]);
+    //     return () => clearTimeout(c)
+
+    // }, [token]);
 
     return {
         userInfo,
