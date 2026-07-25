@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    padding: 0 10rem;
+}
+
+.sidebar {
+    flex: 1;
+    min-width: 180px;
+    max-width: 320px;
+    color: black;
+}
+
+.tableSide{
+    width: 100%;
+}
+
+
+.content {
+    flex: 3;
+    /* takes more space than sidebar */
+    padding: 24px;
+    background: #f3f4f6;
+}

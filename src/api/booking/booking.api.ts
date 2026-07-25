@@ -34,6 +34,23 @@ class BookingApi extends BaseApi {
         return res
     }
 
+    public async httpGetHostBookings(token: string, status: string){
+
+        if (!token || !status) return;
+
+        const response = await fetch(bookingApi.findHostName() + `/hosts?status=${status}`, {
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        const json = await response.json();
+
+        return json;
+
+    }
+
     public async httpCheckAvalibility(listingId = '', moveIn = '', moveOut = ''){
         
         if(!listingId || !moveIn || !moveOut) return false;

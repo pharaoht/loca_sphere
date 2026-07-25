@@ -38,6 +38,7 @@ const useDate = () => {
     }
 
     function createDateObject(year: string | number, month: string | number, day: string | number): Date {
+
         const y = String(year).padStart(4, '0');
         const m = String(month).padStart(2, '0');
         const d = String(day).padStart(2, '0');

@@ -9,7 +9,7 @@ class AuthApi extends BaseApi {
     }
 
     public async httpGetToken(rf?: string){
-        
+
         const isServerSide = this.isServerSide();
 
         const hostName = this.findHostName();
@@ -22,7 +22,7 @@ class AuthApi extends BaseApi {
         }
 
         const data = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, })
-        : await this.ssHttpRequest(reqObj);
+            : await this.ssHttpRequest(reqObj);
 
         return data
     }
