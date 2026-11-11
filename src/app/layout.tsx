@@ -34,6 +34,7 @@ export default async function RootLayout({
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 <AuthProvider initialAuth={{
                     userInfo: auth?.userInfo ?? null,
+                    token: null
                 }}>
                     <Navbar />
                         {children}
