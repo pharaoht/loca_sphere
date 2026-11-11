@@ -101,7 +101,6 @@ const CalendarV2: React.FC<CalendarProps> = (
 
     const clearDatesHandler = () => {
 
-
         setSelectedMoveInDate(null);
         setSelectedMoveOutDate(null);
 
@@ -129,16 +128,14 @@ const CalendarV2: React.FC<CalendarProps> = (
     const isAvailable = (moveInMs: number, moveOutMs: number) => {
 
         if(!bookingAvailability) return undefined;
+        
+        const hasOverlap = bookingAvailability.some((itm: any) => {
 
-        let isAvailable = true;
+            return moveInMs < itm.endDateMiliSeconds &&
+                    moveOutMs > itm.startDateMiliSeconds
+        })
 
-        bookingAvailability.forEach((itm: any) => {
-            if (moveInMs < itm.startDateMiliSeconds && moveOutMs > itm.endDateMiliSeconds){
-                isAvailable = false;
-            }
-        });
-
-        return isAvailable;
+        return hasOverlap;
     }
 
     const setDatesHandler = (y: number, m: number, d: number) => {

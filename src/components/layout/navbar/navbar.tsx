@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 const MenuBtnLinks: React.FC<{ id: string }> = ({ id, }) => (
     <ul className={styles.menuDropDown}>
         <li>
-            <Link href={`/dashboard`}>
+            <Link href={`/dashboard/bookings`}>
                 Dashboard
             </Link>
         </li>
@@ -29,7 +29,7 @@ const Navbar = () => {
 
     const pathName = usePathname();
 
-    const { userInfo, token } = useAuthContext();
+    const { userInfo } = useAuthContext();
 
     const [isMounted, setIsMounted] = useState(false);
 

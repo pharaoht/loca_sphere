@@ -1,6 +1,7 @@
 import axios from "axios";
 import BaseApi, { HttpRequestConfig } from "../base.api";
 import { serverApi } from "@/server_actions/cities";
+import { cookies } from "next/headers";
 
 class AuthApi extends BaseApi {
 
@@ -8,17 +9,20 @@ class AuthApi extends BaseApi {
         super('auth', axios)
     }
 
-    public async httpGetToken(rf?: string){
+    public async httpGetToken(){
 
         const isServerSide = this.isServerSide();
 
         const hostName = this.findHostName();
 
+        const cookieStore = await cookies();
+
         const reqObj: HttpRequestConfig = {
             url: hostName + '/refresh',
             withCredentials: true,
             method: 'GET',
-            refreshToken: rf
+            _cookies: cookieStore.toString(),
+            _cache: 'no-store'
         }
 
         const data = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, })

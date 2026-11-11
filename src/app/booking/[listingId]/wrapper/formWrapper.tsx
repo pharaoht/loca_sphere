@@ -21,7 +21,7 @@ interface ComponentProps {
 
 const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupations, countryCodes, moveIn, moveOut, listingId, guests }) => {
 
-    const { userInfo, isLoading, token } = useAuthContext();
+    const { userInfo, token } = useAuthContext();
 
     const { getCurrentUrl } = useParams();
 
@@ -35,8 +35,6 @@ const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupatio
 
     const isLoggedIn = userInfo && token ? true : false;
 
-    if(isLoading) return <>Loading...</>
-
     const personalDetailSubmitHandler = async (formState: any) => {
 
         if (!isLoggedIn) return toast.error('Please login to continue.');
@@ -48,13 +46,13 @@ const BookingFormWrapper: React.FC<ComponentProps> = ({ nationalities, occupatio
                 ...prev,
                 personalDetailLoadState: true
             }));
+            //need to update this, USERAPI cannot be server and client side
+            // const results = await userApi.httpPatchUpdateUserProfile(token || '', formState);
 
-            const results = await userApi.httpPatchUpdateUserProfile(token || '', formState);
-
-            if (results.data.success == false || results.success == false){
-                setInValidInputs(results.data)
-                return toast.error(`Error occurred | "${results.data.message || results.message}" | Status code ${results.data.statusCode || results.statusCode}`)
-            }
+            // if (results.data.success == false || results.success == false){
+            //     setInValidInputs(results.data)
+            //     return toast.error(`Error occurred | "${results.data.message || results.message}" | Status code ${results.data.statusCode || results.statusCode}`)
+            // }
 
             return toast.success('Saved Successfully!');
         }

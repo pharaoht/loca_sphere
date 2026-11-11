@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/layout/footer/footer";
 import Navbar from "@/components/layout/navbar/navbar";
 import { AuthProvider } from "@/context/auth.context";
+import userApi from "@/api/user/user.api";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,20 +22,24 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
 
-  return (
-    <html lang="en" className='dark'>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AuthProvider>
-        <Navbar />
-        {children}
-        <Footer/>
-        </AuthProvider>
-      </body>
-    </html>
-  );
+    const auth = await userApi.httpGetUserInfo();
+
+    return (
+        <html lang="en" className='dark'>
+            <body className={`${geistSans.variable} ${geistMono.variable}`}>
+                <AuthProvider initialAuth={{
+                    userInfo: auth?.userInfo ?? null,
+                }}>
+                    <Navbar />
+                        {children}
+                    <Footer/>
+                </AuthProvider>
+            </body>
+        </html>
+    );
 }

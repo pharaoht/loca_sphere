@@ -17,6 +17,10 @@ const getBookingData = async (token: string, status: string) => {
 
 //router.refresh()
 
+function capitalizeFirstLetter(str: string){
+    return str
+}
+
 const BookingStatusPage = async ({ params }: PageProps) => {
 
     const header = (await headers()).get('access-token') || '';
@@ -41,9 +45,8 @@ const BookingStatusPage = async ({ params }: PageProps) => {
                 </nav>
             </aside>
             <div className={styles.tableSide}>
-                booking table
                 <table>
-                    <caption>Bookings</caption>
+                    <caption>{status} Bookings</caption>
                     <thead>
                         <tr>
                             <th>Guest</th>
