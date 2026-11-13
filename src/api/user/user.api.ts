@@ -1,6 +1,6 @@
 import axios from "axios";
 import BaseApi, { HttpRequestConfig } from "../base.api";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
 
 class UserApi extends BaseApi{
 
@@ -8,25 +8,26 @@ class UserApi extends BaseApi{
         super('users', axios)
     }
 
-    public async httpGetUserInfo(token: string | RequestCookie, cb?: (...args: any) => void){
-
-        if(!token) return {};
+    public async httpGetUserInfo(){
 
         const isServerSide = this.isServerSide();
 
         const hostName = this.findHostName();
 
+        const cookieStore = await cookies();
+
         const reqObj: HttpRequestConfig = {
-            accessToken: String(token),
             url: hostName + '/me',
-            withCredentials: true
+            withCredentials: true,
+            _cookies: cookieStore.toString(),
+            _cache: 'no-store'
         };
-        
-        const results = !isServerSide ? await this.httpRequest({ requestConfig: reqObj, cb}) 
-        : await this.ssHttpRequest(reqObj);
+        console.count('Requests')
+        const results = await this.ssHttpRequest(reqObj);
 
-
-        return results;
+        return {
+            userInfo: results.data
+        }
     }
     
     public async httpGetUserOptions(optionsParam: string = ''){

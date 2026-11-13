@@ -3,7 +3,7 @@ import BookingRequestFormGrid from '@/app/booking/[listingId]/form/form';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { UserInfo } from '@/hooks/useAuth';
+import { UserInfo } from '@/context/auth.context';
 import LoadingVisual from '../loader/loader';
 import styles from '@/app/booking/[listingId]/form/formstyles.module.css'
 

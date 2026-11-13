@@ -1,32 +1,44 @@
 'use client'
-import { createContext, useContext, ReactNode } from "react";
-import useAuth from "@/hooks/useAuth";
+import { createContext, useContext } from "react";
 
-// 1. Infer the return type of useAuth
-type AuthContextType = ReturnType<typeof useAuth>;
+export type UserInfo = {
+    id: string,
+    displayName: string,
+    pfp: string,
+    givenName: string,
+    surName: string,
+    birthday: string,
+    email: string,
+    gender: string,
+    countryCode: number | undefined,
+    phoneNumber: number | undefined,
+    nationality: number | undefined,
+    occupation: number | undefined,
+    placeOfWork: string,
+}
 
-// 2. Initialize context with correct type (nullable at first)
-const AuthContext = createContext<AuthContextType | null>(null);
-
-// 3. Type children properly
-type AuthProviderProps = {
-    children: ReactNode;
+type AuthContextType = {
+    userInfo: UserInfo | null;
+    token: string | null;
 };
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthContext = createContext<AuthContextType>({
+    userInfo: null,
+    token: null
+});
 
-    const auth = useAuth();
-
+export function AuthProvider({
+    children,
+    initialAuth,
+}: {
+    children: React.ReactNode;
+    initialAuth: AuthContextType;
+}) {
     return (
-        <AuthContext.Provider value={auth}>
+        <AuthContext.Provider value={initialAuth}>
             {children}
         </AuthContext.Provider>
     );
-};
+}
 
-// 4. Helper hook to use context safely
-export const useAuthContext = () => {
-    const ctx = useContext(AuthContext);
-    if (!ctx) throw new Error("useAuthContext must be used within AuthProvider");
-    return ctx;
-};
+export const useAuthContext = () => useContext(AuthContext);

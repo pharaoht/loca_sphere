@@ -8,6 +8,8 @@ export interface HttpRequestConfig extends AxiosRequestConfig {
     accessToken?: string
     refreshToken?: string
     withCredentials?: boolean
+    _cookies?: string
+    _cache?: RequestCache;
 }
 
 export type httpConfigType = {
@@ -65,12 +67,12 @@ class BaseApi {
             'Accept': 'application/json'
         };
 
-        if (requestObject.accessToken) {
-            headers.Authorization = `Bearer ${requestObject.accessToken}`
-        }
-
         if (requestObject.refreshToken) {
             headers.Cookie = `refresh_token=${requestObject.refreshToken}`
+        }
+
+        if(requestObject._cookies){
+            headers.Cookie = requestObject._cookies
         }
 
         return headers;
@@ -120,7 +122,7 @@ class BaseApi {
         }
     }
 
-    public async ssHttpRequest(reqObj: HttpRequestConfig, cb?: (...args: any) => void ){
+    public async ssHttpRequest(reqObj: HttpRequestConfig, cb?: (...args: any) => void, retry = false ){
 
         try {
 
@@ -130,18 +132,24 @@ class BaseApi {
                 headers,
                 credentials: reqObj.withCredentials ? 'include' : 'omit',
                 method: reqObj.method || 'GET',
-                body: reqObj.body && JSON.stringify(reqObj.body)
+                body: reqObj.body && JSON.stringify(reqObj.body),
+                cache: reqObj._cache ? reqObj._cache : 'default'
             });
 
             const contentType = response.headers.get('Content-Type');
             const isJson = contentType && contentType.includes('application/json');
             const data = isJson ? await response.json() : await response.text();
-
+            
+            //Inject a retry method when recieved a 401 error code
             if (!response.ok) {
-              
+                console.log(response.status)
+                if(response.status === 401){
+                    console.log('NOT AUT')
+                }
+
                 throw {
                     success: false,
-                    message: data?.message || 'Unknown error',
+                    message: data?.message || data?.error || 'Unknown error',
                     name: data?.error?.name || 'ServerError',
                     statusCode: data?.error?.statusCode || response.status,
                     data: data?.error?.data || {},
@@ -157,8 +165,6 @@ class BaseApi {
         catch(error: any){
 
             console.error(error);
-    
-            console.error('[ssHttpRequest Error]', error?.statusCode);
 
             return {
                 success: false,
