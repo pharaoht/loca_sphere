@@ -131,8 +131,8 @@ const CalendarV2: React.FC<CalendarProps> = (
         
         const hasOverlap = bookingAvailability.some((itm: any) => {
 
-            return moveInMs < itm.endDateMiliSeconds &&
-                    moveOutMs > itm.startDateMiliSeconds
+            return moveInMs < itm.startDateMiliSeconds &&
+                moveOutMs > itm.endDateMiliSeconds
         })
 
         return hasOverlap;
